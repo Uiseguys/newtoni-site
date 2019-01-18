@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators
   const data = await fetch(
-    `http://localhost:3000/Products`
+    `https://dannygrassow-api.herokuapp.com/Products`
   ).then(res => res.json());
   const type = 'Wine';
   data.map(item => {
