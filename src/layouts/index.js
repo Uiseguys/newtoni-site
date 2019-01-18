@@ -17,10 +17,10 @@ const displayNav = ({ pathname }) =>
 const TemplateWrapper = ({ children, lang, onLangChange, location }) => (
   <div>
     <Helmet
-      title="Weingut Schneckenhof"
+      title="Danny Grassow"
       meta={[
-        { name: "description", content: "Weingut Schneckenhof" },
-        { name: "keywords", content: "Weingut, Schneckenhof" }
+        { name: "description", content: "Danny Grassow" },
+        { name: "keywords", content: "Danny Grassow" }
       ]}
     />
 
