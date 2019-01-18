@@ -1,0 +1,98 @@
+/* ===================================================
+BASE
+=================================================== */
+
+/* ---------------------------------------------------
+Global styles
+--------------------------------------------------- */
+
+@font-face {
+  font-family: 'TwCenMTPro-MediumCond';
+  src: url('../assets/fonts/349529_0_0.eot');
+  src: url('../assets/fonts/349529_0_0.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/349529_0_0.woff2') format('woff2'),
+    url('../assets/fonts/349529_0_0.woff') format('woff'), url('../assets/fonts/349529_0_0.ttf') format('truetype');
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-regular;
+  font-size: $fs-text-default;
+  line-height: 1.1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+
+h2 {
+  font-size: $fs-h2;
+}
+
+h3 {
+  font-size: $fs-text-xxlarge;
+}
+
+h4 {
+  font-size: $fs-text-xlarge;
+}
+
+h5 {
+  font-size: $fs-text-large;
+}
+
+h6 {
+  font-size: $fs-text-medium;
+}
+
+/* ==========================================================================
+   Site's custom styles
+   ========================================================================== */
+
+h2 {
+  text-align: center;
+  font-size: 2.4em;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 3.2rem;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: Times;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: normal;
+  color: #717070 !important;
+  font-style: normal;
+  line-height: 2.4rem;
+}
+
+h4 {
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #23527c;
+  text-decoration: underline;
+}
+a:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}

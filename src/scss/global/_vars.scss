@@ -1,0 +1,149 @@
+
+/* ===================================================
+BREAKPOINT SETTINGS
+=================================================== */
+// Breakpoints
+$bp-mobile-s: 320px;
+$bp-mobile-p: 480px;
+$bp-mobile-l: 600px;
+$bp-mobile-xl: 657px;
+$bp-tablet-p: 768px;
+$bp-tablet-l: 1024px;
+$bp-desktop-m: 1230px;
+$bp-desktop-l: 1404px;
+
+// Breakpoints  Map
+$breakpoints: (
+	'mobile-s': $bp-mobile-s,
+	'mobile-p': $bp-mobile-p,
+	'mobile-l': $bp-mobile-l,
+	'mobile-xl': $bp-mobile-xl,
+	'tablet-p': $bp-tablet-p,
+	'tablet-l': $bp-tablet-l,
+	'desktop-m': $bp-desktop-m,
+	'desktop-l': $bp-desktop-l
+);
+
+/* ---------------------------------------------------
+Navigation
+--------------------------------------------------- */
+$meta-height: 36px !default;
+$nav-top-height: 68px !default;
+$nav-top-height-mobile: 63px !default;
+$breadcrumb-height: 33px !default;
+
+/* ---------------------------------------------------
+Layout
+--------------------------------------------------- */
+$margin-base: 1rem;
+$padding-box: 2rem;
+
+/* ---------------------------------------------------
+Colors
+--------------------------------------------------- */
+// Primary colors
+$black: #000;
+$white: #fff;
+
+$brand: #e49353;
+
+// Project colors
+$cerulean: #009ade;
+$medium-red-violet: #b43581;
+$violet-red: #ec2d80;
+$maroon-flush: #ad1e48;
+$razzmatazz: #eb005b;
+
+$teal: #008c8d;
+$shamrock: #33d16b;
+$sunglow: #fcba35;
+$lucky-point: #221767;
+$wild-sand: #f4f4f4;
+$gold: #ffd700;
+$golden-grass: #d1aa1f;
+$tree-poppy: #f69320;
+$pomegranate: #ee4725;
+$humming-bird: #e3f4fb;
+$shadow: #826d49;
+$curious-blue: #23a8e3;
+
+// grays
+$tundora: #464646;
+$concrete: #f2f2f2;
+$gray: #8e8e8e;
+$westar: #e4ddd7;
+$alto: #d8d8d8;
+$gallery: #efefef;
+$silver: #ccc;
+$darkgray: #aeaeae;
+
+// Assigned colors
+$border-color-default: $alto;
+
+$text-color-default: $black;
+$text-color-light: $white;
+
+$link-text-color: $cerulean;
+$link-text-color-hover: darken($link-text-color, 20%);
+
+$link-text-color-light: $curious-blue;
+$link-text-color-hover-light: darken($link-text-color-light, 20%);
+
+$button-text-color: $white;
+$button-bg-color: $cerulean;
+$button-bg-color-hover: darken($button-bg-color, 20%);
+
+/* ---------------------------------------------------
+Fonts
+--------------------------------------------------- */
+$font-regular: "TwCenMTPro-MediumCond", Arial, sans-serif;
+$font-bold: "TwCenMTPro-MediumCond", Arial, sans-serif-bold;
+$font-black: "TwCenMTPro-MediumCond", Arial, sans-serif-bold;
+
+/*
+Font Settings
+----------------------- */
+// Base font size
+$font-size-base: 1rem;
+
+// Text font sizes
+$fs-text-xxlarge: $font-size-base * 3;
+$fs-text-xlarge: $font-size-base * 2.8;
+$fs-text-large: $font-size-base * 2;
+$fs-text-medium: $font-size-base * 1.8;
+$fs-text-default: $font-size-base * 1.6;
+$fs-text-small: $font-size-base * 1.4;
+$fs-text-xsmall: $font-size-base * 1.2;
+
+// Header font sizes
+$fs-h1: $font-size-base * 4.8;
+$fs-h2: $font-size-base * 3.2;
+
+// Header letter spacings
+$ls-h1: -.04rem;
+
+// Header font sizes - mobile
+$fs-h1-mobile: $font-size-base * 3.2;
+$fs-h2-mobile: $font-size-base * 3.2;
+
+/* ---------------------------------------------------
+Z-Indexes
+--------------------------------------------------- */
+$zindex-base: 1;
+$zindex-main: 20;
+$zindex-section: 40;
+$zindex-section-header: 50;
+$zindex-section-footer: 50;
+$zindex-header: 100;
+
+/* ------------------------------
+Animations
+--------------------------------------------------- */
+$transition-duration-xl: 1s;
+$transition-duration-l: .7s;
+$transition-duration-m: .45s;
+$transition-duration-s: .3s;
+$transition-duration-xs: .2s;
+$transition-duration-xxs: .1s;
+
+$transition-ease-1: cubic-bezier(.7, 0, .3, 1);

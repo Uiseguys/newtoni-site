@@ -1,0 +1,402 @@
+/* Main */
+
+body {
+  background-color: #454545;
+}
+
+.content-container {
+  position: relative;
+  max-width: 1200px;
+  width: 100vw;
+  width: auto;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0px 0px 150px #222;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+header {
+  height: 100vh;
+  background: no-repeat center;
+  background-size: cover;
+  background-image: url("../assets/images/start.jpg");
+
+  .branding {
+    text-align: center;
+    padding-top: 10vh;
+  }
+
+  &.subpage {
+    height: 140px;
+    background-image: none;
+    margin: 0 auto;
+    width: 300px;
+
+    .branding {
+      padding-top: 20px;
+    }
+  }
+}
+
+section {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  height: 45vw;
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+
+  @include media("<tablet-p") {
+    > div > div {
+      padding: 5% 5% 0 5% !important;
+    }
+    height: auto;
+    &.reverse {
+      flex-direction: row;
+    }
+  }
+
+  > div {
+    box-sizing: border-box;
+    background: no-repeat center;
+    background-size: cover;
+    overflow-y: auto;
+    position: relative;
+    width: 50%;
+    height: 45vw;
+
+    @include media("<tablet-p") {
+      width: 100%;
+      height: auto;
+      &.image {
+        height: 45vw;
+      }
+      padding-bottom: 5rem;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      margin-top: 5px;
+    }
+
+    h3 {
+      font-style: italic;
+      margin-top: 0;
+    }
+
+    .icon {
+      text-align: center;
+      font-size: 7vw;
+      color: $brand;
+
+      @include media("<tablet-p") {
+        font-size: 7rem;
+      }
+    }
+
+    p,
+    .cta {
+      margin: 0 auto;
+      padding-top: 0.5rem;
+      font-size: 1.7vw;
+      white-space: pre-line;
+
+      @include media("<tablet-p") {
+        max-width: 350px;
+        font-size: 1.6rem;
+      }
+
+      a:before {
+        content: "> ";
+      }
+    }
+
+    > div {
+      padding: 10%;
+    }
+  }
+}
+
+.subpage-content {
+  margin: 0 auto;
+  max-width: 100vw;
+  padding: 4rem 2rem 5rem;
+
+  .image {
+    float: left;
+    max-width: 450px;
+
+    @include media("<tablet-l") {
+      float: none;
+      max-width: 100vw;
+    }
+
+    img {
+      display: block;
+      margin-bottom: 15px;
+    }
+  }
+
+  .text {
+    font-size: 1.4em;
+    padding-left: 3rem;
+    float: left;
+    max-width: 450px;
+    @include media("<tablet-l") {
+      padding-left: 0;
+      float: none;
+      max-width: 100vw;
+    }
+  }
+
+  &.meta-info {
+    p {
+      padding-bottom: 3rem;
+    }
+  }
+
+  &.news {
+    display: block;
+    max-width: 768px;
+  }
+}
+
+.contact-section {
+  background-size: cover;
+  background-position: bottom;
+  border-top: 1rem solid #333;
+
+  > div {
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 3rem;
+
+    @include media(">tablet-p") {
+      max-width: 300px;
+    }
+
+    .icon {
+      text-align: center;
+      font-size: 7vw;
+      color: $brand;
+
+      @include media("<tablet-p") {
+        font-size: 7rem;
+      }
+    }
+
+    h3 {
+      font-style: italic;
+      margin-top: 0;
+      line-height: 1em;
+    }
+
+    p {
+      text-align: center;
+      padding-top: 2rem;
+      font-size: 1.2em;
+    }
+  }
+}
+
+footer {
+  .branding {
+    padding-top: 3rem;
+    text-align: center;
+    color: #8e8e8e;
+
+    p {
+      padding-top: 1rem;
+    }
+  }
+
+  nav {
+    text-align: center;
+    padding: 3rem;
+
+    ul {
+      li {
+        display: inline-block;
+        a {
+          color: #8e8e8e;
+          text-transform: uppercase;
+
+          &:hover {
+            text-decoration: none;
+            color: $brand;
+          }
+        }
+
+        & + li:before {
+          content: " ";
+          display: inline-block;
+          width: 0;
+          height: 0.8em;
+          margin: 0 1em;
+          vertical-align: baseline;
+          border-left: 1px dotted #8e8e8e;
+        }
+      }
+    }
+  }
+}
+
+.news-container {
+  position: relative;
+  height: 50vh;
+}
+
+.c-news {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0 auto;
+
+  .item {
+    text-decoration: none;
+    width: 300px;
+    margin: 2rem auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    display: flex;
+
+    .date {
+      display: block;
+      width: 6rem;
+      color: brown;
+      text-align: center;
+
+      .day {
+        font-size: 2.5rem;
+        line-height: 1em;
+        white-space: nowrap;
+
+        .separator {
+          font-size: 1.5rem;
+          line-height: 2rem;
+          vertical-align: middle;
+        }
+      }
+
+      .month {
+        line-height: 0.3em;
+        font-size: 2rem;
+      }
+    }
+
+    .description {
+      padding: 0.7rem 1rem;
+    }
+  }
+}
+
+.subpage-content .c-news {
+  width: auto;
+  position: relative;
+  .item {
+    width: auto;
+    display: block;
+
+    .date {
+      padding: 3rem;
+      width: 10rem;
+      float: left;
+    }
+  }
+}
+
+.price-badge {
+  position: absolute;
+  top: 0;
+}
+
+.info {
+  position: absolute;
+  top: calc(100vh - 140px);
+  width: 100%;
+
+  h4 {
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+}
+.news-letter {
+  .news-box {
+	padding: 32px;
+	h3{
+		text-align: left
+	}
+    input {
+      width: 26%;
+      height: 31px;
+
+      padding: 7px;
+      font-size: 18px;
+    }
+    button {
+      padding: 5px;
+      font: 20px;
+      font: 2rem;
+      font-size: 2rem;
+      margin: 15px 15px 15px 0;
+      color: #bf916d;
+      font-weight: 500;
+    }
+  }
+  .success{
+	  color: green;
+  }
+  .error{
+	  color: red;
+  }
+}
+.dropbtn {
+  background-color: #383838;
+  color: white;
+  padding: 16px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  margin-left: -6px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 157px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
+  z-index: 1;
+  margin-left: -7px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 2px 11px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #b8b4b4}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #1b1919;
+  
+}

@@ -1,0 +1,50 @@
+{
+	"sparklingWines": {
+		"title": "Sekt",
+		"list": [
+			{
+				"name": "Spätburgunder Rosé Sekt",
+				"vintage": "",
+				"price": 9.80,
+				"awardText": "extra trocken",
+				"awardLevel": "",
+				"id": "sekt_01",
+				"image": "sekt.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Sperber Secco vom Gewürztraminer",
+				"vintage": "",
+				"price": 7.30,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "sekt_02",
+				"image": "sekt.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Proschnecco Perlwein",
+				"vintage": "",
+				"price": 6.00,
+				"awardText": "AWC Vienna - Silberne Preismünze",
+				"awardLevel": "",
+				"id": "sekt_03",
+				"image": "sekt.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			}
+		]
+	}
+}
+

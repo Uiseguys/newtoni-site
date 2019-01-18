@@ -1,0 +1,62 @@
+/* Navigation */
+
+.main-navigation {
+	position: fixed;
+	top: 70px;
+	right: 20px;
+	background-color: rgba(255,255,255,.9);
+	padding: 3rem 1.5rem;
+	z-index: 5000;
+	margin-bottom: 0;
+
+	ul {
+		padding-left: 0;
+		list-style: none;
+		margin-bottom: 0;
+
+		li {
+			font-size: 2.8rem;
+			color: #333;
+
+			&:last-child a {
+				margin-bottom: 0;
+			}
+
+			a {
+				color: #333;
+				text-decoration: none;
+				display: inline-block;
+				margin-bottom: 14px;
+				position: relative;
+
+				span.icon-i_bottles {
+					font-size: 4.5rem;
+				}
+
+				span.label {
+					position: absolute;
+					width: 0;
+					color: #000;
+					overflow: hidden;
+					right: 50px;
+					bottom: 5px;
+					font-weight: normal;
+					background-color: rgba(255,255,255,.9);
+					padding: 2px 7px;
+					border-radius: 0;
+					display: none;
+				}
+
+				&:hover {
+					span.label {
+						display: block;
+						position: absolute;
+						width: auto;
+					}
+				}
+
+			}
+		}
+	}
+
+}

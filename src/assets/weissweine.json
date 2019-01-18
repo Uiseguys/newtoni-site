@@ -1,0 +1,181 @@
+{
+	"whiteWines": {
+		"title": "Weißweine",
+		"list": [
+			{
+				"name": "Riesling",
+				"vintage": "2016",
+				"price": 5.00,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_01",
+				"image": "weiss_liter.jpg",
+				"availability": "available",
+				"content": 1,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Riesling trocken",
+				"vintage": "2016",
+				"price": 5.00,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_02",
+				"image": "weiss_liter.jpg",
+				"availability": "available",
+				"content": 1,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Riesling X trocken",
+				"vintage": "2016",
+				"price": 5.00,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_03",
+				"image": "weiss_liter.jpg",
+				"availability": "available",
+				"content": 1,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Riesling edel & süß",
+				"vintage": "2015",
+				"price": 5.80,
+				"awardText": "   AWC Vienna ",
+				"awardLevel": "Silbermedaille",
+				"id": "weiss_05",
+				"image": "weiss.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Riesling feinherb",
+				"vintage": "2016",
+				"price": 5.80,
+				"awardText": "   AWC Vienna ",
+				"awardLevel": "Silbermedaille",
+				"id": "weiss_06",
+				"image": "weiss.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Rivaner feinherb",
+				"vintage": "2016",
+				"price": 5.80,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_07",
+				"image": "weiss.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "",
+				"priceCurrency": "EUR"
+			}
+		]
+	},
+	"whitePremiumWines": {
+		"title": "Premium Weißweine",
+		"list": [
+			{
+				"name": "Sperber",
+				"vintage": "2015",
+				"price": 6.80,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_08",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Kerner",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Sperber",
+				"vintage": "2015",
+				"price": 7.80,
+				"awardText": "AWC Vienna",
+				"awardLevel": "Goldmedaille",
+				"id": "weiss_09",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Gewürztraminer",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Sperber",
+				"vintage": "2016",
+				"price": 6.80,
+				"awardText": "AWC Vienna",
+				"awardLevel": "Silbermedaille",
+				"id": "weiss_10",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Muskateller",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Weihe",
+				"vintage": "2015",
+				"price": 8.00,
+				"awardText": "AWC Vienna",
+				"awardLevel": "Silbermedaille",
+				"id": "weiss_11",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Riesling",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Falke",
+				"vintage": "2016",
+				"price": 8.00,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_12",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Riesling trocken",
+				"priceCurrency": "EUR"
+			},
+			{
+				"name": "Falke",
+				"vintage": "2016",
+				"price": 7.80,
+				"awardText": "",
+				"awardLevel": "",
+				"id": "weiss_13",
+				"image": "weiss_premium.jpg",
+				"availability": "available",
+				"content": 0.75,
+				"unitOfMeasurement": "LTR",
+				"varietal": "Grauburgunder trocken",
+				"priceCurrency": "EUR"
+			}
+		]
+	}
+}
+

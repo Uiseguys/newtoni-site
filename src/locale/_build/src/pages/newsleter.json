@@ -1,0 +1,11 @@
+{
+    "newsletter":{
+        "defaults": "Hi: Please subsribe for the news letter",
+        "origin": [
+          [
+            "src/pages/newsletter.js",
+            11
+          ]
+        ]
+      }
+}

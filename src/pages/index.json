@@ -1,0 +1,65 @@
+{
+	"index": {
+		"news": [
+			{
+				"title": "Event mit Anfang und Ende",
+				"start": {
+					"year": 2017,
+					"month": 8,
+					"day": 12,
+					"time-hour": 19,
+					"time-minutes": 30
+				},
+				"end": {
+					"year": 2017,
+					"month": 2,
+					"day": 12,
+					"time-hour": 19,
+					"time-minutes": 30
+				}
+			}
+		],
+		"teaser": {
+			"vineyard": {
+				"icon": "leafs",
+				"title": "Das Weingut",
+				"subtitle": "Ein Familienbetrieb seit 1970",
+				"text": "Als junges Ehepaar gründeten Helene und Dieter Müller 1970 das kleine Familienweingut mit Selbsterzeugung und Dikrektvermarktung. Es begann mit dem Gasthaus Lamm und einem kleinen Weinberg.   Durch viel Fleiß, Durchhaltevermögen und Willenskraft hat das Weingut inzwischen eine stattliche Größe von 12 Hektar aufzuweisen. Heute führt die Tochter Alexandra Siller in 2. Generation die Geschicke des Weinguts."
+			},
+			"grapes": {
+				"icon": "grape",
+				"title": "Der Weinberg",
+				"text": "Auf schweren kräftigen Keuperböden gedeihen klassische Rebsorten wie Trollinger, Lemberger, Schwarzriesling, Spätburgunder, Riesling sowie Kerner. Aber auch seltene Sorten wie Muskat-Trollinger,  Gewürztraminer und Muskateller werden hier mit Erfolg angebaut. Die Weinberge befinden sich rund um das Weingut an den sonnigen Hängen des Geddelsbacher Schneckenhofs. Die Leidenschaft beginnt bei uns im Weinberg – ein gesundes Augenmerk ab dem Rebschnitt bis hin zu sinnvollen Ertragsregulierungen sind uns dabei sehr wichtig."
+			},
+			"wines": {
+				"icon": "barrels",
+				"title": "Unsere Weine",
+				"subtitle": "Qualitätsweine, Gutsweine & Premiumweine",
+				"text": "Erfahren Sie mehr über die Qualitätsstufen, die Arbeit im Weinkeller und über unsere Greifvogel-Edition. Oder besuchen Sie direkt unseren Onlineshop."
+			},
+			"events": {
+				"icon": "chears",
+				"title": "Events",
+				"subtitle": "Feste und Veranstaltungen",
+				"text": "Als Familienbetrieb steht der persönliche Kontakt zu unseren Kunden im Mittelpunkt. Stilvolle Weinproben gehören zu unserer gelebten Weinkultur. Das passende Ambiente hierfür kann unser Gewölbekeller sein oder auch idyllisch am Rand der Brettach. Gerne führen wir Sie als ausgebildete Weinerlebnisführer durch unseren Keller und unsere Weinberge und geben Ihnen Ein- und Ausblicke in die Weinkultur."
+			},
+			"restaurant": {
+				"icon": "lamb",
+				"title": "Unser Gasthaus",
+				"subtitle": "Zum Lamm",
+				"text": "In unserem Gasthaus 'Zum Lamm', erbaut 1809, heißt Sie die Chefin Helene Müller gerne persönlich Willkommen."
+			},
+			"news": {
+				"icon": "news",
+				"title": "Aktuelles",
+				"subtitle": "Feste, Veranstaltungen, Ankündigungen"
+			}
+		}
+	},
+	"contact": {
+		"title": "Kontakt",
+		"subtitle": "Sie möchten einen Tisch reservieren oder einen Termin für eine Weinprobe vereinbaren? So erreichen Sie uns:",
+		"address": ""
+	}
+}
+
