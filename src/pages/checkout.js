@@ -21,7 +21,7 @@ class Checkout extends React.Component {
     const form = event.target;
     const data = new FormData(form);
 
-    // console.log(this.props)
+    // console.log(this.props )
     // console.log(form)
     // console.log(data)
     let formBody = [];
