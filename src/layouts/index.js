@@ -10,7 +10,7 @@ import Navigation from "../components/Navigation";
 import Cart from "../components/Cart";
 import "../scss/style.scss";
 import "../assets/icons/style.css";
-
+import icon32 from "../assets/images/favicon.ico";
 const displayNav = ({ pathname }) =>
   !pathname.startsWith("/checkout") && !pathname.startsWith("/danke");
 
@@ -22,6 +22,9 @@ const TemplateWrapper = ({ children, lang, onLangChange, location }) => (
         { name: "description", content: "Danny Grassow" },
         { name: "keywords", content: "Danny Grassow" }
       ]}
+      link={[
+        { rel: 'icon', type: 'image/x-icon',href: `${icon32}` }
+    ]}
     />
 
     {displayNav(location) ? <Cart /> : false}

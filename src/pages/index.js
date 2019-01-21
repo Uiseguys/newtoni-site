@@ -32,7 +32,7 @@ const IndexPage = ({ i18n }) => (
     </div>
     <div style={{ textAlign: 'center', verticalAlign: 'middle' }}>
       <br /><br /><br />
-      <img src={isabella_imre} style={{ maxWidth: '100vw' }} />
+      <img src={isabella_imre} style={{ maxWidth: '100%' }} />
     </div>
 
     <div style={{ width: '683px', margin: '0 auto', fontSize: '18px' }}>
