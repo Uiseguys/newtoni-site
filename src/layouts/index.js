@@ -23,8 +23,10 @@ const TemplateWrapper = ({ children, lang, onLangChange, location }) => (
         { name: "keywords", content: "Danny Grassow" }
       ]}
       link={[
-        { rel: 'icon', type: 'image/x-icon',href: `${icon32}` }
+        { rel: 'icon', type: 'image/x-icon',href: `${icon32}` },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Scope+One" },
     ]}
+
     />
 
     {displayNav(location) ? <Cart /> : false}

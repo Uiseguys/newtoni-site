@@ -25,7 +25,7 @@ const Teaser = props => (
 );
 
 const IndexPage = ({ i18n }) => (
-  <div  className="content-container" style={{ backgroundColor: "white" }}>
+  <div  className="content-container" style={{ backgroundColor: "white",  fontFamily: "'Open Sans', sans-serif" }}>
     <div style={{ textAlign: 'center', verticalAlign: 'middle' }}>
       <img src={logo} />
       <br />
