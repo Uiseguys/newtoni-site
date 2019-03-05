@@ -5,8 +5,8 @@ grassow press site will be deployed automatically to netlify on grassow-site.net
 
 Gatsby frontend of  "grassow"
 
-npm install
-npm run develop
+    npm install
+    npm run develop
 
 ## Deploy
 

@@ -6,7 +6,7 @@ import SubpageHeader from "../components/SubpageHeader";
 import Cart from "../components/Cart";
 
 const windowGlobal = typeof window !== "undefined" && window;
-const CHECKOUT_URL = "https://dannygrassow-api.herokuapp.com/payment/checkout";
+const CHECKOUT_URL = "https://newtoni-api.herokuapp.com/payment/checkout";
 // const CHECKOUT_URL =
 // 'https://calm-cliffs-35577.herokuapp.com/payment/checkout'
 class Checkout extends React.Component {

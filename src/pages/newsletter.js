@@ -10,7 +10,7 @@ const windowGlobal = typeof window !== "undefined" && window;
 // const CHECKOUT_URL = "https://schneckenhof4-api.herokuapp.com/payment/checkout";
 // const CHECKOUT_URL =
 // 'https://calm-cliffs-35577.herokuapp.com/payment/checkout';
-const CHECKOUT_URL = 'https://dannygrassow-api.herokuapp.com/newsletters';
+const CHECKOUT_URL = 'https://newtoni-api.herokuapp.com/newsletters';
 
 class NewsLetter extends React.Component {
     constructor() {
