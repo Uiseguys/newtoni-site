@@ -1,0 +1,2 @@
+webpackJsonp([0x8d5d095e05f6],{682:function(e,o){e.exports={data:{allWine:{edges:[{node:{type:"Artist-Books",id:"4259",name:"Room to Move",image:"https://dannygrassow-api.herokuapp.com/schneckenhof-dev/1548142987222.jpg",price:6,priority:0,content:0,availability:!0,description:"by Isabella Kohlhuber, Imre Nagy"}}]}},pathContext:{lang:"ro"}}}});
+//# sourceMappingURL=path---ro-artist-books-c97c5165b9c7bf74e619.js.map

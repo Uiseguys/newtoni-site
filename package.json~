@@ -1,0 +1,56 @@
+{
+  "name": "gatsby-starter-i18n-lingui",
+  "description": "Gatsby starter with i18n/l10n support using js-lingui.",
+  "version": "1.0.0",
+  "author": "Denis Croitoru <dennis.croitoru@gmail.com>",
+  "keywords": [
+    "gatsby",
+    "js-lingui",
+    "react",
+    "i18n"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "gatsby build",
+    "extract": "cross-env BABEL_ENV=extract lingui extract --clean",
+    "start": "npm run build && gatsby serve --port ${PORT}"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
+    "@babel/preset-react": "^7.0.0-beta.42",
+    "@lingui/babel-preset-react": "^2.0.5",
+    "@lingui/react": "^2.0.5",
+    "accounting": "^0.4.1",
+    "babel-polyfill": "^6.26.0",
+    "cross-env": "^5.1.4",
+    "cross-fetch": "^2.1.0",
+    "formdata-polyfill": "^3.0.10",
+    "gatsby": "^1.9.241",
+    "gatsby-link": "^1.6.39",
+    "gatsby-plugin-glamor": "^1.6.13",
+    "gatsby-plugin-google-analytics": "^1.0.31",
+    "gatsby-plugin-postcss-sass": "^1.0.19",
+    "gatsby-plugin-react-helmet": "^2.0.8",
+    "gatsby-plugin-react-next": "^1.0.11",
+    "glamor": "^2.20.40",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.11.1"
+  },
+  "lingui": {
+    "fallbackLocale": "en",
+    "sourceLocale": "en",
+    "localeDir": "src/locale",
+    "format": "minimal"
+  }
+}

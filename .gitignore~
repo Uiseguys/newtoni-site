@@ -5,6 +5,7 @@ node_modules
 yarn-error.log
 
 # Build directory
+/public
 /yarn.lock
 .idea/frontend.iml
 .idea/misc.xml

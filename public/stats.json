@@ -1,0 +1,234 @@
+{
+  "assetsByChunkName": {
+    "path---versand": [
+      "path---versand-e56dc589c189b44dd414.js",
+      "path---versand-e56dc589c189b44dd414.js.map"
+    ],
+    "path---weine": [
+      "path---weine-e56dc589c189b44dd414.js",
+      "path---weine-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-agb": [
+      "path---ro-agb-997e90cd2109fe86a66f.js",
+      "path---ro-agb-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-graphic-js": [
+      "component---src-pages-graphic-js-f89b3fc57de2ec087a2a.js",
+      "component---src-pages-graphic-js-f89b3fc57de2ec087a2a.js.map"
+    ],
+    "component---src-pages-danke-js": [
+      "component---src-pages-danke-js-40198eaf6154a5d47735.js",
+      "component---src-pages-danke-js-40198eaf6154a5d47735.js.map"
+    ],
+    "component---src-pages-index-js": [
+      "component---src-pages-index-js-50e13ccc3aa2a8d630a5.js",
+      "component---src-pages-index-js-50e13ccc3aa2a8d630a5.js.map"
+    ],
+    "path---ro-page-2": [
+      "path---ro-page-2-997e90cd2109fe86a66f.js",
+      "path---ro-page-2-997e90cd2109fe86a66f.js.map"
+    ],
+    "path---ro-weine": [
+      "path---ro-weine-997e90cd2109fe86a66f.js",
+      "path---ro-weine-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-checkout-js": [
+      "component---src-pages-checkout-js-28787247dd58be33ab28.js",
+      "component---src-pages-checkout-js-28787247dd58be33ab28.js.map"
+    ],
+    "path---ro-checkout": [
+      "path---ro-checkout-997e90cd2109fe86a66f.js",
+      "path---ro-checkout-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-aktuelles-js": [
+      "component---src-pages-aktuelles-js-66e7437cdb71dcbbb819.js",
+      "component---src-pages-aktuelles-js-66e7437cdb71dcbbb819.js.map"
+    ],
+    "path---": [
+      "path----557518bd178906f8d58a.js",
+      "path----557518bd178906f8d58a.js.map"
+    ],
+    "path---photography": [
+      "path---photography-af93bee0b0c21869347b.js",
+      "path---photography-af93bee0b0c21869347b.js.map"
+    ],
+    "path---ro-aktuelles": [
+      "path---ro-aktuelles-997e90cd2109fe86a66f.js",
+      "path---ro-aktuelles-997e90cd2109fe86a66f.js.map"
+    ],
+    "path---danke": [
+      "path---danke-e56dc589c189b44dd414.js",
+      "path---danke-e56dc589c189b44dd414.js.map"
+    ],
+    "component---src-pages-versand-js": [
+      "component---src-pages-versand-js-e5076a17d028a4eafe54.js",
+      "component---src-pages-versand-js-e5076a17d028a4eafe54.js.map"
+    ],
+    "path---ro-danke": [
+      "path---ro-danke-997e90cd2109fe86a66f.js",
+      "path---ro-danke-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-agb-js": [
+      "component---src-pages-agb-js-5144ea94b8631ded1e8b.js",
+      "component---src-pages-agb-js-5144ea94b8631ded1e8b.js.map"
+    ],
+    "component---src-pages-weine-js": [
+      "component---src-pages-weine-js-8e2f2590a57c382624cf.js",
+      "component---src-pages-weine-js-8e2f2590a57c382624cf.js.map"
+    ],
+    "path---aktuelles": [
+      "path---aktuelles-e56dc589c189b44dd414.js",
+      "path---aktuelles-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-404-html": [
+      "path---ro-404-html-997e90cd2109fe86a66f.js",
+      "path---ro-404-html-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-magazine-js": [
+      "component---src-pages-magazine-js-2af96d7acec7846bb319.js",
+      "component---src-pages-magazine-js-2af96d7acec7846bb319.js.map"
+    ],
+    "component---src-layouts-index-js": [
+      "component---src-layouts-index-js-6191c5e6b87205c070e9.js",
+      "component---src-layouts-index-js-6191c5e6b87205c070e9.js.map"
+    ],
+    "path---ro-404": [
+      "path---ro-404-997e90cd2109fe86a66f.js",
+      "path---ro-404-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-newsletter-js": [
+      "component---src-pages-newsletter-js-c2ccfa7357e1d0b1b7e5.js",
+      "component---src-pages-newsletter-js-c2ccfa7357e1d0b1b7e5.js.map"
+    ],
+    "component---src-pages-datenschutz-js": [
+      "component---src-pages-datenschutz-js-a312907d18cbcd0a5a37.js",
+      "component---src-pages-datenschutz-js-a312907d18cbcd0a5a37.js.map"
+    ],
+    "path---artist-books": [
+      "path---artist-books-c255ba2af0f2b6ddd7fe.js",
+      "path---artist-books-c255ba2af0f2b6ddd7fe.js.map"
+    ],
+    "path---page-2": [
+      "path---page-2-e56dc589c189b44dd414.js",
+      "path---page-2-e56dc589c189b44dd414.js.map"
+    ],
+    "path---index": [
+      "path---index-e56dc589c189b44dd414.js",
+      "path---index-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-magazine": [
+      "path---ro-magazine-1c94ca7789a2cc9088f5.js",
+      "path---ro-magazine-1c94ca7789a2cc9088f5.js.map"
+    ],
+    "path---ro-impressum": [
+      "path---ro-impressum-997e90cd2109fe86a66f.js",
+      "path---ro-impressum-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-artist-books-js": [
+      "component---src-pages-artist-books-js-428f3c320a7e13708947.js",
+      "component---src-pages-artist-books-js-428f3c320a7e13708947.js.map"
+    ],
+    "path---ro-artist-books": [
+      "path---ro-artist-books-774f5af4b446bd4a51e2.js",
+      "path---ro-artist-books-774f5af4b446bd4a51e2.js.map"
+    ],
+    "path---ro-newsletter": [
+      "path---ro-newsletter-997e90cd2109fe86a66f.js",
+      "path---ro-newsletter-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-404-js": [
+      "component---src-pages-404-js-3c43226d169df3e99f41.js",
+      "component---src-pages-404-js-3c43226d169df3e99f41.js.map"
+    ],
+    "path---newsletter": [
+      "path---newsletter-e56dc589c189b44dd414.js",
+      "path---newsletter-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-gasthaus": [
+      "path---ro-gasthaus-997e90cd2109fe86a66f.js",
+      "path---ro-gasthaus-997e90cd2109fe86a66f.js.map"
+    ],
+    "commons": [
+      "commons-6d6555b24749ef9f268c.js",
+      "commons-6d6555b24749ef9f268c.js.map"
+    ],
+    "component---src-pages-impressum-js": [
+      "component---src-pages-impressum-js-73746165afd47909d3b0.js",
+      "component---src-pages-impressum-js-73746165afd47909d3b0.js.map"
+    ],
+    "path---magazine": [
+      "path---magazine-af93bee0b0c21869347b.js",
+      "path---magazine-af93bee0b0c21869347b.js.map"
+    ],
+    "path---404-html": [
+      "path---404-html-e56dc589c189b44dd414.js",
+      "path---404-html-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro": [
+      "path---ro-997e90cd2109fe86a66f.js",
+      "path---ro-997e90cd2109fe86a66f.js.map"
+    ],
+    "path---agb": [
+      "path---agb-e56dc589c189b44dd414.js",
+      "path---agb-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-datenschutz": [
+      "path---ro-datenschutz-997e90cd2109fe86a66f.js",
+      "path---ro-datenschutz-997e90cd2109fe86a66f.js.map"
+    ],
+    "component---src-pages-photography-js": [
+      "component---src-pages-photography-js-9e61d35ac55e57e5c08d.js",
+      "component---src-pages-photography-js-9e61d35ac55e57e5c08d.js.map"
+    ],
+    "path---graphic": [
+      "path---graphic-af93bee0b0c21869347b.js",
+      "path---graphic-af93bee0b0c21869347b.js.map"
+    ],
+    "path---datenschutz": [
+      "path---datenschutz-e56dc589c189b44dd414.js",
+      "path---datenschutz-e56dc589c189b44dd414.js.map"
+    ],
+    "component---src-pages-page-2-js": [
+      "component---src-pages-page-2-js-c3838cb5729d272a7ef0.js",
+      "component---src-pages-page-2-js-c3838cb5729d272a7ef0.js.map"
+    ],
+    "path---ro-photography": [
+      "path---ro-photography-1c94ca7789a2cc9088f5.js",
+      "path---ro-photography-1c94ca7789a2cc9088f5.js.map"
+    ],
+    "app": [
+      "app-cc1575ca79264c17367e.js",
+      "build-js-styles.css",
+      "app-cc1575ca79264c17367e.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---gasthaus": [
+      "path---gasthaus-e56dc589c189b44dd414.js",
+      "path---gasthaus-e56dc589c189b44dd414.js.map"
+    ],
+    "path---ro-graphic": [
+      "path---ro-graphic-1c94ca7789a2cc9088f5.js",
+      "path---ro-graphic-1c94ca7789a2cc9088f5.js.map"
+    ],
+    "path---checkout": [
+      "path---checkout-e56dc589c189b44dd414.js",
+      "path---checkout-e56dc589c189b44dd414.js.map"
+    ],
+    "path---impressum": [
+      "path---impressum-e56dc589c189b44dd414.js",
+      "path---impressum-e56dc589c189b44dd414.js.map"
+    ],
+    "path---404": [
+      "path---404-e56dc589c189b44dd414.js",
+      "path---404-e56dc589c189b44dd414.js.map"
+    ],
+    "component---src-pages-gasthaus-js": [
+      "component---src-pages-gasthaus-js-530f74a3e0d6fd86dc7c.js",
+      "component---src-pages-gasthaus-js-530f74a3e0d6fd86dc7c.js.map"
+    ],
+    "path---ro-versand": [
+      "path---ro-versand-997e90cd2109fe86a66f.js",
+      "path---ro-versand-997e90cd2109fe86a66f.js.map"
+    ]
+  }
+}

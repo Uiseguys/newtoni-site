@@ -1,0 +1,2 @@
+webpackJsonp([0xb1a336187c82],{671:function(e,a){e.exports={data:{allWine:{edges:[{node:{type:"Graphic",id:"7516",name:"Blue Triangles",image:"https://dannygrassow-api.herokuapp.com/schneckenhof-dev/1547813244091.jpeg",price:5,priority:2,content:0,availability:!0,description:"Blue Triangles"}}]}},pathContext:{lang:"en"}}}});
+//# sourceMappingURL=path---graphic-9725998b6d8465d7d163.js.map

@@ -1,0 +1,2 @@
+webpackJsonp([0x75f519b790a6],{666:function(e,t){e.exports={data:{allWine:{edges:[{node:{type:"Artist-Books",id:"6183",name:"Test2",image:"https://newtoni-api.herokuapp.com/schneckenhof-dev/1551937135563.jpeg",price:2,priority:0,content:0,availability:!0,description:"This is test"}},{node:{type:"Artist-Books",id:"6918",name:"Test",image:"https://newtoni-api.herokuapp.com/schneckenhof-dev/1551937135563.jpeg",price:3,priority:0,content:0,availability:!0,description:"Test"}}]}},pathContext:{lang:"en"}}}});
+//# sourceMappingURL=path---artist-books-c255ba2af0f2b6ddd7fe.js.map
