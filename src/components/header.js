@@ -26,8 +26,8 @@ const Header = () => {
           <SvgImage
             url={data.svgFinder.publicURL}
             svgClassName={"svg-image-container"}
-            svghw={["50vh", "100%"]}
             imghw={["80%", "80%"]}
+            imgxy={["10%", "0"]}
           />
         </Link>
       </div>

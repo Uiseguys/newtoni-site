@@ -7,7 +7,6 @@ import Img from "gatsby-image"
  * Custom Image Coponent that takes on a filename and
  * className as props
  */
-PropTypes
 
 const Image = ({ name, imgClassName }) => {
   const data = useStaticQuery(graphql`
