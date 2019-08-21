@@ -1,8 +1,6 @@
-newtoni-site
-
 # newtoni-gatsby
 
-Gatsby frontend of vineyard "Schneckenhof"
+Gatsby frontend of Art Exhibition Site Newtoni Press
 
 yarn install
 yarn run develop
