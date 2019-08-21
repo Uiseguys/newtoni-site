@@ -14,4 +14,4 @@ npm run develop
 
 ## Deploy
 
-git push to master triggers deploy on https://newtoni-site.netlify.com
+git push to master triggers deploy on https://newtoni-press.netlify.com
