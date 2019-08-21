@@ -1,0 +1,52 @@
+main {
+  box-sizing: content-box;
+  section {
+    text-align: right;
+    &:nth-child(2),
+    &:nth-child(3) {
+      h2 {
+        margin-top: 3rem;
+      }
+    }
+    h2 {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    ul.row {
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100%;
+      li {
+        height: 30vh;
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        &:nth-child(1) {
+          border-right: inset 20px transparent;
+        }
+        &:nth-child(2) {
+          border-left: inset 10px transparent;
+          border-right: inset 10px transparent;
+        }
+        &:nth-child(3) {
+          border-left: inset 20px transparent;
+        }
+        img {
+          height: 40vh;
+        }
+      }
+    }
+    a {
+      display: block;
+      margin-top: 2rem;
+      &:link {
+        color: #000;
+      }
+    }
+    aside {
+      text-align: left;
+      line-height: 1em;
+    }
+  }
+}
