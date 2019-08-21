@@ -1,3 +1,19 @@
 newtoni-site
 
-new toni press site will be deployed automatically to netlify on newtoni-site.netlify.com
+# newtoni-gatsby
+
+Gatsby frontend of vineyard "Schneckenhof"
+
+yarn install
+yarn run develop
+
+or
+
+npm install
+npm run develop
+
+
+
+## Deploy
+
+git push to master triggers deploy on https://newtoni-site.netlify.com
