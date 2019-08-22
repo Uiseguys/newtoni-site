@@ -2,11 +2,15 @@ import React from "react"
 // import { Link } from "gatsby"
 import crypto from "crypto"
 import Layout from "../components/layout"
+import Header from "../components/header"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 // Import Home index styling
 import "../scss/pages/index.scss"
+
+// Import Scroll Effects
+import "../js/scroll"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -35,8 +39,14 @@ const IndexPage = () => {
           publicURL
         }
       }
+      site {
+        siteMetadata {
+          title
+        }
+      }
     }
   `)
+
   const randomCryptoKey = arr => {
     let keyArr = []
     for (let i = 0; i < arr.length; i++) {
@@ -56,13 +66,13 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
-          <img src={item.thisItem.publicURL} />
-          <img src={item.otherURLS[0].publicURL} />
-          <img src={item.otherURLS[1].publicURL} />
-          <img src={item.otherURLS[2].publicURL} />
-          <div className="hs-overlay">
-            <h3>{item.thisItem.name}</h3>
-          </div>
+          <figure>
+            <img src={item.thisItem.publicURL} />
+            <img src={item.otherURLS[0].publicURL} />
+            <img src={item.otherURLS[1].publicURL} />
+            <img src={item.otherURLS[2].publicURL} />
+            <figcaption>{item.thisItem.name}</figcaption>
+          </figure>
         </li>
       )
     })
@@ -79,13 +89,13 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
-          <img src={item.thisItem.publicURL} />
-          <img src={item.otherURLS[0].publicURL} />
-          <img src={item.otherURLS[1].publicURL} />
-          <img src={item.otherURLS[2].publicURL} />
-          <div className="hs-overlay">
-            <h3>{item.thisItem.name}</h3>
-          </div>
+          <figure>
+            <img src={item.thisItem.publicURL} />
+            <img src={item.otherURLS[0].publicURL} />
+            <img src={item.otherURLS[1].publicURL} />
+            <img src={item.otherURLS[2].publicURL} />
+            <figcaption>{item.thisItem.name}</figcaption>
+          </figure>
         </li>
       )
     })
@@ -102,13 +112,13 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
-          <img src={item.thisItem.publicURL} />
-          <img src={item.otherURLS[0].publicURL} />
-          <img src={item.otherURLS[1].publicURL} />
-          <img src={item.otherURLS[2].publicURL} />
-          <div className="hs-overlay">
-            <h3>{item.thisItem.name}</h3>
-          </div>
+          <figure>
+            <img src={item.thisItem.publicURL} />
+            <img src={item.otherURLS[0].publicURL} />
+            <img src={item.otherURLS[1].publicURL} />
+            <img src={item.otherURLS[2].publicURL} />
+            <figcaption>{item.thisItem.name}</figcaption>
+          </figure>
         </li>
       )
     })
@@ -116,6 +126,19 @@ const IndexPage = () => {
 
   return (
     <Layout>
+      <nav>
+        <span id="news">
+          N<br />e<br />w<br />s
+        </span>
+        <span id="editions">
+          E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
+        </span>
+        <span id="publications">
+          P<br />u<br />b<br />l<br />i<br />c<br />a<br />t<br />i<br />o<br />
+          n<br />s
+        </span>
+      </nav>
+      <Header siteTitle={data.site.siteMetadata.title} />
       <SEO title="Home" />
       <main className="container">
         <section>
