@@ -75,7 +75,12 @@ main {
           z-index: 500;
           background: rgba(#fff, 0.3) inset;
           pointer-events: none;
+          text-align: center;
+          vertical-align: middle;
           transition: all 0.3s linear;
+          h3 {
+            margin-top: 10vh;
+          }
         }
 
         img {

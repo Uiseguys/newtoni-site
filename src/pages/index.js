@@ -48,7 +48,7 @@ const IndexPage = () => {
   const renderNewsImages = () => {
     const arr = data.newsImageNodes.nodes.map(item => {
       return {
-        publicURL: item.publicURL,
+        thisItem: item,
         otherURLS: data.newsImageNodes.nodes,
       }
     })
@@ -56,12 +56,12 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
-          <img src={item.publicURL} />
+          <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
           <img src={item.otherURLS[2].publicURL} />
           <div className="hs-overlay">
-            <span>{item.name}</span>
+            <h3>{item.thisItem.name}</h3>
           </div>
         </li>
       )
@@ -71,7 +71,7 @@ const IndexPage = () => {
   const renderEditionsImages = () => {
     const arr = data.editionsImageNodes.nodes.map(item => {
       return {
-        publicURL: item.publicURL,
+        thisItem: item,
         otherURLS: data.editionsImageNodes.nodes,
       }
     })
@@ -79,12 +79,12 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
-          <img src={item.publicURL} />
+          <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
           <img src={item.otherURLS[2].publicURL} />
           <div className="hs-overlay">
-            <span>{item.name}</span>
+            <h3>{item.thisItem.name}</h3>
           </div>
         </li>
       )
@@ -94,7 +94,7 @@ const IndexPage = () => {
   const renderPublicationsImages = () => {
     const arr = data.publicationsImageNodes.nodes.map(item => {
       return {
-        publicURL: item.publicURL,
+        thisItem: item,
         otherURLS: data.publicationsImageNodes.nodes,
       }
     })
@@ -102,12 +102,12 @@ const IndexPage = () => {
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
-          <img src={item.publicURL} />
+          <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
           <img src={item.otherURLS[2].publicURL} />
           <div className="hs-overlay">
-            <span>{item.name}</span>
+            <h3>{item.thisItem.name}</h3>
           </div>
         </li>
       )
