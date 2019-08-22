@@ -55,7 +55,7 @@ const IndexPage = () => {
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-md-4" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
@@ -78,7 +78,7 @@ const IndexPage = () => {
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-md-4" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
@@ -101,7 +101,7 @@ const IndexPage = () => {
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-md-4" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <img src={item.thisItem.publicURL} />
           <img src={item.otherURLS[0].publicURL} />
           <img src={item.otherURLS[1].publicURL} />
