@@ -46,36 +46,69 @@ const IndexPage = () => {
   }
 
   const renderNewsImages = () => {
-    const arr = data.newsImageNodes.nodes
+    const arr = data.newsImageNodes.nodes.map(item => {
+      return {
+        publicURL: item.publicURL,
+        otherURLS: data.newsImageNodes.nodes,
+      }
+    })
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
           <img src={item.publicURL} />
+          <img src={item.otherURLS[0].publicURL} />
+          <img src={item.otherURLS[1].publicURL} />
+          <img src={item.otherURLS[2].publicURL} />
+          <div className="hs-overlay">
+            <span>{item.name}</span>
+          </div>
         </li>
       )
     })
   }
 
   const renderEditionsImages = () => {
-    const arr = data.editionsImageNodes.nodes
+    const arr = data.editionsImageNodes.nodes.map(item => {
+      return {
+        publicURL: item.publicURL,
+        otherURLS: data.editionsImageNodes.nodes,
+      }
+    })
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
           <img src={item.publicURL} />
+          <img src={item.otherURLS[0].publicURL} />
+          <img src={item.otherURLS[1].publicURL} />
+          <img src={item.otherURLS[2].publicURL} />
+          <div className="hs-overlay">
+            <span>{item.name}</span>
+          </div>
         </li>
       )
     })
   }
 
   const renderPublicationsImages = () => {
-    const arr = data.publicationsImageNodes.nodes
+    const arr = data.publicationsImageNodes.nodes.map(item => {
+      return {
+        publicURL: item.publicURL,
+        otherURLS: data.publicationsImageNodes.nodes,
+      }
+    })
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-md-4" key={keyArr[index]}>
           <img src={item.publicURL} />
+          <img src={item.otherURLS[0].publicURL} />
+          <img src={item.otherURLS[1].publicURL} />
+          <img src={item.otherURLS[2].publicURL} />
+          <div className="hs-overlay">
+            <span>{item.name}</span>
+          </div>
         </li>
       )
     })

@@ -1,5 +1,24 @@
 @import "../components/header";
 
+@keyframes showMe {
+  0% {
+    visibility: visible;
+    z-index: 100;
+  }
+  12.5% {
+    visibility: hidden;
+    z-index: 100;
+  }
+  25% {
+    visibility: hidden;
+    z-index: 0;
+  }
+  100% {
+    visibility: hidden;
+    z-index: 0;
+  }
+}
+
 main {
   box-sizing: content-box;
   section {
@@ -14,6 +33,8 @@ main {
       margin-top: 3rem;
       margin-bottom: 1.5rem;
     }
+
+    // News, Editions and Publications Rows
     ul.row {
       list-style: none !important;
       margin: 0 !important;
@@ -34,8 +55,54 @@ main {
         &:nth-child(3) {
           border-left: inset 20px transparent;
         }
+
+        &:hover {
+          cursor: pointer;
+          & img {
+            animation-play-state: running;
+          }
+          & .hs-overlay {
+            opacity: 1;
+            box-shadow: 0 0 0 5px rgba(#fff, 0.3) inset;
+          }
+        }
+
+        .hs-overlay {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          z-index: 500;
+          background: rgba(#fff, 0.3) inset;
+          pointer-events: none;
+          transition: all 0.3s linear;
+        }
+
         img {
           height: 40vh;
+          top: 0;
+          left: 0;
+          position: absolute;
+          animation: showMe 0.8s linear infinite 0s forwards;
+          animation-play-state: paused;
+
+          &:nth-child(1) {
+            z-index: 9;
+          }
+
+          &:nth-child(2) {
+            animation-delay: 0.1s;
+            z-index: 8;
+          }
+
+          &:nth-child(3) {
+            animation-delay: 0.2s;
+            z-index: 7;
+          }
+          &:nth-child(4) {
+            animation-delay: 0.3s;
+            z-index: 6;
+          }
         }
       }
     }
