@@ -1,16 +1,13 @@
 import React from "react"
-// import { Link } from "gatsby"
 import crypto from "crypto"
 import Layout from "../components/layout"
 import Header from "../components/header"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
+import { indexScroll } from "../js/scroll"
 
 // Import Home index styling
 import "../scss/pages/index.scss"
-
-// Import Scroll Effects
-import "../js/scroll"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -43,6 +40,9 @@ const IndexPage = () => {
         siteMetadata {
           title
         }
+      }
+      scrollLink: file(name: { eq: "scroll" }) {
+        publicURL
       }
     }
   `)
@@ -123,6 +123,9 @@ const IndexPage = () => {
       )
     })
   }
+
+  // Scroll Effects for the Index Page
+  indexScroll()
 
   return (
     <Layout>

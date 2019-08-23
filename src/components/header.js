@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import SvgImage from "../components/svg-image"
@@ -22,14 +21,14 @@ const Header = () => {
           padding: `1.45rem 1.0875rem`,
         }}
       >
-        <Link to="/">
+        <a href="/">
           <SvgImage
             url={data.svgFinder.publicURL}
             svgClassName={"svg-image-container"}
             imghw={["80%", "80%"]}
             imgxy={["10%", "0"]}
           />
-        </Link>
+        </a>
       </div>
     </header>
   )

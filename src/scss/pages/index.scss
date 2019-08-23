@@ -1,4 +1,5 @@
 @import "../components/header";
+@import "../components/sticky-nav";
 
 // Media Queries for Grid Breakpoints for News,
 // Editions and Publications sections
@@ -60,28 +61,21 @@
     visibility: visible;
     z-index: 100;
   }
-  12.5% {
-    visibility: hidden;
-    z-index: 100;
-  }
   25% {
     visibility: hidden;
     z-index: 0;
   }
-  100% {
+  50% {
     visibility: hidden;
     z-index: 0;
   }
-}
-
-nav {
-  position: fixed;
-  span {
+  75% {
     visibility: hidden;
-    position: absolute;
-    font-size: 2rem;
-    top: 1vh;
-    left: 3vw;
+    z-index: 0;
+  }
+  100% {
+    visibility: visible;
+    z-index: 100;
   }
 }
 
@@ -111,6 +105,7 @@ main {
         height: 30vh;
         width: 100%;
         padding: 0;
+        margin-bottom: 0;
         overflow: hidden;
 
         &:nth-child(1) {
@@ -166,6 +161,11 @@ main {
               animation-delay: 3s;
               z-index: 6;
             }
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(4) {
+              visibility: hidden;
+            }
           }
           figcaption {
             margin-top: 42vh;
@@ -186,7 +186,6 @@ main {
     }
     a {
       display: block;
-      margin-top: 2rem;
 
       &:link {
         color: #000;
