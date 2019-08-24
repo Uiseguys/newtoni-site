@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { Fragment } from "react"
 import PropTypes from "prop-types"
 
 // Imports of the header
@@ -16,10 +16,10 @@ import "../scss/pages/layout.scss"
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <Fragment>
       {children}
       <Footer />
-    </div>
+    </Fragment>
   )
 }
 

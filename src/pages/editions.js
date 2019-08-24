@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
-import { postsHomeScroll } from "../js/scroll"
+// import { postsHomeScroll } from "../js/scroll"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -76,7 +76,7 @@ const EditionsPage = () => {
     })
   }
 
-  postsHomeScroll()
+  // postsHomeScroll()
 
   return (
     <Layout>

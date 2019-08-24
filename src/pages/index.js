@@ -1,15 +1,16 @@
 import React from "react"
 import crypto from "crypto"
+import PropTypes from "prop-types"
+
 import Layout from "../components/layout"
 import Header from "../components/header"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
-import { indexScroll } from "../js/scroll"
 
 // Import Home index styling
 import "../scss/pages/index.scss"
 
-const IndexPage = () => {
+const IndexPage = ({ scroll }) => {
   const data = useStaticQuery(graphql`
     query {
       newsImageNodes: allFile(
@@ -42,6 +43,9 @@ const IndexPage = () => {
         }
       }
       scrollLink: file(name: { eq: "scroll" }) {
+        publicURL
+      }
+      indexScroll: file(ext: { eq: ".js" }, name: { eq: "scroll" }) {
         publicURL
       }
     }
@@ -124,9 +128,6 @@ const IndexPage = () => {
     })
   }
 
-  // Scroll Effects for the Index Page
-  indexScroll()
-
   return (
     <Layout>
       <nav>
@@ -205,6 +206,7 @@ const IndexPage = () => {
           </aside>
         </section>
       </main>
+      <script src={data.indexScroll.publicURL}></script>
     </Layout>
   )
 }
