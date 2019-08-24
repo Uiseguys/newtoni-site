@@ -17,21 +17,21 @@ module.exports.onCreateNode = ({ node, actions }) => {
       createNodeField({
         node,
         name: "slug",
-        value: "news/" + slug,
+        value: "/news/" + slug,
       })
     }
     if (node.frontmatter.type == "edition") {
       createNodeField({
         node,
         name: "slug",
-        value: "edition/" + slug,
+        value: "/editions/" + slug,
       })
     }
     if (node.frontmatter.type == "publication") {
       createNodeField({
         node,
         name: "slug",
-        value: "publication/" + slug,
+        value: "/publications/" + slug,
       })
     }
   }
