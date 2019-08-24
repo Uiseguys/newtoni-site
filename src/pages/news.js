@@ -37,6 +37,9 @@ const NewsPage = () => {
           publicURL
         }
       }
+      postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
+        publicURL
+      }
     }
   `)
 
@@ -93,6 +96,7 @@ const NewsPage = () => {
         </div>
         <ul className="row">{renderNewsPosts()}</ul>
       </main>
+      <script src={data.postHomeScroll.publicURL}></script>
     </Layout>
   )
 }

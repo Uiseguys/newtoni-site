@@ -1,6 +1,5 @@
 import React from "react"
 import crypto from "crypto"
-import PropTypes from "prop-types"
 
 import Layout from "../components/layout"
 import Header from "../components/header"
@@ -10,9 +9,25 @@ import { useStaticQuery, graphql } from "gatsby"
 // Import Home index styling
 import "../scss/pages/index.scss"
 
-const IndexPage = ({ scroll }) => {
+const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
+      newsPosts: allMarkdownRemark(
+        sort: { fields: frontmatter___date, order: DESC }
+        limit: 3
+        filter: { frontmatter: { type: { eq: "news" } } }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              title
+            }
+            fields {
+              slug
+            }
+          }
+        }
+      }
       newsImageNodes: allFile(
         filter: { relativeDirectory: { eq: "news-images" } }
       ) {
@@ -21,12 +36,46 @@ const IndexPage = ({ scroll }) => {
           publicURL
         }
       }
+      editionsPosts: allMarkdownRemark(
+        sort: { fields: frontmatter___date, order: DESC }
+        limit: 3
+        filter: { frontmatter: { type: { eq: "edition" } } }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              title
+            }
+            fields {
+              slug
+            }
+          }
+        }
+      }
       editionsImageNodes: allFile(
         filter: { relativeDirectory: { eq: "editions-images" } }
       ) {
         nodes {
           name
           publicURL
+        }
+      }
+      publicationsPosts: allMarkdownRemark(
+        sort: { fields: frontmatter___date, order: DESC }
+        limit: 3
+        filter: { frontmatter: { type: { eq: "publication" } } }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              title
+              date(fromNow: true)
+              author
+            }
+            fields {
+              slug
+            }
+          }
         }
       }
       publicationsImageNodes: allFile(
@@ -45,7 +94,7 @@ const IndexPage = ({ scroll }) => {
       scrollLink: file(name: { eq: "scroll" }) {
         publicURL
       }
-      indexScroll: file(ext: { eq: ".js" }, name: { eq: "scroll" }) {
+      indexScroll: file(ext: { eq: ".js" }, name: { eq: "indexScroll" }) {
         publicURL
       }
     }
@@ -71,11 +120,15 @@ const IndexPage = ({ scroll }) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <img src={item.thisItem.publicURL} />
-            <img src={item.otherURLS[0].publicURL} />
-            <img src={item.otherURLS[1].publicURL} />
-            <img src={item.otherURLS[2].publicURL} />
-            <figcaption>{item.thisItem.name}</figcaption>
+            <a href={data.newsPosts.edges[index].node.fields.slug}>
+              <img src={item.thisItem.publicURL} />
+              <img src={item.otherURLS[0].publicURL} />
+              <img src={item.otherURLS[1].publicURL} />
+              <img src={item.otherURLS[2].publicURL} />
+            </a>
+            <figcaption>
+              {data.newsPosts.edges[index].node.frontmatter.title}
+            </figcaption>
           </figure>
         </li>
       )
@@ -94,11 +147,15 @@ const IndexPage = ({ scroll }) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <img src={item.thisItem.publicURL} />
-            <img src={item.otherURLS[0].publicURL} />
-            <img src={item.otherURLS[1].publicURL} />
-            <img src={item.otherURLS[2].publicURL} />
-            <figcaption>{item.thisItem.name}</figcaption>
+            <a href={data.editionsPosts.edges[index].node.fields.slug}>
+              <img src={item.thisItem.publicURL} />
+              <img src={item.otherURLS[0].publicURL} />
+              <img src={item.otherURLS[1].publicURL} />
+              <img src={item.otherURLS[2].publicURL} />
+            </a>
+            <figcaption>
+              {data.editionsPosts.edges[index].node.frontmatter.title}
+            </figcaption>
           </figure>
         </li>
       )
@@ -117,11 +174,15 @@ const IndexPage = ({ scroll }) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <img src={item.thisItem.publicURL} />
-            <img src={item.otherURLS[0].publicURL} />
-            <img src={item.otherURLS[1].publicURL} />
-            <img src={item.otherURLS[2].publicURL} />
-            <figcaption>{item.thisItem.name}</figcaption>
+            <a href={data.publicationsPosts.edges[index].node.fields.slug}>
+              <img src={item.thisItem.publicURL} />
+              <img src={item.otherURLS[0].publicURL} />
+              <img src={item.otherURLS[1].publicURL} />
+              <img src={item.otherURLS[2].publicURL} />
+            </a>
+            <figcaption>
+              {data.publicationsPosts.edges[index].node.frontmatter.title}
+            </figcaption>
           </figure>
         </li>
       )
