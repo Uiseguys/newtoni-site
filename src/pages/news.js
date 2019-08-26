@@ -3,7 +3,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
-// import { postsHomeScroll } from "../js/scroll"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -43,9 +42,9 @@ const NewsPage = () => {
     }
   `)
 
-  const randomCryptoKey = arr => {
+  const randomCryptoKey = len => {
     let keyArr = []
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < len; i++) {
       keyArr[i] = crypto.randomBytes(6).toString("hex")
     }
     return keyArr
@@ -55,7 +54,7 @@ const NewsPage = () => {
     const arr = data.newsPosts.edges
     // Image Array Nodes
     const imgArr = data.newsImageNodes.nodes
-    const keyArr = randomCryptoKey(arr)
+    const keyArr = randomCryptoKey(arr.length)
     return arr.map((item, index) => {
       return (
         <li className="col-6 offset-3" key={keyArr[index]}>

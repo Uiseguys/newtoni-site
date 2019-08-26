@@ -193,7 +193,11 @@ const IndexPage = () => {
     <Layout>
       <nav>
         <span id="news">
-          N<br />e<br />w<br />s
+          &nbsp;N
+          <br />
+          &nbsp;&nbsp;e
+          <br />w<br />
+          s&nbsp;
         </span>
         <span id="editions">
           E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
