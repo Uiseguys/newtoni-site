@@ -2,6 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 
+import "../scss/pages/posts-page.scss"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -72,6 +73,7 @@ const PostPage = ({ pageContext }) => {
         return (
           <figure key={keyArr[index]}>
             <img src={item.publicURL} />
+            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
           </figure>
         )
       })
@@ -82,6 +84,7 @@ const PostPage = ({ pageContext }) => {
         return (
           <figure key={keyArr[index]}>
             <img src={item.publicURL} />
+            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
           </figure>
         )
       })
@@ -92,6 +95,7 @@ const PostPage = ({ pageContext }) => {
         return (
           <figure key={keyArr[index]}>
             <img src={item.publicURL} />
+            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
           </figure>
         )
       })
@@ -100,8 +104,11 @@ const PostPage = ({ pageContext }) => {
 
   return (
     <Layout>
+      <aside className="helper">Scroll Sideways</aside>
       <SEO title={pageDetails[0].node.frontmatter.title} />
-      <header>{renderImages()}</header>
+      <header>
+        <div>{renderImages()}</div>
+      </header>
       <main className="container">
         <div className="row">
           <section className="col-6">
