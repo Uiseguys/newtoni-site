@@ -71,9 +71,11 @@ const PostPage = ({ pageContext }) => {
       const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
       return data.newsImageNodes.nodes.map((item, index) => {
         return (
-          <figure key={keyArr[index]}>
+          <figure className="rellax" key={keyArr[index]}>
             <img src={item.publicURL} />
-            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
+            <figcaption className="rellax">
+              {pageDetails[0].node.frontmatter.title}
+            </figcaption>
           </figure>
         )
       })
@@ -82,9 +84,11 @@ const PostPage = ({ pageContext }) => {
       const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
       return data.editionsImageNodes.nodes.map((item, index) => {
         return (
-          <figure key={keyArr[index]}>
+          <figure className="rellax" key={keyArr[index]}>
             <img src={item.publicURL} />
-            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
+            <figcaption className="rellax">
+              {pageDetails[0].node.frontmatter.title}
+            </figcaption>
           </figure>
         )
       })
@@ -93,9 +97,11 @@ const PostPage = ({ pageContext }) => {
       const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
       return data.publicationsImageNodes.nodes.map((item, index) => {
         return (
-          <figure key={keyArr[index]}>
+          <figure className="rellax" key={keyArr[index]}>
             <img src={item.publicURL} />
-            <figcaption>{pageDetails[0].node.frontmatter.title}</figcaption>
+            <figcaption className="rellax">
+              {pageDetails[0].node.frontmatter.title}
+            </figcaption>
           </figure>
         )
       })
