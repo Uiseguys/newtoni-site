@@ -106,7 +106,7 @@ const PostPage = ({ pageContext }) => {
     <Layout>
       <aside className="helper">Scroll Sideways</aside>
       <SEO title={pageDetails[0].node.frontmatter.title} />
-      <header>
+      <header className="post-page">
         <div>{renderImages()}</div>
       </header>
       <main className="container">

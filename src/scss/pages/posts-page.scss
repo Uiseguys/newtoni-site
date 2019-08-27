@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans|Playfair+Display:400,400i,700,700i,900,900i");
 
 body {
-  clip: rect(0, 100vw, 100vh, 0);
   overflow-x: hidden;
 }
 
-header {
+header.post-page {
   margin: 0;
   background-color: #eee;
   //background-image: url("https://source.unsplash.com/nGBbzS7Jj_0");
