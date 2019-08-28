@@ -81,7 +81,7 @@ const PostPage = ({ pageContext }) => {
       })
     }
     if (/editions/i.test(pageContext.slug)) {
-      const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
+      const keyArr = randomCryptoKey(data.editionsImageNodes.nodes.length)
       return data.editionsImageNodes.nodes.map((item, index) => {
         return (
           <figure className="rellax" key={keyArr[index]}>
@@ -94,7 +94,7 @@ const PostPage = ({ pageContext }) => {
       })
     }
     if (/publications/i.test(pageContext.slug)) {
-      const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
+      const keyArr = randomCryptoKey(data.publicationsImageNodes.nodes.length)
       return data.publicationsImageNodes.nodes.map((item, index) => {
         return (
           <figure className="rellax" key={keyArr[index]}>

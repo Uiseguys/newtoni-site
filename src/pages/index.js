@@ -1,5 +1,7 @@
 import React from "react"
 import crypto from "crypto"
+import axios from "axios"
+import PropTypes from "prop-types"
 
 import Layout from "../components/layout"
 import Header from "../components/header"
@@ -9,7 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 // Import Home index styling
 import "../scss/pages/index.scss"
 
-const IndexPage = () => {
+const IndexPage = ({ newsletterEmail }) => {
   const data = useStaticQuery(graphql`
     query {
       newsPosts: allMarkdownRemark(
@@ -31,9 +33,14 @@ const IndexPage = () => {
       newsImageNodes: allFile(
         filter: { relativeDirectory: { eq: "news-images" } }
       ) {
-        nodes {
-          name
-          publicURL
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 500) {
+                src
+              }
+            }
+          }
         }
       }
       editionsPosts: allMarkdownRemark(
@@ -55,9 +62,14 @@ const IndexPage = () => {
       editionsImageNodes: allFile(
         filter: { relativeDirectory: { eq: "editions-images" } }
       ) {
-        nodes {
-          name
-          publicURL
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 500) {
+                src
+              }
+            }
+          }
         }
       }
       publicationsPosts: allMarkdownRemark(
@@ -81,9 +93,14 @@ const IndexPage = () => {
       publicationsImageNodes: allFile(
         filter: { relativeDirectory: { eq: "publications-images" } }
       ) {
-        nodes {
-          name
-          publicURL
+        edges {
+          node {
+            childImageSharp {
+              fixed(width: 500) {
+                src
+              }
+            }
+          }
         }
       }
       site {
@@ -109,10 +126,10 @@ const IndexPage = () => {
   }
 
   const renderNewsImages = () => {
-    const arr = data.newsImageNodes.nodes.map(item => {
+    const arr = data.newsImageNodes.edges.map(item => {
       return {
         thisItem: item,
-        otherURLS: data.newsImageNodes.nodes,
+        otherURLS: data.newsImageNodes.edges,
       }
     })
     const keyArr = randomCryptoKey(arr)
@@ -121,10 +138,10 @@ const IndexPage = () => {
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
             <a href={data.newsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.publicURL} />
-              <img src={item.otherURLS[0].publicURL} />
-              <img src={item.otherURLS[1].publicURL} />
-              <img src={item.otherURLS[2].publicURL} />
+              <img src={item.thisItem.node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
             </a>
             <figcaption>
               {data.newsPosts.edges[index].node.frontmatter.title}
@@ -136,10 +153,10 @@ const IndexPage = () => {
   }
 
   const renderEditionsImages = () => {
-    const arr = data.editionsImageNodes.nodes.map(item => {
+    const arr = data.editionsImageNodes.edges.map(item => {
       return {
         thisItem: item,
-        otherURLS: data.editionsImageNodes.nodes,
+        otherURLS: data.editionsImageNodes.edges,
       }
     })
     const keyArr = randomCryptoKey(arr)
@@ -148,10 +165,10 @@ const IndexPage = () => {
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
             <a href={data.editionsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.publicURL} />
-              <img src={item.otherURLS[0].publicURL} />
-              <img src={item.otherURLS[1].publicURL} />
-              <img src={item.otherURLS[2].publicURL} />
+              <img src={item.thisItem.node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
             </a>
             <figcaption>
               {data.editionsPosts.edges[index].node.frontmatter.title}
@@ -163,10 +180,10 @@ const IndexPage = () => {
   }
 
   const renderPublicationsImages = () => {
-    const arr = data.publicationsImageNodes.nodes.map(item => {
+    const arr = data.publicationsImageNodes.edges.map(item => {
       return {
         thisItem: item,
-        otherURLS: data.publicationsImageNodes.nodes,
+        otherURLS: data.publicationsImageNodes.edges,
       }
     })
     const keyArr = randomCryptoKey(arr)
@@ -175,10 +192,10 @@ const IndexPage = () => {
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
             <a href={data.publicationsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.publicURL} />
-              <img src={item.otherURLS[0].publicURL} />
-              <img src={item.otherURLS[1].publicURL} />
-              <img src={item.otherURLS[2].publicURL} />
+              <img src={item.thisItem.node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
+              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
             </a>
             <figcaption>
               {data.publicationsPosts.edges[index].node.frontmatter.title}
@@ -187,6 +204,38 @@ const IndexPage = () => {
         </li>
       )
     })
+  }
+
+  const onNewsletterChange = value => {
+    newsletterEmail = value
+    console.log(newsletterEmail)
+  }
+
+  const handleNewsletterSubmit = e => {
+    e.preventDefault()
+    const bodyFormData = {
+      email: newsletterEmail,
+    }
+    axios({
+      method: "post",
+      url: "https://api.newsletter2go.com/recipients",
+      data: bodyFormData,
+      config: {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":
+            "Bearer 5jfwxrr7_wlIQLAf_nfpXTFfL_56acwY8m_csbxDWUl:dek9ieif",
+        },
+      },
+    })
+      .then(function(response) {
+        //handle success
+        console.log(response)
+      })
+      .catch(function(response) {
+        //handle error
+        console.log(response)
+      })
   }
 
   return (
@@ -240,15 +289,14 @@ const IndexPage = () => {
         </section>
         <section>
           <h2>Newsletter</h2>
-          <form method="post">
-            <label htmlFor="exampleFormControlSelect1">
-              Subscribe here for our newsletter
-            </label>
+          <form onSubmit={e => handleNewsletterSubmit(e)}>
+            <label htmlFor="">Subscribe here for our newsletter</label>
             <div className="form-group">
               <input
                 type="text"
                 className="form-check-input"
                 id="exampleCheck1"
+                onChange={e => onNewsletterChange(e.target.value)}
               />
               <button type="submit" className="btn">
                 Subscribe
@@ -274,6 +322,14 @@ const IndexPage = () => {
       <script src={data.indexScroll.publicURL}></script>
     </Layout>
   )
+}
+
+IndexPage.defaultProps = {
+  newsletterEmail: "",
+}
+
+IndexPage.propTypes = {
+  newsletterEmail: PropTypes.string,
 }
 
 export default IndexPage
