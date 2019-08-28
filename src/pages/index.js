@@ -223,7 +223,7 @@ const IndexPage = ({ newsletterEmail }) => {
       config: {
         headers: {
           "Content-Type": "application/json",
-          "Authorization":
+          Authorization:
             "Bearer 5jfwxrr7_wlIQLAf_nfpXTFfL_56acwY8m_csbxDWUl:dek9ieif",
         },
       },
@@ -231,10 +231,12 @@ const IndexPage = ({ newsletterEmail }) => {
       .then(function(response) {
         //handle success
         console.log(response)
+        alert("Your email has been registered")
       })
       .catch(function(response) {
         //handle error
         console.log(response)
+        alert("Your email failed to register")
       })
   }
 
@@ -242,11 +244,7 @@ const IndexPage = ({ newsletterEmail }) => {
     <Layout>
       <nav>
         <span id="news">
-          &nbsp;N
-          <br />
-          &nbsp;&nbsp;e
-          <br />w<br />
-          s&nbsp;
+          N<br />e<br />w<br />s
         </span>
         <span id="editions">
           E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
@@ -257,7 +255,7 @@ const IndexPage = ({ newsletterEmail }) => {
         </span>
       </nav>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <SEO title="Home" />
+      <SEO title="Home" description="An Art Exhbition website set in Berlin" />
       <main className="container">
         <section>
           <h2>News</h2>
