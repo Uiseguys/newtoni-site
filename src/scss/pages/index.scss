@@ -202,7 +202,9 @@ main {
     form {
       text-align: left;
 
-      input {
+      input[type="text"],
+      input[type="email"] {
+        right: 0;
         padding: 5px 10px;
         border: 1px solid #000;
         width: 250px;

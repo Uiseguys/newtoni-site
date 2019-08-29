@@ -211,11 +211,50 @@ const IndexPage = ({ newsletterEmail }) => {
     console.log(newsletterEmail)
   }
 
+  const getAccessToken = () => {
+    const accessTokenBody = {
+      username: "mailadmin@new-toni.press",
+      password: "Newsletter2go2312",
+      grant_type: "https://nl2go.com/jwt",
+    }
+    // Making Access Token Request
+    axios({
+      method: "post",
+      url: "https://api.newsletter2go.com/oauth/v2/token",
+      data: accessTokenBody,
+      config: {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Basic NWpmd3hycjdfd2xJUUxBZl9uZnBYVEZmTF81NmFjd1k4bV9jc2J4RFdVbDpkZWs5aWVpZg==",
+        },
+      },
+    })
+      .then(function(response) {
+        //handle success
+        console.log(response.access_token)
+        return response.access_token
+      })
+      .catch(function(response) {
+        //handle error
+        console.log(response)
+        return alert("Failed to retrieve the Access Token")
+      })
+  }
+
   const handleNewsletterSubmit = e => {
     e.preventDefault()
     const bodyFormData = {
+      list_id: "rcq7eypv",
       email: newsletterEmail,
+      phone: "",
+      gender: "",
+      first_name: "",
+      last_name: "",
+      is_unsubscribed: false,
+      is_blacklisted: false,
     }
+    // Making Create Recipient Request
     axios({
       method: "post",
       url: "https://api.newsletter2go.com/recipients",
@@ -223,8 +262,7 @@ const IndexPage = ({ newsletterEmail }) => {
       config: {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer 5jfwxrr7_wlIQLAf_nfpXTFfL_56acwY8m_csbxDWUl:dek9ieif",
+          Authorization: `Bearer ${getAccessToken()}`,
         },
       },
     })
@@ -242,6 +280,7 @@ const IndexPage = ({ newsletterEmail }) => {
 
   return (
     <Layout>
+      <SEO title="Home" description="An Art Exhbition website set in Berlin" />
       <nav>
         <span id="news">
           N<br />e<br />w<br />s
@@ -255,7 +294,7 @@ const IndexPage = ({ newsletterEmail }) => {
         </span>
       </nav>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <SEO title="Home" description="An Art Exhbition website set in Berlin" />
+      {getAccessToken()}
       <main className="container">
         <section>
           <h2>News</h2>
@@ -288,18 +327,62 @@ const IndexPage = ({ newsletterEmail }) => {
         <section>
           <h2>Newsletter</h2>
           <form onSubmit={e => handleNewsletterSubmit(e)}>
-            <label htmlFor="">Subscribe here for our newsletter</label>
+            <label>Subscribe here for our newsletter</label>
             <div className="form-group">
+              <label htmlFor="first_name">Firstname</label>
               <input
                 type="text"
                 className="form-check-input"
-                id="exampleCheck1"
+                id="first_name"
                 onChange={e => onNewsletterChange(e.target.value)}
               />
-              <button type="submit" className="btn">
-                Subscribe
-              </button>
             </div>
+            <div className="form-group">
+              <label htmlFor="last_name">Lastname</label>
+              <input
+                type="text"
+                className="form-check-input"
+                id="last_name"
+                onChange={e => onNewsletterChange(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                className="form-check-input"
+                id="email"
+                onChange={e => onNewsletterChange(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <div className="form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  id="male"
+                  value="m"
+                />
+                <label className="form-check-label" htmlFor="male">
+                  Male
+                </label>
+              </div>
+              <div className="form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="female"
+                  id="female"
+                  value="f"
+                />
+                <label className="form-check-label" htmlFor="female">
+                  Female
+                </label>
+              </div>
+            </div>
+            <button type="submit" className="btn">
+              Subscribe
+            </button>
           </form>
         </section>
         <section>
@@ -324,10 +407,16 @@ const IndexPage = ({ newsletterEmail }) => {
 
 IndexPage.defaultProps = {
   newsletterEmail: "",
+  newsletterPhone: "",
+  newsletterFirstname: "",
+  newsletterLastname: "",
 }
 
 IndexPage.propTypes = {
   newsletterEmail: PropTypes.string,
+  newsletterPhone: PropTypes.string,
+  newsletterFirstname: PropTypes.string,
+  newsletterLastname: PropTypes.string,
 }
 
 export default IndexPage
