@@ -1,6 +1,29 @@
-// Bootstrap Imports
-@import "../bootstrap/bootstrap-grid";
-@import "../bootstrap/bootstrap-reboot";
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+// Bootstrap Base Imports
+@import "../bootstrap/functions";
+@import "../bootstrap/variables";
+@import "../bootstrap/mixins";
+@import "../bootstrap/reboot";
+
+// Bootstrap Components
+@import "../bootstrap/grid";
+@import "../bootstrap/buttons";
+@import "../bootstrap/forms";
+
+// Bootstrap Utilities for Grid
+@import "../bootstrap/utilities/display";
+@import "../bootstrap/utilities/flex";
+@import "../bootstrap/utilities/spacing";
 
 // Custom Styles
 @import "../globals/fonts";
