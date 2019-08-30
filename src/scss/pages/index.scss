@@ -79,6 +79,24 @@
   }
 }
 
+.toast {
+  max-width: none;
+  width: 50vw;
+  margin-top: 5vh;
+  margin-left: 25vw;
+  z-index: 500;
+
+  .toast-header {
+    text-align: right;
+    position: relative;
+    button {
+      margin-right: 0 !important;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
 main {
   box-sizing: content-box;
   section {

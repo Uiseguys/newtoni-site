@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import crypto from "crypto"
 import axios from "axios"
 import PropTypes from "prop-types"
@@ -128,6 +128,9 @@ const IndexPage = ({
     }
   `)
 
+  const [toastOpacity, setToastOpacity] = useState("0")
+  const [toastMessage, setToastMessage] = useState("")
+
   const randomCryptoKey = arr => {
     let keyArr = []
     for (let i = 0; i < arr.length; i++) {
@@ -218,6 +221,8 @@ const IndexPage = ({
   }
 
   // Get the Access Token from the Newsletter 2go Website
+  // Retrieve access token and save at the accessTokenProp
+  // After which instantiate it
   const getAccessToken = () => {
     const accessTokenBody = {
       username: "mailadmin@new-toni.press",
@@ -240,14 +245,13 @@ const IndexPage = ({
         //handle success
         // expiry time
         accessTokenProp = response.data.access_token
-        console.log(accessTokenProp)
       })
       .catch(function(response) {
         //handle error
         console.log(response)
-        return alert("Failed to retrieve the Access Token")
       })
   }
+  getAccessToken()
 
   // Intializing Bootstrap toasts via jQuery
 
@@ -276,15 +280,21 @@ const IndexPage = ({
         Authorization: `Bearer ${accessTokenProp}`,
       },
     })
-      .then(function(response) {
+      .then(function() {
         //handle success
-        console.log(response)
-        alert("Your email has been registered")
+        setToastMessage("Your email has been registered")
+        setToastOpacity("1")
+        setTimeout(() => {
+          setToastOpacity("0")
+        }, 5000)
       })
-      .catch(function(response) {
+      .catch(function() {
         //handle error
-        console.log(response)
-        alert("Your email failed to register")
+        setToastMessage("Your email failed to register")
+        setToastOpacity("1")
+        setTimeout(() => {
+          setToastOpacity("0")
+        }, 5000)
       })
   }
 
@@ -297,21 +307,20 @@ const IndexPage = ({
         aria-atomic="true"
         className="toast"
         data-autohide="false"
+        style={{ position: "fixed", opacity: `${toastOpacity}` }}
       >
         <div className="toast-header">
-          <img src="..." className="rounded mr-2" alt="..." />
-          <strong className="mr-auto">Bootstrap</strong>
-          <small>11 mins ago</small>
+          <strong>Newsletter Subscription</strong>
           <button
             type="button"
-            className="ml-2 mb-1 close"
+            className="btn ml-2 mb-1 close"
             data-dismiss="toast"
             aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div className="toast-body">Hello, world! This is a toast message.</div>
+        <div className="toast-body">{toastMessage}</div>
       </div>
       <nav>
         <span id="news">
@@ -462,7 +471,6 @@ const IndexPage = ({
         </section>
       </main>
       <script src={data.indexScroll.publicURL}></script>
-      <script src={data.indexToast.publicURL}></script>
     </Layout>
   )
 }
