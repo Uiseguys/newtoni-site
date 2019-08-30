@@ -122,6 +122,9 @@ const IndexPage = ({
       indexScroll: file(ext: { eq: ".js" }, name: { eq: "indexScroll" }) {
         publicURL
       }
+      indexToast: file(ext: { eq: ".js" }, name: { eq: "toast" }) {
+        publicURL
+      }
     }
   `)
 
@@ -214,10 +217,6 @@ const IndexPage = ({
     })
   }
 
-  const onNewsletterChange = value => {
-    newsletterEmail = value
-  }
-
   // Get the Access Token from the Newsletter 2go Website
   const getAccessToken = () => {
     const accessTokenBody = {
@@ -241,6 +240,7 @@ const IndexPage = ({
         //handle success
         // expiry time
         accessTokenProp = response.data.access_token
+        console.log(accessTokenProp)
       })
       .catch(function(response) {
         //handle error
@@ -249,7 +249,7 @@ const IndexPage = ({
       })
   }
 
-  const accessToken = getAccessToken()
+  // Intializing Bootstrap toasts via jQuery
 
   const handleNewsletterSubmit = e => {
     e.preventDefault()
@@ -291,6 +291,28 @@ const IndexPage = ({
   return (
     <Layout>
       <SEO title="Home" description="An Art Exhbition website set in Berlin" />
+      <div
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        className="toast"
+        data-autohide="false"
+      >
+        <div className="toast-header">
+          <img src="..." className="rounded mr-2" alt="..." />
+          <strong className="mr-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button
+            type="button"
+            className="ml-2 mb-1 close"
+            data-dismiss="toast"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div className="toast-body">Hello, world! This is a toast message.</div>
+      </div>
       <nav>
         <span id="news">
           N<br />e<br />w<br />s
@@ -440,6 +462,7 @@ const IndexPage = ({
         </section>
       </main>
       <script src={data.indexScroll.publicURL}></script>
+      <script src={data.indexToast.publicURL}></script>
     </Layout>
   )
 }
