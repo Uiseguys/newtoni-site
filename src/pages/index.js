@@ -128,8 +128,9 @@ const IndexPage = ({
     }
   `)
 
-  const [toastOpacity, setToastOpacity] = useState("0")
-  const [toastMessage, setToastMessage] = useState("")
+  const [alertOpacity, setAlertOpacity] = useState("0")
+  const [alertMessage, setAlertMessage] = useState("0")
+  const [alertClasses, setAlertClasses] = useState("alert alert-info")
 
   const randomCryptoKey = arr => {
     let keyArr = []
@@ -282,18 +283,20 @@ const IndexPage = ({
     })
       .then(function() {
         //handle success
-        setToastMessage("Your email has been registered")
-        setToastOpacity("1")
+        setAlertClasses("alert alert-success")
+        setAlertMessage("Your email has been registered successfully")
+        setAlertOpacity("1")
         setTimeout(() => {
-          setToastOpacity("0")
+          setAlertOpacity("0")
         }, 5000)
       })
       .catch(function() {
         //handle error
-        setToastMessage("Your email failed to register")
-        setToastOpacity("1")
+        setAlertClasses("alert alert-danger")
+        setAlertMessage("Your email failed to register")
+        setAlertOpacity("1")
         setTimeout(() => {
-          setToastOpacity("0")
+          setAlertOpacity("0")
         }, 5000)
       })
   }
@@ -303,24 +306,10 @@ const IndexPage = ({
       <SEO title="Home" description="An Art Exhbition website set in Berlin" />
       <div
         role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        className="toast"
-        data-autohide="false"
-        style={{ position: "fixed", opacity: `${toastOpacity}` }}
+        className={alertClasses}
+        style={{ position: "fixed", opacity: `${alertOpacity}` }}
       >
-        <div className="toast-header">
-          <strong>Newsletter Subscription</strong>
-          <button
-            type="button"
-            className="btn ml-2 mb-1 close"
-            data-dismiss="toast"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div className="toast-body">{toastMessage}</div>
+        {alertMessage}
       </div>
       <nav>
         <span id="news">
@@ -378,6 +367,7 @@ const IndexPage = ({
                   id="first_name"
                   className="form-control"
                   onChange={e => (newsletterFirstname = e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -391,6 +381,7 @@ const IndexPage = ({
                   id="last_name"
                   className="form-control"
                   onChange={e => (newsletterLastname = e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -404,6 +395,7 @@ const IndexPage = ({
                   className="form-control"
                   id="email"
                   onChange={e => (newsletterEmail = e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -417,6 +409,7 @@ const IndexPage = ({
                   className="form-control"
                   id="tel"
                   onChange={e => (newsletterPhone = e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -430,6 +423,7 @@ const IndexPage = ({
                 onChange={() => {
                   newsletterGender = "m"
                 }}
+                required
               />
               <label className="custom-control-label" htmlFor="male">
                 Male
@@ -445,6 +439,7 @@ const IndexPage = ({
                 onChange={() => {
                   newsletterGender = "f"
                 }}
+                required
               />
               <label className="custom-control-label" htmlFor="female">
                 Female
