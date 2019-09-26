@@ -5,6 +5,9 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-source-news`,
+    `gatsby-source-editions`,
+    `gatsby-source-publications`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
     // Passing parameters (passed to apollo-link)
