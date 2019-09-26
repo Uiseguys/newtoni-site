@@ -147,15 +147,20 @@ const IndexPage = ({
         const pubKeyArr = await randomCryptoKey(data.allPublications.edges)
         let promisedArr = await Promise.all(
           data.allPublications.edges.map(async (item, index) => {
-            let signedurl = await axios({
-              method: "get",
-              url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
-            }).then(res => {
-              console.log(res.data)
-              signedurl = res.data.url
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+            imgArr.map(async (item, index) => {
+              let signedurl = await axios({
+                method: "get",
+                url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+              }).then(res => {
+                return res.data.url
+              })
+              return (<img key={imgKeyArr[index]} src={signedurl} />)
+              })
+            ).then(res => {return res})
             })
-            return <img key={pubKeyArr[index]} src={signedurl} />
-          })
         ).then(res => {
           setPubImageArray(res)
         })
@@ -163,7 +168,6 @@ const IndexPage = ({
       }
       fetchpubImages()
     }
-    console.log(pubImageArray)
   })
 
   const randomCryptoKey = arr => {
