@@ -13,7 +13,7 @@ exports.sourceNodes = async ({
     }).then(res => {
       return res.data
     })
-    await data.forEach(item => {
+    data.map(async item => {
       const nodeMeta = {
         id: createNodeId(`publications-${item.id}`),
         parent: null,

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import crypto from "crypto"
 import axios from "axios"
 import PropTypes from "prop-types"
@@ -22,6 +22,14 @@ const IndexPage = ({
   // GraphQL queries for the latest images and posts
   const data = useStaticQuery(graphql`
     query {
+      allPublications(limit: 3) {
+        edges {
+          node {
+            image
+            name
+          }
+        }
+      }
       newsPosts: allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         limit: 3
@@ -131,6 +139,32 @@ const IndexPage = ({
   const [alertOpacity, setAlertOpacity] = useState("0")
   const [alertMessage, setAlertMessage] = useState("0")
   const [alertClasses, setAlertClasses] = useState("alert alert-info")
+  const [pubImageArray, setPubImageArray] = useState([])
+
+  useEffect(() => {
+    if (pubImageArray.length == 0) {
+      const fetchpubImages = async () => {
+        const pubKeyArr = await randomCryptoKey(data.allPublications.edges)
+        let promisedArr = await Promise.all(
+          data.allPublications.edges.map(async (item, index) => {
+            let signedurl = await axios({
+              method: "get",
+              url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+            }).then(res => {
+              console.log(res.data)
+              signedurl = res.data.url
+            })
+            return <img key={pubKeyArr[index]} src={signedurl} />
+          })
+        ).then(res => {
+          setPubImageArray(res)
+        })
+        return
+      }
+      fetchpubImages()
+    }
+    console.log(pubImageArray)
+  })
 
   const randomCryptoKey = arr => {
     let keyArr = []
@@ -195,26 +229,16 @@ const IndexPage = ({
   }
 
   const renderPublicationsImages = () => {
-    const arr = data.publicationsImageNodes.edges.map(item => {
-      return {
-        thisItem: item,
-        otherURLS: data.publicationsImageNodes.edges,
-      }
-    })
+    const arr = data.allPublications.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
             <a href={data.publicationsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
+              {pubImageArray[index]}
             </a>
-            <figcaption>
-              {data.publicationsPosts.edges[index].node.frontmatter.title}
-            </figcaption>
+            <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
       )
