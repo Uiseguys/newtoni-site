@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import axios from "axios"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
@@ -9,31 +10,15 @@ import SEO from "../components/seo"
 
 const NewsPage = () => {
   const data = useStaticQuery(graphql`
-    {
-      newsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "news" } } }
-      ) {
+    query {
+      allNews {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            id
+            title
+            image
+            slug
           }
-        }
-      }
-      newsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
         }
       }
       postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
@@ -41,6 +26,39 @@ const NewsPage = () => {
       }
     }
   `)
+
+  const [newsImageArray, setNewsImageArray] = useState([])
+
+  useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (newsImageArray.length == 0) {
+      const fetchNewsImages = async () => {
+        let promisedArr = await Promise.all(
+          data.allNews.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setNewsImageArray(res)
+        })
+        return
+      }
+      fetchNewsImages()
+    }
+  })
 
   const randomCryptoKey = len => {
     let keyArr = []
@@ -51,27 +69,14 @@ const NewsPage = () => {
   }
 
   const renderNewsPosts = () => {
-    const arr = data.newsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.newsImageNodes.nodes
-    const keyArr = randomCryptoKey(arr.length)
+    const arr = data.allNews.edges
+    const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
-            <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
-              <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
-            </figcaption>
+            <a href={item.node.slug}>{newsImageArray[index]}</a>
+            <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )

@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import axios from "axios"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
@@ -11,30 +12,14 @@ import SEO from "../components/seo"
 const EditionsPage = () => {
   const data = useStaticQuery(graphql`
     {
-      editionsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "edition" } } }
-      ) {
+      allEditions {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            id
+            title
+            image
+            slug
           }
-        }
-      }
-      editionsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
         }
       }
       postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
@@ -42,6 +27,39 @@ const EditionsPage = () => {
       }
     }
   `)
+
+  const [edtImageArray, setEdtImageArray] = useState([])
+
+  useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (edtImageArray.length == 0) {
+      const fetchEdtImages = async () => {
+        let promisedArr = await Promise.all(
+          data.allEditions.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setEdtImageArray(res)
+        })
+        return
+      }
+      fetchEdtImages()
+    }
+  })
 
   const randomCryptoKey = arr => {
     let keyArr = []
@@ -52,33 +70,24 @@ const EditionsPage = () => {
   }
 
   const renderEditionsPosts = () => {
-    const arr = data.editionsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.editionsImageNodes.nodes
+    const arr = data.allEditions.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
+            <a href={item.node.slug}>{edtImageArray[index]}</a>
             <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
+              <i>{item.node.title}</i>
+              <small>{item.node.author}</small>
               <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
+              <small>{item.node.date}</small>
             </figcaption>
           </figure>
         </li>
       )
     })
   }
-
   // postsHomeScroll()
 
   return (

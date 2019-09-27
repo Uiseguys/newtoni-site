@@ -22,100 +22,32 @@ const IndexPage = ({
   // GraphQL queries for the latest images and posts
   const data = useStaticQuery(graphql`
     query {
+      allNews(limit: 3) {
+        edges {
+          node {
+            title
+            author
+            slug
+            image
+          }
+        }
+      }
+      allEditions(limit: 3) {
+        edges {
+          node {
+            title
+            author
+            slug
+            image
+          }
+        }
+      }
       allPublications(limit: 3) {
         edges {
           node {
-            image
             name
-          }
-        }
-      }
-      newsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "news" } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-      newsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        edges {
-          node {
-            childImageSharp {
-              fixed(width: 500) {
-                src
-              }
-            }
-          }
-        }
-      }
-      editionsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "edition" } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-      editionsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "editions-images" } }
-      ) {
-        edges {
-          node {
-            childImageSharp {
-              fixed(width: 500) {
-                src
-              }
-            }
-          }
-        }
-      }
-      publicationsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "publication" } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
-          }
-        }
-      }
-      publicationsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "publications-images" } }
-      ) {
-        edges {
-          node {
-            childImageSharp {
-              fixed(width: 500) {
-                src
-              }
-            }
+            slug
+            image
           }
         }
       }
@@ -139,34 +71,93 @@ const IndexPage = ({
   const [alertOpacity, setAlertOpacity] = useState("0")
   const [alertMessage, setAlertMessage] = useState("0")
   const [alertClasses, setAlertClasses] = useState("alert alert-info")
+  const [newsImageArray, setNewsImageArray] = useState([])
+  const [edtImageArray, setEdtImageArray] = useState([])
   const [pubImageArray, setPubImageArray] = useState([])
 
   useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (newsImageArray.length == 0) {
+      const fetchNewsImages = async () => {
+        let promisedArr = await Promise.all(
+          data.allNews.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setNewsImageArray(res)
+        })
+        return
+      }
+      fetchNewsImages()
+    }
+    if (edtImageArray.length == 0) {
+      const fetchEdtImages = async () => {
+        let promisedArr = await Promise.all(
+          data.allEditions.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setEdtImageArray(res)
+        })
+        return
+      }
+      fetchEdtImages()
+    }
     if (pubImageArray.length == 0) {
-      const fetchpubImages = async () => {
+      const fetchPubImages = async () => {
         const pubKeyArr = await randomCryptoKey(data.allPublications.edges)
         let promisedArr = await Promise.all(
           data.allPublications.edges.map(async (item, index) => {
             const imgArr = JSON.parse(item.node.image)
             const imgKeyArr = await randomCryptoKey(imgArr)
             return await Promise.all(
-            imgArr.map(async (item, index) => {
-              let signedurl = await axios({
-                method: "get",
-                url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
-              }).then(res => {
-                return res.data.url
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
               })
-              return (<img key={imgKeyArr[index]} src={signedurl} />)
-              })
-            ).then(res => {return res})
+            ).then(res => {
+              return res
             })
+          })
         ).then(res => {
           setPubImageArray(res)
         })
         return
       }
-      fetchpubImages()
+      fetchPubImages()
     }
   })
 
@@ -178,70 +169,44 @@ const IndexPage = ({
     return keyArr
   }
 
-  const renderNewsImages = () => {
-    const arr = data.newsImageNodes.edges.map(item => {
-      return {
-        thisItem: item,
-        otherURLS: data.newsImageNodes.edges,
-      }
-    })
+  const renderNewsPosts = () => {
+    const arr = data.allNews.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <a href={data.newsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
-            </a>
-            <figcaption>
-              {data.newsPosts.edges[index].node.frontmatter.title}
-            </figcaption>
+            <a href={item.node.slug}>{newsImageArray[index]}</a>
+            <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
   }
 
-  const renderEditionsImages = () => {
-    const arr = data.editionsImageNodes.edges.map(item => {
-      return {
-        thisItem: item,
-        otherURLS: data.editionsImageNodes.edges,
-      }
-    })
+  const renderEditionsPosts = () => {
+    const arr = data.allEditions.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <a href={data.editionsPosts.edges[index].node.fields.slug}>
-              <img src={item.thisItem.node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[0].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[1].node.childImageSharp.fixed.src} />
-              <img src={item.otherURLS[2].node.childImageSharp.fixed.src} />
-            </a>
-            <figcaption>
-              {data.editionsPosts.edges[index].node.frontmatter.title}
-            </figcaption>
+            <a href={item.node.slug}>{edtImageArray[index]}</a>
+            <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
   }
 
-  const renderPublicationsImages = () => {
+  const renderPublicationsPosts = () => {
     const arr = data.allPublications.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
         <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <a href={data.publicationsPosts.edges[index].node.fields.slug}>
-              {pubImageArray[index]}
-            </a>
+            <a href={item.node.slug}>{pubImageArray[index]}</a>
             <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
@@ -355,17 +320,17 @@ const IndexPage = ({
       <main className="container">
         <section>
           <h2>News</h2>
-          <ul className="row list-unstyled">{renderNewsImages()}</ul>
+          <ul className="row list-unstyled">{renderNewsPosts()}</ul>
           <a href="/news">&gt; More News</a>
         </section>
         <section>
           <h2>Editions</h2>
-          <ul className="row list-unstyled">{renderEditionsImages()}</ul>
+          <ul className="row list-unstyled">{renderEditionsPosts()}</ul>
           <a href="/editions">&gt; More Editions</a>
         </section>
         <section>
           <h2>Publications</h2>
-          <ul className="row list-unstyled">{renderPublicationsImages()}</ul>
+          <ul className="row list-unstyled">{renderPublicationsPosts()}</ul>
           <a href="/publications">&gt; More Publications</a>
         </section>
         <section>

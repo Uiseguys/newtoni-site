@@ -14,6 +14,10 @@ exports.sourceNodes = async ({
       return res.data
     })
     await data.forEach(item => {
+      item = {
+        ...item,
+        slug: `/editions/${item.title.toLowerCase().replace(/\s/g, "-")}`,
+      }
       const nodeMeta = {
         id: createNodeId(`editions-${item.id}`),
         parent: null,

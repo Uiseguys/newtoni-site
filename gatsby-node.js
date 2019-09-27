@@ -7,63 +7,63 @@
 // You can delete this file if you're not using it
 const path = require("path")
 
-module.exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions
-
-  // Create slugs for Markdown documents
-  if (node.internal.type === "MarkdownRemark") {
-    const slug = path.basename(node.fileAbsolutePath, ".md")
-    if (node.frontmatter.type == "news") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "/news/" + slug,
-      })
-    }
-    if (node.frontmatter.type == "edition") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "/editions/" + slug,
-      })
-    }
-    if (node.frontmatter.type == "publication") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "/publications/" + slug,
-      })
-    }
-  }
-}
-
 module.exports.createPages = async ({ graphql, actions }) => {
   // 1. Get Path to template
   // 2. Get markdown data
   // 3. Create new pages
   const { createPage } = actions
   const postTemplate = path.resolve("src/templates/post.js")
-  // Get markdown slugs
+  // Get all posts from each section and create a page for each
   const res = await graphql(`
     query {
-      allMarkdownRemark {
+      allNews {
         edges {
           node {
-            fields {
-              slug
-            }
+            slug
+          }
+        }
+      }
+      allEditions {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+      allPublications {
+        edges {
+          node {
+            slug
           }
         }
       }
     }
   `)
 
-  res.data.allMarkdownRemark.edges.forEach(edge => {
+  res.data.allNews.edges.forEach(edge => {
     createPage({
       component: postTemplate,
-      path: edge.node.fields.slug,
+      path: edge.node.slug,
       context: {
-        slug: edge.node.fields.slug,
+        slug: edge.node.slug,
+      },
+    })
+  })
+  res.data.allEditions.edges.forEach(edge => {
+    createPage({
+      component: postTemplate,
+      path: edge.node.slug,
+      context: {
+        slug: edge.node.slug,
+      },
+    })
+  })
+  res.data.allPublications.edges.forEach(edge => {
+    createPage({
+      component: postTemplate,
+      path: edge.node.slug,
+      context: {
+        slug: edge.node.slug,
       },
     })
   })

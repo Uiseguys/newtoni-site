@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
+import axios from "axios"
 
 import "../scss/pages/posts-page.scss"
 import Layout from "../components/layout"
@@ -9,48 +10,111 @@ import SEO from "../components/seo"
 const PostPage = ({ pageContext }) => {
   const data = useStaticQuery(graphql`
     query {
-      allSlugs: allMarkdownRemark {
+      allNews {
         edges {
           node {
-            fields {
-              slug
-            }
-            html
-            frontmatter {
-              title
-              date
-              author
-            }
+            title
+            author
+            image
+            post
+            slug
           }
         }
       }
-      newsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        nodes {
-          publicURL
+      allEditions {
+        edges {
+          node {
+            title
+            author
+            image
+            post
+            slug
+          }
         }
       }
-      editionsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "editions-images" } }
-      ) {
-        nodes {
-          publicURL
-        }
-      }
-      publicationsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "publications-images" } }
-      ) {
-        nodes {
-          publicURL
+      allPublications {
+        edges {
+          node {
+            image
+            name
+            slug
+            description
+          }
         }
       }
     }
   `)
 
+  const [postImageArray, setPostImageArray] = useState([])
+  const [horizontalScrollWidth, setHorizontalScrollWidth] = useState({})
+
+  useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (postImageArray.length == 0) {
+      const fetchPostImages = async () => {
+        console.log(pageDetails[0].node.name || pageDetails[0].node.title)
+        let promisedArr = await Promise.all(
+          pageDetails.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const gridTemplateChecker = () => {
+              switch (imgArr.length) {
+                case 1:
+                  return "100vw"
+                case 2:
+                  return "100vw 100vw"
+                case 3:
+                  return "100vw 100vw 100vw"
+                case 4:
+                  return "100vw 100vw 100vw 100vw"
+                case 5:
+                  return "100vw 100vw 100vw 100vw 100vw"
+                case 6:
+                  return "100vw 100vw 100vw 100vw 100vw 100vw"
+              }
+            }
+            setHorizontalScrollWidth({
+              width: `${imgArr.length * 100}vw`,
+              gridTemplateColumns: gridTemplateChecker(),
+            })
+            const imgKeyArr = randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                console.log(item)
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return (
+                  <figure className="rellax" key={imgKeyArr[index]}>
+                    <img src={signedurl} />
+                    <figcaption className="rellax">
+                      {pageDetails[0].node.title || pageDetails[0].node.name}
+                    </figcaption>
+                  </figure>
+                )
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setPostImageArray(res)
+        })
+        return
+      }
+      fetchPostImages()
+    }
+  })
+
   const filterAllSlugs = () => {
-    return data.allSlugs.edges.filter(item => {
-      if (pageContext.slug == item.node.fields.slug) {
+    // Get all Posts
+    const allSlugs = data.allNews.edges.concat(
+      data.allPublications.edges.concat(data.allEditions.edges)
+    )
+    return allSlugs.filter(item => {
+      if (pageContext.slug == item.node.slug) {
         return item
       }
     })
@@ -66,62 +130,19 @@ const PostPage = ({ pageContext }) => {
     return keyArr
   }
 
-  const renderImages = () => {
-    if (/news/i.test(pageContext.slug)) {
-      const keyArr = randomCryptoKey(data.newsImageNodes.nodes.length)
-      return data.newsImageNodes.nodes.map((item, index) => {
-        return (
-          <figure className="rellax" key={keyArr[index]}>
-            <img src={item.publicURL} />
-            <figcaption className="rellax">
-              {pageDetails[0].node.frontmatter.title}
-            </figcaption>
-          </figure>
-        )
-      })
-    }
-    if (/editions/i.test(pageContext.slug)) {
-      const keyArr = randomCryptoKey(data.editionsImageNodes.nodes.length)
-      return data.editionsImageNodes.nodes.map((item, index) => {
-        return (
-          <figure className="rellax" key={keyArr[index]}>
-            <img src={item.publicURL} />
-            <figcaption className="rellax">
-              {pageDetails[0].node.frontmatter.title}
-            </figcaption>
-          </figure>
-        )
-      })
-    }
-    if (/publications/i.test(pageContext.slug)) {
-      const keyArr = randomCryptoKey(data.publicationsImageNodes.nodes.length)
-      return data.publicationsImageNodes.nodes.map((item, index) => {
-        return (
-          <figure className="rellax" key={keyArr[index]}>
-            <img src={item.publicURL} />
-            <figcaption className="rellax">
-              {pageDetails[0].node.frontmatter.title}
-            </figcaption>
-          </figure>
-        )
-      })
-    }
-  }
-
   return (
     <Layout>
       <aside className="helper">Scroll Sideways</aside>
-      <SEO title={pageDetails[0].node.frontmatter.title} />
+      <SEO title={pageDetails[0].node.title || pageDetails[0].node.name} />
       <header className="post-page">
-        <div>{renderImages()}</div>
+        <div style={horizontalScrollWidth}>{postImageArray}</div>
       </header>
       <main className="container">
         <div className="row">
           <section className="col-6">
-            <div
-              style={{ textAlign: "left" }}
-              dangerouslySetInnerHTML={{ __html: pageDetails[0].node.html }}
-            />
+            <div>
+              {pageDetails[0].node.post || pageDetails[0].node.description}
+            </div>
           </section>
           <section className="col-6"></section>
         </div>

@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import axios from "axios"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
@@ -11,30 +12,12 @@ import SEO from "../components/seo"
 const PublicationsPage = () => {
   const data = useStaticQuery(graphql`
     {
-      publicationsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "publication" } } }
-      ) {
+      allPublications {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            image
+            name
           }
-        }
-      }
-      publicationsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "publications-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
         }
       }
       postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
@@ -43,6 +26,39 @@ const PublicationsPage = () => {
     }
   `)
 
+  const [pubImageArray, setPubImageArray] = useState([])
+
+  useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (pubImageArray.length == 0) {
+      const fetchPubImages = async () => {
+        const pubKeyArr = await randomCryptoKey(data.allPublications.edges)
+        let promisedArr = await Promise.all(
+          data.allPublications.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            const imgKeyArr = await randomCryptoKey(imgArr)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                let signedurl = await axios({
+                  method: "get",
+                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
+                }).then(res => {
+                  return res.data.url
+                })
+                return <img key={imgKeyArr[index]} src={signedurl} />
+              })
+            ).then(res => {
+              return res
+            })
+          })
+        ).then(res => {
+          setPubImageArray(res)
+        })
+        return
+      }
+      fetchPubImages()
+    }
+  })
   const randomCryptoKey = arr => {
     let keyArr = []
     for (let i = 0; i < arr.length; i++) {
@@ -52,27 +68,14 @@ const PublicationsPage = () => {
   }
 
   const renderPublicationsPosts = () => {
-    const arr = data.publicationsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.publicationsImageNodes.nodes
+    const arr = data.allPublications.edges
     const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
-            <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
-              <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
-            </figcaption>
+            <a href={item.node.name}>{pubImageArray[index]}</a>
+            <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
       )

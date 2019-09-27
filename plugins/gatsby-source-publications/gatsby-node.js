@@ -14,6 +14,10 @@ exports.sourceNodes = async ({
       return res.data
     })
     data.map(async item => {
+      item = {
+        ...item,
+        slug: `/publications/${item.name.toLowerCase().replace(/\s/g, "-")}`,
+      }
       const nodeMeta = {
         id: createNodeId(`publications-${item.id}`),
         parent: null,
