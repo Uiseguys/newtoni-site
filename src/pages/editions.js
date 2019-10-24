@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import axios from "axios"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
@@ -37,16 +36,15 @@ const EditionsPage = () => {
         let promisedArr = await Promise.all(
           data.allEditions.edges.map(async (item, index) => {
             const imgArr = JSON.parse(item.node.image)
-            const imgKeyArr = await randomCryptoKey(imgArr)
             return await Promise.all(
               imgArr.map(async (item, index) => {
-                let signedurl = await axios({
-                  method: "get",
-                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
-                }).then(res => {
-                  return res.data.url
-                })
-                return <img key={imgKeyArr[index]} src={signedurl} />
+                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
+                return (
+                  <img
+                    key={crypto.randomBytes(6).toString("hex")}
+                    src={item.url}
+                  />
+                )
               })
             ).then(res => {
               return res
@@ -61,20 +59,14 @@ const EditionsPage = () => {
     }
   })
 
-  const randomCryptoKey = arr => {
-    let keyArr = []
-    for (let i = 0; i < arr.length; i++) {
-      keyArr[i] = crypto.randomBytes(6).toString("hex")
-    }
-    return keyArr
-  }
-
   const renderEditionsPosts = () => {
     const arr = data.allEditions.edges
-    const keyArr = randomCryptoKey(arr)
     return arr.map((item, index) => {
       return (
-        <li className="col-sm-12 col-md-6 col-lg-4" key={keyArr[index]}>
+        <li
+          className="col-sm-12 col-md-6 col-lg-4"
+          key={crypto.randomBytes(6).toString("hex")}
+        >
           <figure>
             <a href={item.node.slug}>{edtImageArray[index]}</a>
             <figcaption>

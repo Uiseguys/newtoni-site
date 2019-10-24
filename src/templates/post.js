@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
-import axios from "axios"
 
 import "../scss/pages/posts-page.scss"
 import Layout from "../components/layout"
@@ -52,7 +51,6 @@ const PostPage = ({ pageContext }) => {
     // Fetch Images for each post sections and save it to its respective
     if (postImageArray.length == 0) {
       const fetchPostImages = async () => {
-        console.log(pageDetails[0].node.name || pageDetails[0].node.title)
         let promisedArr = await Promise.all(
           pageDetails.map(async (item, index) => {
             const imgArr = JSON.parse(item.node.image)
@@ -76,19 +74,15 @@ const PostPage = ({ pageContext }) => {
               width: `${imgArr.length * 100}vw`,
               gridTemplateColumns: gridTemplateChecker(),
             })
-            const imgKeyArr = randomCryptoKey(imgArr)
             return await Promise.all(
               imgArr.map(async (item, index) => {
-                console.log(item)
-                let signedurl = await axios({
-                  method: "get",
-                  url: `https://newtoni-api.herokuapp.com/storage/file/${item.id}`,
-                }).then(res => {
-                  return res.data.url
-                })
+                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
                 return (
-                  <figure className="rellax" key={imgKeyArr[index]}>
-                    <img src={signedurl} />
+                  <figure
+                    className="rellax"
+                    key={crypto.randomBytes(6).toString("hex")}
+                  >
+                    <img src={item.url} />
                     <figcaption className="rellax">
                       {pageDetails[0].node.title || pageDetails[0].node.name}
                     </figcaption>
@@ -121,14 +115,6 @@ const PostPage = ({ pageContext }) => {
   }
 
   const pageDetails = filterAllSlugs()
-
-  const randomCryptoKey = len => {
-    let keyArr = []
-    for (let i = 0; i < len; i++) {
-      keyArr[i] = crypto.randomBytes(6).toString("hex")
-    }
-    return keyArr
-  }
 
   return (
     <Layout>
