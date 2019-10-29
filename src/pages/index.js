@@ -209,7 +209,7 @@ const IndexPage = ({ newsletterEmail }) => {
     // Making Create Recipient Request
     axios({
       method: "post",
-      url: "http://newtoni-api.herokuapp.com/newsletters",
+      url: "https://newtoni-api.herokuapp.com/newsletters",
       data: JSON.stringify(bodyFormData),
       headers: {
         "Content-Type": "application/json",
