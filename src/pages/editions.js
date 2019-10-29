@@ -84,7 +84,7 @@ const EditionsPage = () => {
 
   return (
     <Layout>
-      <SEO title="News" />
+      <SEO title="Editions" />
       <nav>
         <span id="editions">
           E<br />d<br />i<br />t<br />i<br />o<br />n<br />s

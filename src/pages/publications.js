@@ -79,7 +79,7 @@ const PublicationsPage = () => {
 
   return (
     <Layout>
-      <SEO title="News" />
+      <SEO title="Publications" />
       <nav>
         <span id="publications">
           P<br />u<br />b<br />l<br />i<br />c<br />a<br />t<br />i<br />o<br />

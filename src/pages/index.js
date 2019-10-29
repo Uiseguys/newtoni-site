@@ -11,14 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 // Import Home index styling
 import "../scss/pages/index.scss"
 
-const IndexPage = ({
-  newsletterEmail,
-  newsletterPhone,
-  newsletterGender,
-  newsletterFirstname,
-  newsletterLastname,
-  accessTokenProp,
-}) => {
+const IndexPage = ({ newsletterEmail }) => {
   // GraphQL queries for the latest images and posts
   const data = useStaticQuery(graphql`
     query {
@@ -208,68 +201,23 @@ const IndexPage = ({
     })
   }
 
-  // Get the Access Token from the Newsletter 2go Website
-  // Retrieve access token and save at the accessTokenProp
-  // After which instantiate it
-  const getAccessToken = () => {
-    const accessTokenBody = {
-      username: "mailadmin@new-toni.press",
-      password: "Newsletter2go2312",
-      grant_type: "https://nl2go.com/jwt",
-    }
-
-    // Making Access Token Request from Newsletter2go
-    axios({
-      method: "post",
-      url: "https://api.newsletter2go.com/oauth/v2/token",
-      data: accessTokenBody,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Basic NWpmd3hycjdfd2xJUUxBZl9uZnBYVEZmTF81NmFjd1k4bV9jc2J4RFdVbDpkZWs5aWVpZg==",
-      },
-    })
-      .then(function(response) {
-        //handle success
-        // expiry time
-        accessTokenProp = response.data.access_token
-      })
-      .catch(function(response) {
-        //handle error
-        console.log(response)
-      })
-  }
-  getAccessToken()
-
-  // Intializing Bootstrap toasts via jQuery
-
   const handleNewsletterSubmit = e => {
     e.preventDefault()
     const bodyFormData = {
-      list_id: "rcq7eypv",
       email: newsletterEmail,
-      phone: newsletterPhone,
-      gender: newsletterGender,
-      first_name: newsletterFirstname,
-      last_name: newsletterLastname,
-      name: `${newsletterFirstname} ${newsletterLastname
-        .substring(0, 1)
-        .toUpperCase()}.`,
-      is_unsubscribed: false,
-      is_blacklisted: false,
     }
     // Making Create Recipient Request
     axios({
       method: "post",
-      url: "https://api.newsletter2go.com/recipients",
-      data: bodyFormData,
+      url: "http://newtoni-api.herokuapp.com/newsletters",
+      data: JSON.stringify(bodyFormData),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessTokenProp}`,
       },
     })
-      .then(function() {
+      .then(data => {
         //handle success
+        console.log(data[0])
         setAlertClasses("alert alert-success")
         setAlertMessage("Your email has been registered successfully")
         setAlertOpacity("1")
@@ -277,8 +225,9 @@ const IndexPage = ({
           setAlertOpacity("0")
         }, 5000)
       })
-      .catch(function() {
+      .catch(err => {
         //handle error
+        console.log(err.response.data)
         setAlertClasses("alert alert-danger")
         setAlertMessage("Your email failed to register")
         setAlertOpacity("1")
@@ -345,34 +294,6 @@ const IndexPage = ({
           <form onSubmit={e => handleNewsletterSubmit(e)}>
             <label>Subscribe here for our newsletter</label>
             <div className="form-group row">
-              <label htmlFor="first_name" className="col-2 col-form-label">
-                Firstname
-              </label>
-              <div className="col-6">
-                <input
-                  type="text"
-                  id="first_name"
-                  className="form-control"
-                  onChange={e => (newsletterFirstname = e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="last_name" className="col-2 col-form-label">
-                Lastname
-              </label>
-              <div className="col-6">
-                <input
-                  type="text"
-                  id="last_name"
-                  className="form-control"
-                  onChange={e => (newsletterLastname = e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-group row">
               <label htmlFor="email" className="col-2 col-form-label">
                 Email
               </label>
@@ -385,52 +306,6 @@ const IndexPage = ({
                   required
                 />
               </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="phone" className="col-2 col-form-label">
-                Tel
-              </label>
-              <div className="col-6">
-                <input
-                  type="tel"
-                  className="form-control"
-                  id="tel"
-                  onChange={e => (newsletterPhone = e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="custom-control custom-radio custom-control-inline">
-              <input
-                className="custom-control-input"
-                type="radio"
-                id="male"
-                name="gender"
-                value="m"
-                onChange={() => {
-                  newsletterGender = "m"
-                }}
-                required
-              />
-              <label className="custom-control-label" htmlFor="male">
-                Male
-              </label>
-            </div>
-            <div className="custom-control custom-radio custom-control-inline">
-              <input
-                className="custom-control-input"
-                type="radio"
-                name="gender"
-                id="female"
-                value="f"
-                onChange={() => {
-                  newsletterGender = "f"
-                }}
-                required
-              />
-              <label className="custom-control-label" htmlFor="female">
-                Female
-              </label>
             </div>
             <button type="submit" className="btn">
               Subscribe
@@ -459,20 +334,10 @@ const IndexPage = ({
 
 IndexPage.defaultProps = {
   newsletterEmail: "",
-  newsletterPhone: "",
-  newsletterFirstname: "",
-  newsletterLastname: "",
-  newsletterGender: "",
-  accessTokenProp: "",
 }
 
 IndexPage.propTypes = {
   newsletterEmail: PropTypes.string,
-  newsletterPhone: PropTypes.string,
-  newsletterFirstname: PropTypes.string,
-  newsletterLastname: PropTypes.string,
-  newsletterGender: PropTypes.string,
-  accessTokenProp: PropTypes.string,
 }
 
 export default IndexPage
