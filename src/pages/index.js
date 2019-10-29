@@ -64,6 +64,7 @@ const IndexPage = ({ newsletterEmail }) => {
   const [alertOpacity, setAlertOpacity] = useState("0")
   const [alertMessage, setAlertMessage] = useState("0")
   const [alertClasses, setAlertClasses] = useState("alert alert-info")
+  const [inputValue, setInputValue] = useState("")
   const [newsImageArray, setNewsImageArray] = useState([])
   const [edtImageArray, setEdtImageArray] = useState([])
   const [pubImageArray, setPubImageArray] = useState([])
@@ -201,10 +202,14 @@ const IndexPage = ({ newsletterEmail }) => {
     })
   }
 
+  const handleInputValue = value => {
+    setInputValue(value)
+  }
+
   const handleNewsletterSubmit = e => {
     e.preventDefault()
     const bodyFormData = {
-      email: newsletterEmail,
+      email: inputValue,
     }
     // Making Create Recipient Request
     axios({
@@ -225,9 +230,8 @@ const IndexPage = ({ newsletterEmail }) => {
           setAlertOpacity("0")
         }, 5000)
       })
-      .catch(err => {
+      .catch(() => {
         //handle error
-        console.log(err.response.data)
         setAlertClasses("alert alert-danger")
         setAlertMessage("Your email failed to register")
         setAlertOpacity("1")
@@ -302,7 +306,8 @@ const IndexPage = ({ newsletterEmail }) => {
                   type="email"
                   className="form-control"
                   id="email"
-                  onChange={e => (newsletterEmail = e.target.value)}
+                  value={inputValue}
+                  onChange={e => handleInputValue(e.target.value)}
                   required
                 />
               </div>
@@ -330,14 +335,6 @@ const IndexPage = ({ newsletterEmail }) => {
       <script src={data.indexScroll.publicURL}></script>
     </Layout>
   )
-}
-
-IndexPage.defaultProps = {
-  newsletterEmail: "",
-}
-
-IndexPage.propTypes = {
-  newsletterEmail: PropTypes.string,
 }
 
 export default IndexPage
