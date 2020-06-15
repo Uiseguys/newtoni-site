@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import crypto from "crypto"
 import axios from "axios"
-import PropTypes from "prop-types"
+import { Image, Transformation } from "cloudinary-react"
 
 import Layout from "../components/layout"
 import Header from "../components/header"
@@ -11,7 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 // Import Home index styling
 import "../scss/pages/index.scss"
 
-const IndexPage = ({ newsletterEmail }) => {
+const IndexPage = () => {
   // GraphQL queries for the latest images and posts
   const data = useStaticQuery(graphql`
     query {
@@ -61,97 +61,88 @@ const IndexPage = ({ newsletterEmail }) => {
     }
   `)
 
+  const newsImages = useMemo(() => {
+    const arr = data.allNews.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allNews.edges])
+  const editionImages = useMemo(() => {
+    const arr = data.allEditions.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allEditions.edges])
+  const publicationImages = useMemo(() => {
+    const arr = data.allPublications.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allPublications.edges])
+
   const [alertOpacity, setAlertOpacity] = useState("0")
-  const [alertMessage, setAlertMessage] = useState("0")
+  const [alertMessage, setAlertMessage] = useState("")
   const [alertClasses, setAlertClasses] = useState("alert alert-info")
   const [inputValue, setInputValue] = useState("")
-  const [newsImageArray, setNewsImageArray] = useState([])
-  const [edtImageArray, setEdtImageArray] = useState([])
-  const [pubImageArray, setPubImageArray] = useState([])
 
-  useEffect(() => {
-    // Fetch Images for each post sections and save it to its respective
-    if (newsImageArray.length == 0) {
-      const fetchNewsImages = async () => {
-        let promisedArr = await Promise.all(
-          data.allNews.edges.map(async (item, index) => {
-            const imgArr = JSON.parse(item.node.image)
-            return await Promise.all(
-              imgArr.map(async (item, index) => {
-                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
-                return (
-                  <img
-                    key={crypto.randomBytes(6).toString("hex")}
-                    src={item.url}
-                  />
-                )
-              })
-            ).then(res => {
-              return res
-            })
-          })
-        ).then(res => {
-          setNewsImageArray(res)
-        })
-        return
-      }
-      fetchNewsImages()
-    }
-    if (edtImageArray.length == 0) {
-      const fetchEdtImages = async () => {
-        let promisedArr = await Promise.all(
-          data.allEditions.edges.map(async (item, index) => {
-            const imgArr = JSON.parse(item.node.image)
-            return await Promise.all(
-              imgArr.map(async (item, index) => {
-                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
-                return (
-                  <img
-                    key={crypto.randomBytes(6).toString("hex")}
-                    src={item.url}
-                  />
-                )
-              })
-            ).then(res => {
-              return res
-            })
-          })
-        ).then(res => {
-          setEdtImageArray(res)
-        })
-        return
-      }
-      fetchEdtImages()
-    }
-    if (pubImageArray.length == 0) {
-      const fetchPubImages = async () => {
-        let promisedArr = await Promise.all(
-          data.allPublications.edges.map(async (item, index) => {
-            const imgArr = JSON.parse(item.node.image)
-            return await Promise.all(
-              imgArr.map(async (item, index) => {
-                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
-                return (
-                  <img
-                    key={crypto.randomBytes(6).toString("hex")}
-                    src={item.url}
-                  />
-                )
-              })
-            ).then(res => {
-              return res
-            })
-          })
-        ).then(res => {
-          setPubImageArray(res)
-        })
-        return
-      }
-      fetchPubImages()
-    }
-  })
-
-  const renderNewsPosts = () => {
+  const renderNewsPosts = useMemo(() => {
     const arr = data.allNews.edges
     return arr.map((item, index) => {
       return (
@@ -160,15 +151,15 @@ const IndexPage = ({ newsletterEmail }) => {
           key={crypto.randomBytes(6).toString("hex")}
         >
           <figure>
-            <a href={item.node.slug}>{newsImageArray[index]}</a>
+            <a href={item.node.slug}>{newsImages[index]}</a>
             <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allNews.edges])
 
-  const renderEditionsPosts = () => {
+  const renderEditionsPosts = useMemo(() => {
     const arr = data.allEditions.edges
     return arr.map((item, index) => {
       return (
@@ -177,15 +168,15 @@ const IndexPage = ({ newsletterEmail }) => {
           key={crypto.randomBytes(6).toString("hex")}
         >
           <figure>
-            <a href={item.node.slug}>{edtImageArray[index]}</a>
+            <a href={item.node.slug}>{editionImages[index]}</a>
             <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allEditions.edges])
 
-  const renderPublicationsPosts = () => {
+  const renderPublicationsPosts = useMemo(() => {
     const arr = data.allPublications.edges
     return arr.map((item, index) => {
       return (
@@ -194,19 +185,19 @@ const IndexPage = ({ newsletterEmail }) => {
           key={crypto.randomBytes(6).toString("hex")}
         >
           <figure>
-            <a href={item.node.slug}>{pubImageArray[index]}</a>
+            <a href={item.node.slug}>{publicationImages[index]}</a>
             <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allPublications.edges])
 
-  const handleInputValue = value => {
+  const handleInputValue = (value) => {
     setInputValue(value)
   }
 
-  const handleNewsletterSubmit = e => {
+  const handleNewsletterSubmit = (e) => {
     e.preventDefault()
     const bodyFormData = {
       email: inputValue,
@@ -220,9 +211,8 @@ const IndexPage = ({ newsletterEmail }) => {
         "Content-Type": "application/json",
       },
     })
-      .then(data => {
+      .then((data) => {
         //handle success
-        console.log(data[0])
         setAlertClasses("alert alert-success")
         setAlertMessage("Your email has been registered successfully")
         setAlertOpacity("1")
@@ -267,17 +257,17 @@ const IndexPage = ({ newsletterEmail }) => {
       <main className="container">
         <section>
           <h2>News</h2>
-          <ul className="row list-unstyled">{renderNewsPosts()}</ul>
+          <ul className="row list-unstyled">{renderNewsPosts}</ul>
           <a href="/news">&gt; More News</a>
         </section>
         <section>
           <h2>Editions</h2>
-          <ul className="row list-unstyled">{renderEditionsPosts()}</ul>
+          <ul className="row list-unstyled">{renderEditionsPosts}</ul>
           <a href="/editions">&gt; More Editions</a>
         </section>
         <section>
           <h2>Publications</h2>
-          <ul className="row list-unstyled">{renderPublicationsPosts()}</ul>
+          <ul className="row list-unstyled">{renderPublicationsPosts}</ul>
           <a href="/publications">&gt; More Publications</a>
         </section>
         <section>
@@ -295,7 +285,7 @@ const IndexPage = ({ newsletterEmail }) => {
         </section>
         <section>
           <h2>Newsletter</h2>
-          <form onSubmit={e => handleNewsletterSubmit(e)}>
+          <form onSubmit={(e) => handleNewsletterSubmit(e)}>
             <label>Subscribe here for our newsletter</label>
             <div className="form-group row">
               <label htmlFor="email" className="col-2 col-form-label">
@@ -307,7 +297,7 @@ const IndexPage = ({ newsletterEmail }) => {
                   className="form-control"
                   id="email"
                   value={inputValue}
-                  onChange={e => handleInputValue(e.target.value)}
+                  onChange={(e) => handleInputValue(e.target.value)}
                   required
                 />
               </div>

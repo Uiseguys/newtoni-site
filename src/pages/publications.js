@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useMemo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
 // import { postsHomeScroll } from "../js/scroll"
+import { Image, Transformation } from "cloudinary-react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -26,39 +27,33 @@ const PublicationsPage = () => {
     }
   `)
 
-  const [pubImageArray, setPubImageArray] = useState([])
+  const publicationImages = useMemo(() => {
+    const arr = data.allPublications.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allPublications.edges])
 
-  useEffect(() => {
-    // Fetch Images for each post sections and save it to its respective
-    if (pubImageArray.length == 0) {
-      const fetchPubImages = async () => {
-        let promisedArr = await Promise.all(
-          data.allPublications.edges.map(async (item, index) => {
-            const imgArr = JSON.parse(item.node.image)
-            return await Promise.all(
-              imgArr.map(async (item, index) => {
-                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
-                return (
-                  <img
-                    key={crypto.randomBytes(6).toString("hex")}
-                    src={item.url}
-                  />
-                )
-              })
-            ).then(res => {
-              return res
-            })
-          })
-        ).then(res => {
-          setPubImageArray(res)
-        })
-        return
-      }
-      fetchPubImages()
-    }
-  })
-
-  const renderPublicationsPosts = () => {
+  const renderPublicationsPosts = useMemo(() => {
     const arr = data.allPublications.edges
     return arr.map((item, index) => {
       return (
@@ -67,13 +62,13 @@ const PublicationsPage = () => {
           key={crypto.randomBytes(6).toString("hex")}
         >
           <figure>
-            <a href={item.node.slug}>{pubImageArray[index]}</a>
+            <a href={item.node.slug}>{publicationImages[index]}</a>
             <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allPublications.edges])
 
   // postsHomeScroll()
 
@@ -91,7 +86,7 @@ const PublicationsPage = () => {
         <div className="row">
           <h1 className="col-4 offset-3">Latest Publications</h1>
         </div>
-        <ul className="row">{renderPublicationsPosts()}</ul>
+        <ul className="row">{renderPublicationsPosts}</ul>
       </main>
       <script src={data.postHomeScroll.publicURL}></script>
     </Layout>

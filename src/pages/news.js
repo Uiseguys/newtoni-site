@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useMemo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
@@ -6,6 +6,7 @@ import "../scss/pages/posts-home.scss"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { Image, Transformation } from "cloudinary-react"
 
 const NewsPage = () => {
   const data = useStaticQuery(graphql`
@@ -26,39 +27,33 @@ const NewsPage = () => {
     }
   `)
 
-  const [newsImageArray, setNewsImageArray] = useState([])
+  const newsImages = useMemo(() => {
+    const arr = data.allNews.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allNews.edges])
 
-  useEffect(() => {
-    // Fetch Images for each post sections and save it to its respective
-    if (newsImageArray.length == 0) {
-      const fetchNewsImages = async () => {
-        let promisedArr = await Promise.all(
-          data.allNews.edges.map(async (item, index) => {
-            const imgArr = JSON.parse(item.node.image)
-            return await Promise.all(
-              imgArr.map(async (item, index) => {
-                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
-                return (
-                  <img
-                    key={crypto.randomBytes(6).toString("hex")}
-                    src={item.url}
-                  />
-                )
-              })
-            ).then(res => {
-              return res
-            })
-          })
-        ).then(res => {
-          setNewsImageArray(res)
-        })
-        return
-      }
-      fetchNewsImages()
-    }
-  })
-
-  const renderNewsPosts = () => {
+  const renderNewsPosts = useMemo(() => {
     const arr = data.allNews.edges
     return arr.map((item, index) => {
       return (
@@ -67,13 +62,13 @@ const NewsPage = () => {
           key={crypto.randomBytes(6).toString("hex")}
         >
           <figure>
-            <a href={item.node.slug}>{newsImageArray[index]}</a>
+            <a href={item.node.slug}>{newsImages[index]}</a>
             <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allNews.edges])
 
   // postsHomeScroll()
 
@@ -90,7 +85,7 @@ const NewsPage = () => {
         <div className="row">
           <h1 className="col-4 offset-3">Latest News</h1>
         </div>
-        <ul className="row">{renderNewsPosts()}</ul>
+        <ul className="row">{renderNewsPosts}</ul>
       </main>
       <script src={data.postHomeScroll.publicURL}></script>
     </Layout>

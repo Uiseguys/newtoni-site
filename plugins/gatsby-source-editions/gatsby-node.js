@@ -10,13 +10,16 @@ exports.sourceNodes = async ({
     const data = await axios({
       method: "get",
       url: "https://newtoni-api.herokuapp.com/editions",
-    }).then(res => {
+    }).then((res) => {
       return res.data
     })
-    await data.forEach(item => {
+
+    await data.forEach((item) => {
+      let title = item.title.toLowerCase().replace(/\s/g, "-")
+      title = title.replace(/\-?\|\|.+\|\|\-?$/g, "")
       item = {
         ...item,
-        slug: `/editions/${item.title.toLowerCase().replace(/\s/g, "-")}`,
+        slug: `/editions/${title}`,
       }
       const nodeMeta = {
         id: createNodeId(`editions-${item.id}`),

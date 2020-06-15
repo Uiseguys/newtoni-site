@@ -46,11 +46,11 @@ const EditionsPage = () => {
                   />
                 )
               })
-            ).then(res => {
+            ).then((res) => {
               return res
             })
           })
-        ).then(res => {
+        ).then((res) => {
           setEdtImageArray(res)
         })
         return

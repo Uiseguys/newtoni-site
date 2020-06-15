@@ -19,6 +19,10 @@ module.exports.createPages = async ({ graphql, actions }) => {
       allNews {
         edges {
           node {
+            title
+            author
+            image
+            post
             slug
           }
         }
@@ -26,6 +30,10 @@ module.exports.createPages = async ({ graphql, actions }) => {
       allEditions {
         edges {
           node {
+            title
+            author
+            image
+            post
             slug
           }
         }
@@ -33,37 +41,54 @@ module.exports.createPages = async ({ graphql, actions }) => {
       allPublications {
         edges {
           node {
+            image
+            name
             slug
+            description
           }
         }
       }
     }
   `)
 
-  res.data.allNews.edges.forEach(edge => {
+  res.data.allNews.edges.forEach((edge) => {
     createPage({
       component: postTemplate,
       path: edge.node.slug,
       context: {
+        type: "news",
+        title: edge.node.title,
+        author: edge.node.author,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
+        post: edge.node.post,
         slug: edge.node.slug,
       },
     })
   })
-  res.data.allEditions.edges.forEach(edge => {
+  res.data.allEditions.edges.forEach((edge) => {
     createPage({
       component: postTemplate,
       path: edge.node.slug,
       context: {
+        type: "edition",
+        title: edge.node.title,
+        author: edge.node.author,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
+        post: edge.node.post,
         slug: edge.node.slug,
       },
     })
   })
-  res.data.allPublications.edges.forEach(edge => {
+  res.data.allPublications.edges.forEach((edge) => {
     createPage({
       component: postTemplate,
       path: edge.node.slug,
       context: {
+        type: "publication",
+        name: edge.node.name,
         slug: edge.node.slug,
+        description: edge.node.description,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
       },
     })
   })
