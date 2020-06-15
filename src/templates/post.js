@@ -29,14 +29,15 @@ const PostPage = ({ pageContext }) => {
       }),
     [pageContext.image]
   )
+
   const rellaxStyles = useMemo(() => {
     const widthMap = new Map()
-    widthMap[1] = "100vw"
-    widthMap[2] = "100vw 100vw"
-    widthMap[3] = "100vw 100vw 100vw"
-    widthMap[4] = "100vw 100vw 100vw 100vw"
-    widthMap[5] = "100vw 100vw 100vw 100vw 100vw"
-    widthMap[6] = "100vw 100vw 100vw 100vw 100vw 100vw"
+    widthMap.set(1, "100vw")
+    widthMap.set(2, "100vw 100vw")
+    widthMap.set(3, "100vw 100vw 100vw")
+    widthMap.set(4, "100vw 100vw 100vw 100vw")
+    widthMap.set(5, "100vw 100vw 100vw 100vw 100vw 100vw")
+    widthMap.set(6, "100vw 100vw 100vw 100vw 100vw 100vw 100vw")
     let stylesObj = {}
     if (pageContext.image.length > 0) {
       stylesObj["width"] = `${pageContext.image.length * 100}vw`
@@ -58,7 +59,11 @@ const PostPage = ({ pageContext }) => {
       <main className="container">
         <div className="row">
           <section className="col-6">
-            <div>{pageContext.post || pageContext.description}</div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: pageContext.post || pageContext.description,
+              }}
+            ></div>
           </section>
           <section className="col-6"></section>
         </div>
