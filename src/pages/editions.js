@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
-import { postsHomeScroll } from "../js/scroll"
+// import { postsHomeScroll } from "../js/scroll"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -11,76 +11,80 @@ import SEO from "../components/seo"
 const EditionsPage = () => {
   const data = useStaticQuery(graphql`
     {
-      editionsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "edition" } } }
-      ) {
+      allEditions {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            id
+            title
+            image
+            slug
           }
         }
       }
-      editionsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
-        }
+      postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
+        publicURL
       }
     }
   `)
 
-  const randomCryptoKey = arr => {
-    let keyArr = []
-    for (let i = 0; i < arr.length; i++) {
-      keyArr[i] = crypto.randomBytes(6).toString("hex")
+  const [edtImageArray, setEdtImageArray] = useState([])
+
+  useEffect(() => {
+    // Fetch Images for each post sections and save it to its respective
+    if (edtImageArray.length == 0) {
+      const fetchEdtImages = async () => {
+        let promisedArr = await Promise.all(
+          data.allEditions.edges.map(async (item, index) => {
+            const imgArr = JSON.parse(item.node.image)
+            return await Promise.all(
+              imgArr.map(async (item, index) => {
+                item.url = `https://newtoni-api.herokuapp.com/${item.url}`
+                return (
+                  <img
+                    key={crypto.randomBytes(6).toString("hex")}
+                    src={item.url}
+                  />
+                )
+              })
+            ).then((res) => {
+              return res
+            })
+          })
+        ).then((res) => {
+          setEdtImageArray(res)
+        })
+        return
+      }
+      fetchEdtImages()
     }
-    return keyArr
-  }
+  })
 
   const renderEditionsPosts = () => {
-    const arr = data.editionsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.editionsImageNodes.nodes
-    const keyArr = randomCryptoKey(arr)
+    const arr = data.allEditions.edges
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li
+          className="col-sm-12 col-md-6 col-lg-4"
+          key={crypto.randomBytes(6).toString("hex")}
+        >
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
+            <a href={item.node.slug}>{edtImageArray[index]}</a>
             <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
+              <i>{item.node.title}</i>
+              <small>{item.node.author}</small>
               <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
+              <small>{item.node.date}</small>
             </figcaption>
           </figure>
         </li>
       )
     })
   }
-
-  postsHomeScroll()
+  // postsHomeScroll()
 
   return (
     <Layout>
-      <SEO title="News" />
+      <SEO title="Editions" />
       <nav>
         <span id="editions">
           E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
@@ -93,6 +97,7 @@ const EditionsPage = () => {
         </div>
         <ul className="row">{renderEditionsPosts()}</ul>
       </main>
+      <script src={data.postHomeScroll.publicURL}></script>
     </Layout>
   )
 }

@@ -7,63 +7,88 @@
 // You can delete this file if you're not using it
 const path = require("path")
 
-module.exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions
-
-  // Create slugs for Markdown documents
-  if (node.internal.type === "MarkdownRemark") {
-    const slug = path.basename(node.fileAbsolutePath, ".md")
-    if (node.frontmatter.type == "news") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "news/" + slug,
-      })
-    }
-    if (node.frontmatter.type == "edition") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "edition/" + slug,
-      })
-    }
-    if (node.frontmatter.type == "publication") {
-      createNodeField({
-        node,
-        name: "slug",
-        value: "publication/" + slug,
-      })
-    }
-  }
-}
-
 module.exports.createPages = async ({ graphql, actions }) => {
   // 1. Get Path to template
   // 2. Get markdown data
   // 3. Create new pages
   const { createPage } = actions
   const postTemplate = path.resolve("src/templates/post.js")
-  // Get markdown slugs
+  // Get all posts from each section and create a page for each
   const res = await graphql(`
     query {
-      allMarkdownRemark {
+      allNews {
         edges {
           node {
-            fields {
-              slug
-            }
+            title
+            author
+            image
+            post
+            slug
+          }
+        }
+      }
+      allEditions {
+        edges {
+          node {
+            title
+            author
+            image
+            post
+            slug
+          }
+        }
+      }
+      allPublications {
+        edges {
+          node {
+            image
+            name
+            slug
+            description
           }
         }
       }
     }
   `)
 
-  res.data.allMarkdownRemark.edges.forEach(edge => {
+  res.data.allNews.edges.forEach((edge) => {
     createPage({
       component: postTemplate,
-      path: edge.node.fields.slug,
+      path: edge.node.slug,
       context: {
-        slug: edge.node.fields.slug,
+        type: "news",
+        title: edge.node.title,
+        author: edge.node.author,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
+        post: edge.node.post,
+        slug: edge.node.slug,
+      },
+    })
+  })
+  res.data.allEditions.edges.forEach((edge) => {
+    createPage({
+      component: postTemplate,
+      path: edge.node.slug,
+      context: {
+        type: "edition",
+        title: edge.node.title,
+        author: edge.node.author,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
+        post: edge.node.post,
+        slug: edge.node.slug,
+      },
+    })
+  })
+  res.data.allPublications.edges.forEach((edge) => {
+    createPage({
+      component: postTemplate,
+      path: edge.node.slug,
+      context: {
+        type: "publication",
+        name: edge.node.name,
+        slug: edge.node.slug,
+        description: edge.node.description,
+        image: edge.node.image ? JSON.parse(edge.node.image) : [],
       },
     })
   })

@@ -1,82 +1,76 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
-import { postsHomeScroll } from "../js/scroll"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { Image, Transformation } from "cloudinary-react"
 
 const NewsPage = () => {
   const data = useStaticQuery(graphql`
-    {
-      newsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "news" } } }
-      ) {
+    query {
+      allNews {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            id
+            title
+            image
+            slug
           }
         }
       }
-      newsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "news-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
-        }
+      postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
+        publicURL
       }
     }
   `)
 
-  const randomCryptoKey = arr => {
-    let keyArr = []
-    for (let i = 0; i < arr.length; i++) {
-      keyArr[i] = crypto.randomBytes(6).toString("hex")
-    }
-    return keyArr
-  }
+  const newsImages = useMemo(() => {
+    const arr = data.allNews.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allNews.edges])
 
-  const renderNewsPosts = () => {
-    const arr = data.newsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.newsImageNodes.nodes
-    const keyArr = randomCryptoKey(arr)
+  const renderNewsPosts = useMemo(() => {
+    const arr = data.allNews.edges
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li
+          className="col-sm-12 col-md-6 col-lg-4"
+          key={crypto.randomBytes(6).toString("hex")}
+        >
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
-            <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
-              <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
-            </figcaption>
+            <a href={item.node.slug}>{newsImages[index]}</a>
+            <figcaption>{item.node.title}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allNews.edges])
 
-  postsHomeScroll()
+  // postsHomeScroll()
 
   return (
     <Layout>
@@ -91,8 +85,9 @@ const NewsPage = () => {
         <div className="row">
           <h1 className="col-4 offset-3">Latest News</h1>
         </div>
-        <ul className="row">{renderNewsPosts()}</ul>
+        <ul className="row">{renderNewsPosts}</ul>
       </main>
+      <script src={data.postHomeScroll.publicURL}></script>
     </Layout>
   )
 }

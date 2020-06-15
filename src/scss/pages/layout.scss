@@ -1,6 +1,19 @@
-// Bootstrap Imports
-@import "../bootstrap/bootstrap-grid";
-@import "../bootstrap/bootstrap-reboot";
+// Bootstrap Base Imports
+@import "../bootstrap/functions";
+@import "../bootstrap/variables";
+@import "../bootstrap/mixins";
+@import "../bootstrap/reboot";
+
+// Bootstrap Components
+@import "../bootstrap/grid";
+@import "../bootstrap/buttons";
+@import "../bootstrap/forms";
+@import "../bootstrap/alert";
+
+// Bootstrap Utilities for Grid
+@import "../bootstrap/utilities/display";
+@import "../bootstrap/utilities/flex";
+@import "../bootstrap/utilities/spacing";
 
 // Custom Styles
 @import "../globals/fonts";

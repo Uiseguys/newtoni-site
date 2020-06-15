@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import crypto from "crypto"
 import Header from "../components/header"
 import "../scss/pages/posts-home.scss"
-import { postsHomeScroll } from "../js/scroll"
+// import { postsHomeScroll } from "../js/scroll"
+import { Image, Transformation } from "cloudinary-react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -11,76 +12,69 @@ import SEO from "../components/seo"
 const PublicationsPage = () => {
   const data = useStaticQuery(graphql`
     {
-      publicationsPosts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        limit: 3
-        filter: { frontmatter: { type: { eq: "publication" } } }
-      ) {
+      allPublications {
         edges {
           node {
-            frontmatter {
-              title
-              date(fromNow: true)
-              author
-            }
-            fields {
-              slug
-            }
+            image
+            name
+            slug
           }
         }
       }
-      publicationsImageNodes: allFile(
-        filter: { relativeDirectory: { eq: "publications-images" } }
-      ) {
-        nodes {
-          name
-          publicURL
-        }
+      postHomeScroll: file(ext: { eq: ".js" }, name: { eq: "postHomeScroll" }) {
+        publicURL
       }
     }
   `)
 
-  const randomCryptoKey = arr => {
-    let keyArr = []
-    for (let i = 0; i < arr.length; i++) {
-      keyArr[i] = crypto.randomBytes(6).toString("hex")
-    }
-    return keyArr
-  }
+  const publicationImages = useMemo(() => {
+    const arr = data.allPublications.edges
+    return arr.map((item, index) => {
+      const imgArr = item.node.image ? JSON.parse(item.node.image) : []
+      return imgArr.map((item, index) => {
+        if (item) {
+          return (
+            <Image
+              key={crypto.randomBytes(6).toString("hex")}
+              cloudName="schneckenhof"
+              publicId={item}
+              secure="true"
+            >
+              <Transformation
+                width="auto"
+                height="182"
+                crop="scale"
+              ></Transformation>
+            </Image>
+          )
+        }
+        return null
+      })
+    })
+  }, [data.allPublications.edges])
 
-  const renderPublicationsPosts = () => {
-    const arr = data.publicationsPosts.edges
-    // Image Array Nodes
-    const imgArr = data.publicationsImageNodes.nodes
-    const keyArr = randomCryptoKey(arr)
+  const renderPublicationsPosts = useMemo(() => {
+    const arr = data.allPublications.edges
     return arr.map((item, index) => {
       return (
-        <li className="col-6 offset-3" key={keyArr[index]}>
+        <li
+          className="col-sm-12 col-md-6 col-lg-4"
+          key={crypto.randomBytes(6).toString("hex")}
+        >
           <figure>
-            <div className="img-container">
-              <img src={imgArr[index].publicURL} />
-            </div>
-            <figcaption>
-              <a href={item.node.fields.slug}>
-                <i>{item.node.frontmatter.title}</i>
-              </a>
-              <br />
-              <small>{item.node.frontmatter.author}</small>
-              <br />
-              <small>{item.node.frontmatter.date}</small>
-              <br />
-            </figcaption>
+            <a href={item.node.slug}>{publicationImages[index]}</a>
+            <figcaption>{item.node.name}</figcaption>
           </figure>
         </li>
       )
     })
-  }
+  }, [data.allPublications.edges])
 
-  postsHomeScroll()
+  // postsHomeScroll()
 
   return (
     <Layout>
-      <SEO title="News" />
+      <SEO title="Publications" />
       <nav>
         <span id="publications">
           P<br />u<br />b<br />l<br />i<br />c<br />a<br />t<br />i<br />o<br />
@@ -92,8 +86,9 @@ const PublicationsPage = () => {
         <div className="row">
           <h1 className="col-4 offset-3">Latest Publications</h1>
         </div>
-        <ul className="row">{renderPublicationsPosts()}</ul>
+        <ul className="row">{renderPublicationsPosts}</ul>
       </main>
+      <script src={data.postHomeScroll.publicURL}></script>
     </Layout>
   )
 }

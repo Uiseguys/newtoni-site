@@ -5,8 +5,28 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-source-news`,
+    `gatsby-source-editions`,
+    `gatsby-source-publications`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
+    // Passing parameters (passed to apollo-link)
+    /* {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "GitHub",
+        fieldName: "github",
+        // Url to query from
+        url: "https://api.github.com/graphql",
+        // HTTP headers
+        headers: {
+          // Learn about environment variables: https://gatsby.dev/env-vars
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        },
+        // Additional options to pass to node-fetch
+        fetchOptions: {},
+      },
+    }, */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -19,6 +39,13 @@ module.exports = {
       options: {
         name: `markdown`,
         path: `${__dirname}/src/markdown`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `js`,
+        path: `${__dirname}/src/js`,
       },
     },
     `gatsby-transformer-sharp`,
