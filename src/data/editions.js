@@ -1,0 +1,1 @@
+const editionsArr = [{"id":3,"seo":{},"title":"new edition","author":"New Toni","post":"<p>What when today</p>","image":"[\"newtoni/e_ers_sml_6.jpg\"]","create_time":"2019-10-30T13:13:41.272Z","update_time":"2019-10-30T13:13:41.272Z","slug":"/editions/new-edition"}]; export default editionsArr;
