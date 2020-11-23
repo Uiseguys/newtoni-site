@@ -1,11 +1,10 @@
-// @import '../components/header';
-// @import '../components/sticky-nav';
+@import '../../scss/sticky-nav';
 
 // Media Queries for Grid Breakpoints for News,
 // Editions and Publications sections
 // sm breakpoint
 @media (min-width: 576px) {
-  main {
+  .landing-page {
     section {
       ul.row.list-unstyled {
         li {
@@ -22,7 +21,7 @@
 
 // md breakpoint
 @media (min-width: 768px) {
-  main {
+  .landing-page {
     section {
       ul.row {
         li {
@@ -41,7 +40,7 @@
 
 // lg breakpoint
 @media (min-width: 992px) {
-  main {
+  .landing-page {
     section {
       ul.row {
         li {

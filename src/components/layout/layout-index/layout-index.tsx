@@ -4,7 +4,6 @@ import Helmet from '@stencil/helmet';
 @Component({
   tag: 'layout-index',
   styleUrl: 'layout-index.scss',
-  shadow: true,
 })
 export class LayoutIndex {
   @Prop() pageTitle: string;

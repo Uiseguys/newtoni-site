@@ -1,13 +1,9 @@
-import { Component, State, h } from '@stencil/core';
+import { Component, State, Prop, h } from '@stencil/core';
 import axios from 'axios';
-import newsArr from '../../../data/news';
-import editionsArr from '../../../data/editions';
-import publicationsArr from '../../../data/publications.js';
 
 @Component({
   tag: 'landing-page',
   styleUrl: 'landing-page.scss',
-  shadow: true,
 })
 export class LandingPage {
   @State() alertOpacity: string = '0';
@@ -15,86 +11,43 @@ export class LandingPage {
   @State() alertClasses: string = 'alert alert-info';
   @State() inputValue: string = '';
 
-  componentWillRender() {
-    console.log(newsArr);
-    this.newsImages = this.newsImages();
-    this.editionImages = this.editionImages();
-    this.publicationImages = this.publicationImages();
+  @Prop() latestNews: Array<any>;
+  @Prop() latestEditions: Array<any>;
+  @Prop() latestPublications: Array<any>;
+
+  private newsImages: Array<any>;
+  private editionsImages: Array<any>;
+  private publicationsImages: Array<any>;
+
+  getImages(arr) {
+    return arr.map(item => {
+      const imgArr = item.image ? JSON.parse(item.image) : [];
+      return imgArr.map(item => {
+        if (item) {
+          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="scale" />;
+        }
+        return null;
+      });
+    });
   }
 
-  newsImages = () => {
-    return newsArr.map((item, index) => {
-      const imgArr = item.image ? JSON.parse(item.image) : [];
-      return imgArr.map((item, index) => {
-        if (item) {
-          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="scale" />;
-        }
-        return null;
-      });
-    });
-  };
+  componentWillRender() {
+    this.newsImages = this.getImages(this.latestNews);
+    this.editionsImages = this.getImages(this.latestEditions);
+    this.publicationsImages = this.getImages(this.latestPublications);
+  }
 
-  editionImages = () => {
-    return editionsArr.map((item, index) => {
-      const imgArr = item.image ? JSON.parse(item.image) : [];
-      return imgArr.map((item, index) => {
-        if (item) {
-          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="scale" />;
-        }
-        return null;
-      });
-    });
-  };
-
-  publicationImages = () => {
-    return publicationsArr.map((item, index) => {
-      const imgArr = item.image ? JSON.parse(item.image) : [];
-      return imgArr.map((item, index) => {
-        if (item) {
-          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="scale" />;
-        }
-        return null;
-      });
-    });
-  };
-
-  renderNewsPosts = () => {
-    return newsArr.map((item, index) => {
-      return (
-        <li class="col-sm-12 col-md-6 col-lg-4" key={Math.random() /*crypto.randomBytes(6).toString('hex') */}>
-          <figure>
-            <a href={item.slug}>{this.newsImages[index]}</a>
-            <figcaption>{item.title}</figcaption>
-          </figure>
-        </li>
-      );
-    });
-  };
-
-  renderEditionsPosts = () => {
-    return editionsArr.map((item, index) => {
-      return (
-        <li class="col-sm-12 col-md-6 col-lg-4" key={Math.random() /* crypto.randomBytes(6).toString('hex') */}>
-          <figure>
-            <a href={item.slug}>{this.editionImages[index]}</a>
-            <figcaption>{item.title}</figcaption>
-          </figure>
-        </li>
-      );
-    });
-  };
-
-  renderPublicationsPosts = () => {
-    return publicationsArr.map((item, index) => {
-      return (
-        <li class="col-sm-12 col-md-6 col-lg-4" key={Math.random() /* crypto.randomBytes(6).toString('hex') */}>
-          <figure>
-            <a href={item.slug}>{this.publicationImages[index]}</a>
-            <figcaption>{item.name}</figcaption>
-          </figure>
-        </li>
-      );
-    });
+  getPosts = (arr, type) => {
+    return arr.map((item, index) => (
+      <li class="col-sm-12 col-md-6 col-lg-4" key={Math.random() /*crypto.randomBytes(6).toString('hex') */}>
+        <figure>
+          <stencil-route-link url={item.slug}>
+            {(type == 1 && this.newsImages[index]) || (type == 2 && this.editionsImages[index]) || (type == 3 && this.publicationsImages[index])}
+          </stencil-route-link>
+          <figcaption>{item?.name || item.title}</figcaption>
+        </figure>
+      </li>
+    ));
   };
 
   handleInputValue = e => {
@@ -115,7 +68,7 @@ export class LandingPage {
         'Content-Type': 'application/json',
       },
     })
-      .then(data => {
+      .then(_ => {
         //handle success
         this.alertClasses = 'alert alert-success';
         this.alertMessage = 'Your email has been registered successfully';
@@ -138,21 +91,22 @@ export class LandingPage {
   render() {
     return (
       <layout-index page-title="Home" description="An Art Exhbition website set in Berlin">
-        <main class="container">
+        <layout-header />
+        <div class="landing-page container">
           <section>
             <h2>News</h2>
-            <ul class="row list-unstyled">{this.renderNewsPosts()}</ul>
-            <a href="/news">&gt; More News</a>
+            <ul class="row list-unstyled">{this.getPosts(this.latestNews, 1)}</ul>
+            <stencil-route-link url="/news">&gt; More News</stencil-route-link>
           </section>
           <section>
             <h2>Editions</h2>
-            <ul class="row list-unstyled">{this.renderEditionsPosts()}</ul>
-            <a href="/editions">&gt; More Editions</a>
+            <ul class="row list-unstyled">{this.getPosts(this.latestEditions, 2)}</ul>
+            <stencil-route-link url="/editions">&gt; More Editions</stencil-route-link>
           </section>
           <section>
             <h2>Publications</h2>
-            <ul class="row list-unstyled">{this.renderPublicationsPosts()}</ul>
-            <a href="/publications">&gt; More Publications</a>
+            <ul class="row list-unstyled">{this.getPosts(this.latestPublications, 3)}</ul>
+            <stencil-route-link url="/publications">&gt; More Publications</stencil-route-link>
           </section>
           <section>
             <h2>Contact</h2>
@@ -198,7 +152,7 @@ export class LandingPage {
               </p>
             </aside>
           </section>
-        </main>
+        </div>
       </layout-index>
     );
   }

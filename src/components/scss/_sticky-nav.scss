@@ -1,0 +1,10 @@
+nav {
+  position: fixed;
+  span {
+    visibility: hidden;
+    position: absolute;
+    font-size: 2rem;
+    top: 1vh;
+    left: 3vw;
+  }
+}

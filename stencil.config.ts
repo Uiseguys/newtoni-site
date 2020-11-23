@@ -9,7 +9,7 @@ export const config: Config = {
   globalScript: 'src/global/app.ts',
   taskQueue: 'async',
   plugins: [sass()],
-  bundles: [{ components: ['app-root', 'c-image', 'layout-index', 'layout-header', 'layout-footer', 'landing-page'] }],
+  bundles: [{ components: ['app-root', 'c-image', 'layout-index', 'layout-header', 'layout-footer', 'landing-page', 'posts-landing'] }],
   outputTargets: [
     {
       type: 'www',

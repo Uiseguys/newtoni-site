@@ -1776,13 +1776,7 @@ axios_1.default = _default;
 
 var axios$1 = axios_1;
 
-const newsArr = [{"id":41,"seo":{},"title":"Lesung und Gespräch mit Anne Wundrak || Меня зовут Анне ||","author":"New Toni","post":"Lesung und Gespräch mit Anne Wundrak\n\nSamstag, 28. September, um 19 Uhr\n \n\nNew Toni\nImmanuelkirchstr. 15\n10405 Berlin\n","image":"[\"newtoni/e_ers_sml_2.jpg\"]","create_time":"2019-10-30T13:07:47.733Z","update_time":null,"slug":"/news/lesung-und-gespräch-mit-anne-wundrak"},{"id":42,"seo":{},"title":"Lesung und Gespräch mit Anne Wundrak || Меня зовут Анне || ","author":"New Toni","post":"Lesung und Gespräch mit Anne Wundrak || Меня зовут Анне || ","image":"[\"newtoni/e_ers_sml_1.jpg\"]","create_time":"2019-10-30T13:09:20.622Z","update_time":null,"slug":"/news/lesung-und-gespräch-mit-anne-wundrak"},{"id":43,"seo":{},"title":"Lesung und Gespräch mit Anne Wundrak || Меня зовут Анне || ","author":"New Toni","post":"<p>Lesung und Gespräch mit Anne Wundrak || Меня зовут Анне ||</p>","image":"[\"newtoni/schwan.jpg\"]","create_time":"2019-10-30T13:10:12.062Z","update_time":"2020-06-15T11:30:24.748Z","slug":"/news/lesung-und-gespräch-mit-anne-wundrak"}];
-
-const editionsArr = [{"id":3,"seo":{},"title":"new edition","author":"New Toni","post":"<p>What when today</p>","image":"[\"newtoni/e_ers_sml_6.jpg\"]","create_time":"2019-10-30T13:13:41.272Z","update_time":"2019-10-30T13:13:41.272Z","slug":"/editions/new-edition"}];
-
-const publicationsArr = [{"id":2,"seo":{},"name":"e_eers","price":3,"image":"[\"newtoni/e_ers_sml_1.jpg\",\"newtoni/e_ers_sml_2.jpg\",\"newtoni/e_ers_sml_3.jpg\",\"newtoni/e_ers_sml_4.jpg\",\"newtoni/e_ers_sml_5.jpg\",\"newtoni/e_ers_sml_6.jpg\"]","availability":true,"content":0,"priority":0,"no":0,"description":"<p>Malte Lochstedt</p>","slug":"/publications/e_eers"}];
-
-const landingPageCss = "@media (min-width: 576px){main section ul.row.list-unstyled li{height:50vh;border:none}main section ul.row.list-unstyled li img{height:70vh}}@media (min-width: 768px){main section ul.row li{height:50vh}main section ul.row li:nth-child(3){border-left:none}main section ul.row li img{height:70vh}}@media (min-width: 992px){main section ul.row li{height:30vh}main section ul.row li img{height:50vh}}@keyframes showMe{0%{visibility:visible;z-index:100}25%{visibility:hidden;z-index:0}50%{visibility:hidden;z-index:0}75%{visibility:hidden;z-index:0}100%{visibility:visible;z-index:100}}.alert{max-width:none;width:50vw;margin-top:5vh;margin-left:25vw;z-index:500;text-align:center;transition:opacity 1s}main{box-sizing:content-box}main section{text-align:right}main section:nth-child(1) h2{margin-top:0}main section h2{text-align:left;margin-top:3rem;margin-bottom:1.5rem}main section ul.row{list-style:none !important;margin:0 !important;padding:0 !important;width:100%}main section ul.row li{height:30vh;width:100%;padding:0;margin-bottom:0;overflow:hidden}main section ul.row li:nth-child(1){border-right:inset 20px transparent}main section ul.row li:nth-child(2){border-left:inset 10px transparent;border-right:inset 10px transparent}main section ul.row li:nth-child(3){border-left:inset 20px transparent}main section ul.row li:hover{cursor:pointer}main section ul.row li:hover figure img{animation-play-state:running}main section ul.row li:hover figcaption{opacity:1;box-shadow:0 0 0 5px rgba(255, 255, 255, 0.3) inset}main section ul.row li figure a img{max-height:40vh !important;top:0;left:0;position:absolute;animation:showMe 4s linear infinite 0s forwards;animation-play-state:paused}main section ul.row li figure a img:nth-child(1){z-index:9}main section ul.row li figure a img:nth-child(2){animation-delay:1s;z-index:8}main section ul.row li figure a img:nth-child(3){animation-delay:2s;z-index:7}main section ul.row li figure a img:nth-child(4){animation-delay:3s;z-index:6}main section ul.row li figure a img:nth-child(2),main section ul.row li figure a img:nth-child(3),main section ul.row li figure a img:nth-child(4){visibility:hidden}main section ul.row li figure figcaption{margin-top:42vh;opacity:0;z-index:500;background:rgba(255, 255, 255, 0.3) inset;pointer-events:none;text-align:center;vertical-align:middle;transition:all 0.3s linear}main section ul.row li figure figcaption h3{margin-top:10vh}main section a{display:block}main section a:link{color:#000}main section aside{text-align:left;line-height:1em}main section form{text-align:left}";
+const landingPageCss = "nav{position:fixed}nav span{visibility:hidden;position:absolute;font-size:2rem;top:1vh;left:3vw}@media (min-width: 576px){.landing-page section ul.row.list-unstyled li{height:50vh;border:none}.landing-page section ul.row.list-unstyled li img{height:70vh}}@media (min-width: 768px){.landing-page section ul.row li{height:50vh}.landing-page section ul.row li:nth-child(3){border-left:none}.landing-page section ul.row li img{height:70vh}}@media (min-width: 992px){.landing-page section ul.row li{height:30vh}.landing-page section ul.row li img{height:50vh}}@keyframes showMe{0%{visibility:visible;z-index:100}25%{visibility:hidden;z-index:0}50%{visibility:hidden;z-index:0}75%{visibility:hidden;z-index:0}100%{visibility:visible;z-index:100}}.alert{max-width:none;width:50vw;margin-top:5vh;margin-left:25vw;z-index:500;text-align:center;transition:opacity 1s}main{box-sizing:content-box}main section{text-align:right}main section:nth-child(1) h2{margin-top:0}main section h2{text-align:left;margin-top:3rem;margin-bottom:1.5rem}main section ul.row{list-style:none !important;margin:0 !important;padding:0 !important;width:100%}main section ul.row li{height:30vh;width:100%;padding:0;margin-bottom:0;overflow:hidden}main section ul.row li:nth-child(1){border-right:inset 20px transparent}main section ul.row li:nth-child(2){border-left:inset 10px transparent;border-right:inset 10px transparent}main section ul.row li:nth-child(3){border-left:inset 20px transparent}main section ul.row li:hover{cursor:pointer}main section ul.row li:hover figure img{animation-play-state:running}main section ul.row li:hover figcaption{opacity:1;box-shadow:0 0 0 5px rgba(255, 255, 255, 0.3) inset}main section ul.row li figure a img{max-height:40vh !important;top:0;left:0;position:absolute;animation:showMe 4s linear infinite 0s forwards;animation-play-state:paused}main section ul.row li figure a img:nth-child(1){z-index:9}main section ul.row li figure a img:nth-child(2){animation-delay:1s;z-index:8}main section ul.row li figure a img:nth-child(3){animation-delay:2s;z-index:7}main section ul.row li figure a img:nth-child(4){animation-delay:3s;z-index:6}main section ul.row li figure a img:nth-child(2),main section ul.row li figure a img:nth-child(3),main section ul.row li figure a img:nth-child(4){visibility:hidden}main section ul.row li figure figcaption{margin-top:42vh;opacity:0;z-index:500;background:rgba(255, 255, 255, 0.3) inset;pointer-events:none;text-align:center;vertical-align:middle;transition:all 0.3s linear}main section ul.row li figure figcaption h3{margin-top:10vh}main section a{display:block}main section a:link{color:#000}main section aside{text-align:left;line-height:1em}main section form{text-align:left}";
 
 const LandingPage = class {
   constructor(hostRef) {
@@ -1791,53 +1785,8 @@ const LandingPage = class {
     this.alertMessage = '';
     this.alertClasses = 'alert alert-info';
     this.inputValue = '';
-    this.newsImages = () => {
-      return newsArr.map((item, index) => {
-        const imgArr = item.image ? JSON.parse(item.image) : [];
-        return imgArr.map((item, index) => {
-          if (item) {
-            return h("c-image", { account: "schneckenhof", alias: item, width: "auto", height: 182, crop: "scale" });
-          }
-          return null;
-        });
-      });
-    };
-    this.editionImages = () => {
-      return editionsArr.map((item, index) => {
-        const imgArr = item.image ? JSON.parse(item.image) : [];
-        return imgArr.map((item, index) => {
-          if (item) {
-            return h("c-image", { account: "schneckenhof", alias: item, width: "auto", height: 182, crop: "scale" });
-          }
-          return null;
-        });
-      });
-    };
-    this.publicationImages = () => {
-      return publicationsArr.map((item, index) => {
-        const imgArr = item.image ? JSON.parse(item.image) : [];
-        return imgArr.map((item, index) => {
-          if (item) {
-            return h("c-image", { account: "schneckenhof", alias: item, width: "auto", height: 182, crop: "scale" });
-          }
-          return null;
-        });
-      });
-    };
-    this.renderNewsPosts = () => {
-      return newsArr.map((item, index) => {
-        return (h("li", { class: "col-sm-12 col-md-6 col-lg-4", key: Math.random() /*crypto.randomBytes(6).toString('hex') */ }, h("figure", null, h("a", { href: item.slug }, this.newsImages[index]), h("figcaption", null, item.title))));
-      });
-    };
-    this.renderEditionsPosts = () => {
-      return editionsArr.map((item, index) => {
-        return (h("li", { class: "col-sm-12 col-md-6 col-lg-4", key: Math.random() /* crypto.randomBytes(6).toString('hex') */ }, h("figure", null, h("a", { href: item.slug }, this.editionImages[index]), h("figcaption", null, item.title))));
-      });
-    };
-    this.renderPublicationsPosts = () => {
-      return publicationsArr.map((item, index) => {
-        return (h("li", { class: "col-sm-12 col-md-6 col-lg-4", key: Math.random() /* crypto.randomBytes(6).toString('hex') */ }, h("figure", null, h("a", { href: item.slug }, this.publicationImages[index]), h("figcaption", null, item.name))));
-      });
+    this.getPosts = (arr, type) => {
+      return arr.map((item, index) => (h("li", { class: "col-sm-12 col-md-6 col-lg-4", key: Math.random() /*crypto.randomBytes(6).toString('hex') */ }, h("figure", null, h("stencil-route-link", { url: item.slug }, (type == 1 && this.newsImages[index]) || (type == 2 && this.editionsImages[index]) || (type == 3 && this.publicationsImages[index])), h("figcaption", null, (item === null || item === void 0 ? void 0 : item.name) || item.title)))));
     };
     this.handleInputValue = e => {
       this.inputValue = e.target.value;
@@ -1856,7 +1805,7 @@ const LandingPage = class {
           'Content-Type': 'application/json',
         },
       })
-        .then(data => {
+        .then(_ => {
         //handle success
         this.alertClasses = 'alert alert-success';
         this.alertMessage = 'Your email has been registered successfully';
@@ -1876,14 +1825,24 @@ const LandingPage = class {
       });
     };
   }
+  getImages(arr) {
+    return arr.map(item => {
+      const imgArr = item.image ? JSON.parse(item.image) : [];
+      return imgArr.map(item => {
+        if (item) {
+          return h("c-image", { account: "schneckenhof", alias: item, width: "auto", height: 182, crop: "scale" });
+        }
+        return null;
+      });
+    });
+  }
   componentWillRender() {
-    console.log(newsArr);
-    this.newsImages = this.newsImages();
-    this.editionImages = this.editionImages();
-    this.publicationImages = this.publicationImages();
+    this.newsImages = this.getImages(this.latestNews);
+    this.editionsImages = this.getImages(this.latestEditions);
+    this.publicationsImages = this.getImages(this.latestPublications);
   }
   render() {
-    return (h("layout-index", { "page-title": "Home", description: "An Art Exhbition website set in Berlin" }, h("main", { class: "container" }, h("section", null, h("h2", null, "News"), h("ul", { class: "row list-unstyled" }, this.renderNewsPosts()), h("a", { href: "/news" }, "> More News")), h("section", null, h("h2", null, "Editions"), h("ul", { class: "row list-unstyled" }, this.renderEditionsPosts()), h("a", { href: "/editions" }, "> More Editions")), h("section", null, h("h2", null, "Publications"), h("ul", { class: "row list-unstyled" }, this.renderPublicationsPosts()), h("a", { href: "/publications" }, "> More Publications")), h("section", null, h("h2", null, "Contact"), h("aside", null, h("p", null, "New Toni Press ", h("br", null), "Immanuelkirchstrasse 15", h("br", null), "10407 Berlin", h("br", null), "mail@newtoni.press"))), h("section", null, h("h2", null, "Newsletter"), h("form", { onSubmit: e => this.handleNewsletterSubmit(e) }, h("label", null, "Subscribe here for our newsletter"), h("div", { class: "form-group row" }, h("label", { htmlFor: "email", class: "col-2 col-form-label" }, "Email"), h("div", { class: "col-6" }, h("input", { type: "email", class: "form-control", id: "email", value: this.inputValue, onChange: e => this.handleInputValue(e), required: true }))), h("button", { type: "submit", class: "btn" }, "Subscribe"))), h("section", null, h("h2", null, "Imprint"), h("aside", null, h("p", null, "responsible for this website are Thomas Hesse and Felix Toth"), h("p", null, "New Toni Press ", h("br", null), "Immanuelkirchstrasse 15", h("br", null), "10407 Berlin", h("br", null), "contact@newtoni.press"))))));
+    return (h("layout-index", { "page-title": "Home", description: "An Art Exhbition website set in Berlin" }, h("layout-header", null), h("div", { class: "landing-page container" }, h("section", null, h("h2", null, "News"), h("ul", { class: "row list-unstyled" }, this.getPosts(this.latestNews, 1)), h("stencil-route-link", { url: "/news" }, "> More News")), h("section", null, h("h2", null, "Editions"), h("ul", { class: "row list-unstyled" }, this.getPosts(this.latestEditions, 2)), h("stencil-route-link", { url: "/editions" }, "> More Editions")), h("section", null, h("h2", null, "Publications"), h("ul", { class: "row list-unstyled" }, this.getPosts(this.latestPublications, 3)), h("stencil-route-link", { url: "/publications" }, "> More Publications")), h("section", null, h("h2", null, "Contact"), h("aside", null, h("p", null, "New Toni Press ", h("br", null), "Immanuelkirchstrasse 15", h("br", null), "10407 Berlin", h("br", null), "mail@newtoni.press"))), h("section", null, h("h2", null, "Newsletter"), h("form", { onSubmit: e => this.handleNewsletterSubmit(e) }, h("label", null, "Subscribe here for our newsletter"), h("div", { class: "form-group row" }, h("label", { htmlFor: "email", class: "col-2 col-form-label" }, "Email"), h("div", { class: "col-6" }, h("input", { type: "email", class: "form-control", id: "email", value: this.inputValue, onChange: e => this.handleInputValue(e), required: true }))), h("button", { type: "submit", class: "btn" }, "Subscribe"))), h("section", null, h("h2", null, "Imprint"), h("aside", null, h("p", null, "responsible for this website are Thomas Hesse and Felix Toth"), h("p", null, "New Toni Press ", h("br", null), "Immanuelkirchstrasse 15", h("br", null), "10407 Berlin", h("br", null), "contact@newtoni.press"))))));
   }
 };
 LandingPage.style = landingPageCss;

@@ -17,7 +17,15 @@ const fetchNews = () => {
         };
         return item;
       });
-      const stringData = `const newsArr = ${JSON.stringify(data)}; export default newsArr;`;
+      const stringData = `const newsArr = ${JSON.stringify(
+        data.sort((a, b) => {
+          const dateA = Date.parse(a.update_time ? a.update_time : a.create_time);
+          const dateB = Date.parse(b.update_time ? b.update_time : b.create_time);
+          if (dateA < dateB) return 1;
+          if (dateA > dateB) return -1;
+          return 0;
+        }),
+      )}; export default newsArr;`;
       fs.writeFile('src/data/news.js', stringData, err => {
         if (err) throw err;
         console.log('News json file has been created');
@@ -43,7 +51,15 @@ const fetchEditions = () => {
         };
         return item;
       });
-      const stringData = `const editionsArr = ${JSON.stringify(data)}; export default editionsArr;`;
+      const stringData = `const editionsArr = ${JSON.stringify(
+        data.sort((a, b) => {
+          const dateA = Date.parse(a.update_time ? a.update_time : a.create_time);
+          const dateB = Date.parse(b.update_time ? b.update_time : b.create_time);
+          if (dateA < dateB) return 1;
+          if (dateA > dateB) return -1;
+          return 0;
+        }),
+      )}; export default editionsArr;`;
       fs.writeFile('src/data/editions.js', stringData, err => {
         if (err) throw err;
         console.log('Editions json file has been created');
@@ -69,7 +85,13 @@ const fetchPublications = () => {
         };
         return item;
       });
-      const stringData = `const publicationsArr = ${JSON.stringify(data)}; export default publicationsArr;`;
+      const stringData = `const publicationsArr = ${JSON.stringify(
+        data.sort((a, b) => {
+          if (a.id < b.id) return 1;
+          if (a.id > b.id) return -1;
+          return 0;
+        }),
+      )}; export default publicationsArr;`;
       fs.writeFile('src/data/publications.js', stringData, err => {
         if (err) throw err;
         console.log('Publications json file has been created');

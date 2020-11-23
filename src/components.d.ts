@@ -23,9 +23,10 @@ export namespace Components {
         "sizes": string;
         "width": number | string;
     }
-    interface EditionsPage {
-    }
     interface LandingPage {
+        "latestEditions": Array<any>;
+        "latestNews": Array<any>;
+        "latestPublications": Array<any>;
     }
     interface LayoutFooter {
     }
@@ -36,6 +37,13 @@ export namespace Components {
         "pageTitle": string;
     }
     interface NewsPage {
+    }
+    interface PostsLanding {
+        "heading": Array<any>;
+        "posts": Array<any>;
+    }
+    interface PostsPage {
+        "post": any;
     }
     interface PublicationsPage {
     }
@@ -64,12 +72,6 @@ declare global {
     var HTMLCImageElement: {
         prototype: HTMLCImageElement;
         new (): HTMLCImageElement;
-    };
-    interface HTMLEditionsPageElement extends Components.EditionsPage, HTMLStencilElement {
-    }
-    var HTMLEditionsPageElement: {
-        prototype: HTMLEditionsPageElement;
-        new (): HTMLEditionsPageElement;
     };
     interface HTMLLandingPageElement extends Components.LandingPage, HTMLStencilElement {
     }
@@ -101,6 +103,18 @@ declare global {
         prototype: HTMLNewsPageElement;
         new (): HTMLNewsPageElement;
     };
+    interface HTMLPostsLandingElement extends Components.PostsLanding, HTMLStencilElement {
+    }
+    var HTMLPostsLandingElement: {
+        prototype: HTMLPostsLandingElement;
+        new (): HTMLPostsLandingElement;
+    };
+    interface HTMLPostsPageElement extends Components.PostsPage, HTMLStencilElement {
+    }
+    var HTMLPostsPageElement: {
+        prototype: HTMLPostsPageElement;
+        new (): HTMLPostsPageElement;
+    };
     interface HTMLPublicationsPageElement extends Components.PublicationsPage, HTMLStencilElement {
     }
     var HTMLPublicationsPageElement: {
@@ -112,12 +126,13 @@ declare global {
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "c-image": HTMLCImageElement;
-        "editions-page": HTMLEditionsPageElement;
         "landing-page": HTMLLandingPageElement;
         "layout-footer": HTMLLayoutFooterElement;
         "layout-header": HTMLLayoutHeaderElement;
         "layout-index": HTMLLayoutIndexElement;
         "news-page": HTMLNewsPageElement;
+        "posts-landing": HTMLPostsLandingElement;
+        "posts-page": HTMLPostsPageElement;
         "publications-page": HTMLPublicationsPageElement;
     }
 }
@@ -138,9 +153,10 @@ declare namespace LocalJSX {
         "sizes"?: string;
         "width"?: number | string;
     }
-    interface EditionsPage {
-    }
     interface LandingPage {
+        "latestEditions"?: Array<any>;
+        "latestNews"?: Array<any>;
+        "latestPublications"?: Array<any>;
     }
     interface LayoutFooter {
     }
@@ -152,6 +168,13 @@ declare namespace LocalJSX {
     }
     interface NewsPage {
     }
+    interface PostsLanding {
+        "heading"?: Array<any>;
+        "posts"?: Array<any>;
+    }
+    interface PostsPage {
+        "post"?: any;
+    }
     interface PublicationsPage {
     }
     interface IntrinsicElements {
@@ -159,12 +182,13 @@ declare namespace LocalJSX {
         "app-profile": AppProfile;
         "app-root": AppRoot;
         "c-image": CImage;
-        "editions-page": EditionsPage;
         "landing-page": LandingPage;
         "layout-footer": LayoutFooter;
         "layout-header": LayoutHeader;
         "layout-index": LayoutIndex;
         "news-page": NewsPage;
+        "posts-landing": PostsLanding;
+        "posts-page": PostsPage;
         "publications-page": PublicationsPage;
     }
 }
@@ -176,12 +200,13 @@ declare module "@stencil/core" {
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "c-image": LocalJSX.CImage & JSXBase.HTMLAttributes<HTMLCImageElement>;
-            "editions-page": LocalJSX.EditionsPage & JSXBase.HTMLAttributes<HTMLEditionsPageElement>;
             "landing-page": LocalJSX.LandingPage & JSXBase.HTMLAttributes<HTMLLandingPageElement>;
             "layout-footer": LocalJSX.LayoutFooter & JSXBase.HTMLAttributes<HTMLLayoutFooterElement>;
             "layout-header": LocalJSX.LayoutHeader & JSXBase.HTMLAttributes<HTMLLayoutHeaderElement>;
             "layout-index": LocalJSX.LayoutIndex & JSXBase.HTMLAttributes<HTMLLayoutIndexElement>;
             "news-page": LocalJSX.NewsPage & JSXBase.HTMLAttributes<HTMLNewsPageElement>;
+            "posts-landing": LocalJSX.PostsLanding & JSXBase.HTMLAttributes<HTMLPostsLandingElement>;
+            "posts-page": LocalJSX.PostsPage & JSXBase.HTMLAttributes<HTMLPostsPageElement>;
             "publications-page": LocalJSX.PublicationsPage & JSXBase.HTMLAttributes<HTMLPublicationsPageElement>;
         }
     }
