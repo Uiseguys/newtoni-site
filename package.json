@@ -1,7 +1,7 @@
 {
   "name": "newtoni-stencil",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Stencil App Starter",
   "scripts": {
     "build": "node ./data/index.js && stencil build",
