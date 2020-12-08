@@ -23,16 +23,17 @@ export class PostsPage {
 
   rellaxStyles = () => {
     const widthMap = new Map();
+    const imageLen = JSON.parse(this.post.image).length;
+    let stylesObj = {};
     widthMap.set(1, '100vw');
     widthMap.set(2, '100vw 100vw');
     widthMap.set(3, '100vw 100vw 100vw');
     widthMap.set(4, '100vw 100vw 100vw 100vw');
     widthMap.set(5, '100vw 100vw 100vw 100vw 100vw 100vw');
     widthMap.set(6, '100vw 100vw 100vw 100vw 100vw 100vw 100vw');
-    let stylesObj = {};
-    if (this.post.image.length > 0) {
-      stylesObj['width'] = `${this.post.image.length * 100}vw`;
-      stylesObj['gridTemplateColumns'] = widthMap.get(this.post.image.length);
+    if (imageLen > 0) {
+      stylesObj['width'] = `${imageLen * 100}vw`;
+      stylesObj['gridTemplateColumns'] = widthMap.get(imageLen);
     } else {
       stylesObj['width'] = '100vw';
       stylesObj['gridTemplateColumns'] = '100vw';

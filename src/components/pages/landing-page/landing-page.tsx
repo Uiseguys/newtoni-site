@@ -1,4 +1,4 @@
-import { Component, State, Prop, h } from '@stencil/core';
+import { Component, State, Prop, Listen, h } from '@stencil/core';
 import axios from 'axios';
 
 @Component({
@@ -18,6 +18,47 @@ export class LandingPage {
   private newsImages: Array<any>;
   private editionsImages: Array<any>;
   private publicationsImages: Array<any>;
+
+  private newsSection: HTMLElement;
+  private editionsSection: HTMLElement;
+  private publicationsSection: HTMLElement;
+  private contactSection: HTMLElement;
+
+  private newsTitle: HTMLElement;
+  private editionsTitle: HTMLElement;
+  private publicationsTitle: HTMLElement;
+
+  @Listen('scroll', { target: 'window' })
+  handleScroll() {
+    // News section
+    var news = this.newsSection.getBoundingClientRect().top;
+    // Editions section
+    var editions = this.editionsSection.getBoundingClientRect().top;
+    // Publications section
+    var publications = this.publicationsSection.getBoundingClientRect().top;
+    // Contact section
+    var contact = this.contactSection.getBoundingClientRect().top;
+
+    if (news > 0) {
+      this.newsTitle.setAttribute('style', 'visibility: hidden');
+    }
+    if (news <= 0 && editions > 0) {
+      this.newsTitle.setAttribute('style', 'visibility: visible');
+      this.editionsTitle.setAttribute('style', 'visibility: hidden');
+    }
+    if (editions <= 0 && publications > 0) {
+      this.editionsTitle.setAttribute('style', 'visibility: visible');
+      this.newsTitle.setAttribute('style', 'visibility: hidden');
+      this.publicationsTitle.setAttribute('style', 'visibility: hidden');
+    }
+    if (publications <= 0 && contact > 0) {
+      this.publicationsTitle.setAttribute('style', 'visibility: visible');
+      this.editionsTitle.setAttribute('style', 'visibility: hidden');
+    }
+    if (contact <= 0) {
+      this.publicationsTitle.setAttribute('style', 'visibility: hidden');
+    }
+  }
 
   getImages(arr) {
     return arr.map(item => {
@@ -91,24 +132,39 @@ export class LandingPage {
   render() {
     return (
       <layout-index page-title="Home" description="An Art Exhbition website set in Berlin">
+        <div role="alert" class={this.alertClasses} style={{ position: 'fixed', opacity: `${this.alertOpacity}` }}>
+          {this.alertMessage}
+        </div>
+        <nav>
+          <span ref={el => (this.newsTitle = el as HTMLElement)}>
+            N<br />e<br />w<br />s
+          </span>
+          <span ref={el => (this.editionsTitle = el as HTMLElement)}>
+            E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
+          </span>
+          <span ref={el => (this.publicationsTitle = el as HTMLElement)}>
+            P<br />u<br />b<br />l<br />i<br />c<br />a<br />t<br />i<br />o<br />
+            n<br />s
+          </span>
+        </nav>
         <layout-header />
         <div class="landing-page container">
-          <section>
+          <section ref={el => (this.newsSection = el as HTMLElement)}>
             <h2>News</h2>
             <ul class="row list-unstyled">{this.getPosts(this.latestNews, 1)}</ul>
             <stencil-route-link url="/news">&gt; More News</stencil-route-link>
           </section>
-          <section>
+          <section ref={el => (this.editionsSection = el as HTMLElement)}>
             <h2>Editions</h2>
             <ul class="row list-unstyled">{this.getPosts(this.latestEditions, 2)}</ul>
             <stencil-route-link url="/editions">&gt; More Editions</stencil-route-link>
           </section>
-          <section>
+          <section ref={el => (this.publicationsSection = el as HTMLElement)}>
             <h2>Publications</h2>
             <ul class="row list-unstyled">{this.getPosts(this.latestPublications, 3)}</ul>
             <stencil-route-link url="/publications">&gt; More Publications</stencil-route-link>
           </section>
-          <section>
+          <section ref={el => (this.contactSection = el as HTMLElement)}>
             <h2>Contact</h2>
             <aside>
               <p>

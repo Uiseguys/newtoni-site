@@ -1,4 +1,5 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, Listen, State, h } from '@stencil/core';
+import Fragment from 'stencil-fragment';
 
 @Component({
   tag: 'posts-landing',
@@ -7,9 +8,25 @@ import { Component, Prop, State, h } from '@stencil/core';
 export class PostsLanding {
   @Prop() heading: Array<any>;
   @Prop() posts: Array<any>;
+  @Prop() type: string | undefined;
+
   @State() renderedPosts: Array<any>;
 
+  @Listen('scroll', { target: 'window' })
+  handleScroll() {
+    const main = window.scrollY;
+    // Editions section
+    if (main > 0) {
+      this.postTitle.setAttribute('style', 'visibility: visible');
+    }
+    if (main <= 0) {
+      this.postTitle.setAttribute('style', 'visibility: hidden');
+    }
+  }
+
   private renderedImages: Array<any>;
+  private postTitle: HTMLElement;
+  private postContainer: HTMLElement;
 
   postImages = () => {
     return this.posts.map(item => {
@@ -45,10 +62,26 @@ export class PostsLanding {
 
   render() {
     return (
-      <layout-index>
+      <layout-index
+        ref={el => (this.postContainer = el as HTMLElement)}
+        page-title={this.type == 'publications' ? 'Publications' : this.type == 'editions' ? 'Editions' : 'News'}
+        description={`These are the latest ${this.type == 'publications' ? 'Publications' : this.type == 'editions' ? 'Editions' : 'News'} available at New Toni`}
+      >
         <nav>
-          <span id="news">
-            N<br />e<br />w<br />s
+          <span ref={el => (this.postTitle = el as HTMLElement)}>
+            {this.type == 'publications' ? (
+              <Fragment>
+                P<br />u<br />b<br />l<br />i<br />c<br />a<br />t<br />i<br />o<br />n<br />s
+              </Fragment>
+            ) : this.type == 'editions' ? (
+              <Fragment>
+                E<br />d<br />i<br />t<br />i<br />o<br />n<br />s
+              </Fragment>
+            ) : (
+              <Fragment>
+                N<br />e<br />w<br />s
+              </Fragment>
+            )}
           </span>
         </nav>
         <layout-header />

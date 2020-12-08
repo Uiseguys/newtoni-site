@@ -25,8 +25,13 @@ export class AppRoot {
                 exact={true}
               />
               <stencil-route url="/news" component="posts-landing" componentProps={{ heading: 'Latest News', posts: newsArr }} exact={true} />
-              <stencil-route url="/editions" component="posts-landing" componentProps={{ heading: 'Latest Editions', posts: editionsArr }} exact={true} />
-              <stencil-route url="/publications" component="posts-landing" componentProps={{ heading: 'Latest Publications', posts: publicationsArr }} exact={true} />
+              <stencil-route url="/editions" component="posts-landing" componentProps={{ type: 'editions', heading: 'Latest Editions', posts: editionsArr }} exact={true} />
+              <stencil-route
+                url="/publications"
+                component="posts-landing"
+                componentProps={{ type: 'publications', heading: 'Latest Publications', posts: publicationsArr }}
+                exact={true}
+              />
               {newsArr.map(post => (
                 <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
               ))}
@@ -34,7 +39,6 @@ export class AppRoot {
                 <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
               ))}
               {publicationsArr.map(post => {
-                console.log(post);
                 return <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />;
               })}
             </stencil-route-switch>

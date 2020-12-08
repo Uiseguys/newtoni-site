@@ -13,7 +13,7 @@ export class LayoutIndex {
     return (
       <Host>
         <Helmet>
-          <title>{this.pageTitle}</title>
+          <title>{`New Toni | ${this.pageTitle}`}</title>
           <meta name="description" content={this.description} />
         </Helmet>
         <slot />
