@@ -26,7 +26,7 @@ export class PostsLanding {
 
   private renderedImages: Array<any>;
   private postTitle: HTMLElement;
-  private postContainer: HTMLElement;
+  postContainer: HTMLElement;
 
   postImages = () => {
     return this.posts.map(item => {
