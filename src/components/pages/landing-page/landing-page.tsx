@@ -65,7 +65,7 @@ export class LandingPage {
       const imgArr = item.image ? JSON.parse(item.image) : [];
       return imgArr.map(item => {
         if (item) {
-          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="scale" />;
+          return <c-image account="schneckenhof" alias={item} width="auto" height={182} crop="fill" />;
         }
         return null;
       });

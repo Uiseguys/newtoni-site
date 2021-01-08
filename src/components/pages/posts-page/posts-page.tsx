@@ -3,51 +3,43 @@ import { Component, Prop, h } from '@stencil/core';
 @Component({
   tag: 'posts-page',
   styleUrl: 'posts-page.scss',
-  shadow: true,
 })
 export class PostsPage {
   @Prop() post;
+  @Prop() addItem;
 
-  postImages = () =>
-    JSON.parse(this.post.image).map(img => {
-      if (img) {
-        return (
-          <figure class="rellax">
-            <c-image account="schneckenhof" alias={img} width="auto:100" crop="scale" />
-            <figcaption class="rellax">{this.post?.name || this.post?.title}</figcaption>
-          </figure>
-        );
-      }
-      return null;
-    });
-
-  rellaxStyles = () => {
-    const widthMap = new Map();
-    const imageLen = JSON.parse(this.post.image).length;
-    let stylesObj = {};
-    widthMap.set(1, '100vw');
-    widthMap.set(2, '100vw 100vw');
-    widthMap.set(3, '100vw 100vw 100vw');
-    widthMap.set(4, '100vw 100vw 100vw 100vw');
-    widthMap.set(5, '100vw 100vw 100vw 100vw 100vw 100vw');
-    widthMap.set(6, '100vw 100vw 100vw 100vw 100vw 100vw 100vw');
-    if (imageLen > 0) {
-      stylesObj['width'] = `${imageLen * 100}vw`;
-      stylesObj['gridTemplateColumns'] = widthMap.get(imageLen);
+  componentWillLoad = () => {
+    if (this.post.image) {
+      const width = Math.round(window.innerWidth);
+      const height = Math.round(window.innerHeight);
+      this.post.image = JSON.parse(this.post.image).reduce((acc, img) => {
+        if (img) {
+          acc.push(
+            <div class="carousel-item">
+              <c-image account="schneckenhof" alias={img} width={width} height={height} crop="fill" />
+            </div>,
+          );
+        }
+        return acc;
+      }, []);
     } else {
-      stylesObj['width'] = '100vw';
-      stylesObj['gridTemplateColumns'] = '100vw';
+      this.post.image = [];
     }
-    return stylesObj;
   };
 
   render() {
     return (
       <layout-index title={this.post?.name || this.post?.title}>
-        <aside class="helper">Scroll Sideways</aside>
-        <header class="post-page">
-          <div style={this.rellaxStyles()}>{this.postImages()}</div>
-        </header>
+        {this.post.image.length > 0 ? (
+          <c-slider class="post-page-slider" touch-scrollable={true} slider-lang="en" path={this.post.slug} slides={this.post.image.length}>
+            {this.post.image}
+          </c-slider>
+        ) : (
+          <div class="post-page-slider no-images">
+            <img src="/assets/svg/newtoni.svg" />
+          </div>
+        )}
+        <cart-menu />
         <main class="container">
           <div class="row">
             <section class="col-6">

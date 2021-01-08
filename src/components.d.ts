@@ -17,6 +17,38 @@ export namespace Components {
         "sizes": string;
         "width": number | string;
     }
+    interface CSlider {
+        "activeSlideIndex"?: number;
+        "carouselInnerTransitionFaster"?: string;
+        "collapseOnMobile"?: boolean;
+        "didLoadFunc"?: Function;
+        "dynamicIntervalTimeoutArray"?: Array<Array<number>>;
+        "intervalExternalFunction"?: Function;
+        "intervalTimeoutDuration"?: number;
+        "lastArrowBlack"?: boolean;
+        "loadLastSlideItemHalfway"?: boolean;
+        "nextLabelFunc"?: Function;
+        "noTransitions": boolean;
+        "path": string;
+        "prevLabelFunc"?: Function;
+        "radioButtonIdOffset"?: number;
+        "removeArrowNavigation"?: boolean;
+        "sliderLang": string;
+        "slides": number;
+        "stopFirstAndLastSlideTransitions"?: boolean;
+        "theme"?: boolean;
+        "touchScrollable": boolean;
+    }
+    interface CartMenu {
+        "handleCartMenuClick": Function;
+        "showCart": boolean;
+    }
+    interface CartSidebar {
+        "handleCartMenuClick": Function;
+        "showCart": boolean;
+    }
+    interface CheckoutPage {
+    }
     interface LandingPage {
         "latestEditions": Array<any>;
         "latestNews": Array<any>;
@@ -36,6 +68,7 @@ export namespace Components {
         "type": string | undefined;
     }
     interface PostsPage {
+        "addItem": any;
         "post": any;
     }
 }
@@ -51,6 +84,30 @@ declare global {
     var HTMLCImageElement: {
         prototype: HTMLCImageElement;
         new (): HTMLCImageElement;
+    };
+    interface HTMLCSliderElement extends Components.CSlider, HTMLStencilElement {
+    }
+    var HTMLCSliderElement: {
+        prototype: HTMLCSliderElement;
+        new (): HTMLCSliderElement;
+    };
+    interface HTMLCartMenuElement extends Components.CartMenu, HTMLStencilElement {
+    }
+    var HTMLCartMenuElement: {
+        prototype: HTMLCartMenuElement;
+        new (): HTMLCartMenuElement;
+    };
+    interface HTMLCartSidebarElement extends Components.CartSidebar, HTMLStencilElement {
+    }
+    var HTMLCartSidebarElement: {
+        prototype: HTMLCartSidebarElement;
+        new (): HTMLCartSidebarElement;
+    };
+    interface HTMLCheckoutPageElement extends Components.CheckoutPage, HTMLStencilElement {
+    }
+    var HTMLCheckoutPageElement: {
+        prototype: HTMLCheckoutPageElement;
+        new (): HTMLCheckoutPageElement;
     };
     interface HTMLLandingPageElement extends Components.LandingPage, HTMLStencilElement {
     }
@@ -91,6 +148,10 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "c-image": HTMLCImageElement;
+        "c-slider": HTMLCSliderElement;
+        "cart-menu": HTMLCartMenuElement;
+        "cart-sidebar": HTMLCartSidebarElement;
+        "checkout-page": HTMLCheckoutPageElement;
         "landing-page": HTMLLandingPageElement;
         "layout-footer": HTMLLayoutFooterElement;
         "layout-header": HTMLLayoutHeaderElement;
@@ -111,6 +172,38 @@ declare namespace LocalJSX {
         "sizes"?: string;
         "width"?: number | string;
     }
+    interface CSlider {
+        "activeSlideIndex"?: number;
+        "carouselInnerTransitionFaster"?: string;
+        "collapseOnMobile"?: boolean;
+        "didLoadFunc"?: Function;
+        "dynamicIntervalTimeoutArray"?: Array<Array<number>>;
+        "intervalExternalFunction"?: Function;
+        "intervalTimeoutDuration"?: number;
+        "lastArrowBlack"?: boolean;
+        "loadLastSlideItemHalfway"?: boolean;
+        "nextLabelFunc"?: Function;
+        "noTransitions"?: boolean;
+        "path"?: string;
+        "prevLabelFunc"?: Function;
+        "radioButtonIdOffset"?: number;
+        "removeArrowNavigation"?: boolean;
+        "sliderLang"?: string;
+        "slides"?: number;
+        "stopFirstAndLastSlideTransitions"?: boolean;
+        "theme"?: boolean;
+        "touchScrollable"?: boolean;
+    }
+    interface CartMenu {
+        "handleCartMenuClick"?: Function;
+        "showCart"?: boolean;
+    }
+    interface CartSidebar {
+        "handleCartMenuClick"?: Function;
+        "showCart"?: boolean;
+    }
+    interface CheckoutPage {
+    }
     interface LandingPage {
         "latestEditions"?: Array<any>;
         "latestNews"?: Array<any>;
@@ -130,11 +223,16 @@ declare namespace LocalJSX {
         "type"?: string | undefined;
     }
     interface PostsPage {
+        "addItem"?: any;
         "post"?: any;
     }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "c-image": CImage;
+        "c-slider": CSlider;
+        "cart-menu": CartMenu;
+        "cart-sidebar": CartSidebar;
+        "checkout-page": CheckoutPage;
         "landing-page": LandingPage;
         "layout-footer": LayoutFooter;
         "layout-header": LayoutHeader;
@@ -149,6 +247,10 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "c-image": LocalJSX.CImage & JSXBase.HTMLAttributes<HTMLCImageElement>;
+            "c-slider": LocalJSX.CSlider & JSXBase.HTMLAttributes<HTMLCSliderElement>;
+            "cart-menu": LocalJSX.CartMenu & JSXBase.HTMLAttributes<HTMLCartMenuElement>;
+            "cart-sidebar": LocalJSX.CartSidebar & JSXBase.HTMLAttributes<HTMLCartSidebarElement>;
+            "checkout-page": LocalJSX.CheckoutPage & JSXBase.HTMLAttributes<HTMLCheckoutPageElement>;
             "landing-page": LocalJSX.LandingPage & JSXBase.HTMLAttributes<HTMLLandingPageElement>;
             "layout-footer": LocalJSX.LayoutFooter & JSXBase.HTMLAttributes<HTMLLayoutFooterElement>;
             "layout-header": LocalJSX.LayoutHeader & JSXBase.HTMLAttributes<HTMLLayoutHeaderElement>;

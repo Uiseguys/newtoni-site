@@ -1,0 +1,32 @@
+.cart {
+  position: fixed;
+  z-index: 1000;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  transform: translateX(50vw);
+  transition: transform 1s ease-in-out;
+  width: 50vw;
+  background: #fff;
+  border-left: 2px solid #000;
+
+  &.active {
+    transform: translateX(0);
+    transition: transform 1s ease-in-out;
+  }
+
+  .close-cart {
+    padding: 40px 17px;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .cart-summary {
+    padding: 0 50px 50px 50px;
+    .cart-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

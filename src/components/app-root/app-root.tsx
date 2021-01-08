@@ -1,4 +1,7 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, State, h } from '@stencil/core';
+import Tunnel from '../cart/cart-data/active';
+
+// Page Data
 import newsArr from '../../data/news';
 import editionsArr from '../../data/editions';
 import publicationsArr from '../../data/publications.js';
@@ -8,9 +11,56 @@ import publicationsArr from '../../data/publications.js';
   styleUrl: 'app-root.scss',
 })
 export class AppRoot {
+  @State() items: any;
+  @State() showCart: boolean = false;
+
+  componentWillRender = () => {
+    const localItems = localStorage.getItem('newtoni-items');
+    if (localItems) {
+      this.items = JSON.parse(localItems);
+    }
+  };
+
+  addItem = obj => {
+    this.items.push(obj);
+    localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+  };
+
+  removeItem = obj => {
+    this.items = this.items.reduce((acc, val, index) => {
+      if (obj.id === val.id) acc.push(val);
+      return acc;
+    }, []);
+    localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+  };
+
+  changeQuantity = (id, qty) => {
+    this.items = this.items.map(val => {
+      return val;
+    }, []);
+  };
+
+  handleCartMenuClick = () => {
+    if (this.showCart) {
+      this.showCart = false;
+    } else {
+      this.showCart = true;
+    }
+  };
+
   render() {
+    const state = {
+      items: this.items,
+      removeItem: this.removeItem,
+      addItem: this.addItem,
+      changeQuantity: this.changeQuantity,
+      showCart: this.showCart,
+      handleCartMenuClick: this.handleCartMenuClick,
+    };
+
     return (
-      <Host>
+      <Tunnel.Provider state={state}>
+        <cart-sidebar />
         <main>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0}>
@@ -33,19 +83,20 @@ export class AppRoot {
                 exact={true}
               />
               {newsArr.map(post => (
-                <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
+                <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />
               ))}
               {editionsArr.map(post => (
-                <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
+                <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />
               ))}
               {publicationsArr.map(post => {
-                return <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />;
+                return <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />;
               })}
             </stencil-route-switch>
           </stencil-router>
         </main>
         <layout-footer />
-      </Host>
+        <slot />
+      </Tunnel.Provider>
     );
   }
 }

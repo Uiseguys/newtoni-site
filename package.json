@@ -23,6 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@stencil/state-tunnel": "^1.0.1",
     "stencil-fragment": "^1.0.1"
   }
 }
