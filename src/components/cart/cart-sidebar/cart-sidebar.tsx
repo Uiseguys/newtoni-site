@@ -14,7 +14,7 @@ export class CartSidebar {
     return (
       <div class={this.showCart ? 'cart active' : 'cart'}>
         <div class="close-cart">
-          <button class="btn bold" onClick={_ => this.handleCartMenuClick()}>
+          <button class="btn bold p-0" onClick={_ => this.handleCartMenuClick()}>
             Close Cart
           </button>
         </div>

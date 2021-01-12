@@ -82,6 +82,7 @@ export class AppRoot {
                 componentProps={{ type: 'publications', heading: 'Latest Publications', posts: publicationsArr }}
                 exact={true}
               />
+              <stencil-route url="/checkout" component="checkout-page" exact={true} />
               {newsArr.map(post => (
                 <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />
               ))}
