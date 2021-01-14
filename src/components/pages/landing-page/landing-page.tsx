@@ -1,11 +1,13 @@
-import { Component, State, Prop, Listen, h } from '@stencil/core';
+import { Component, State, Prop, Listen, Element, h } from '@stencil/core';
 import axios from 'axios';
+import Tunnel from '../../cart/cart-data/active';
 
 @Component({
   tag: 'landing-page',
   styleUrl: 'landing-page.scss',
 })
 export class LandingPage {
+  @Element() el: LandingPage;
   @State() alertOpacity: string = '0';
   @State() alertMessage: string = '';
   @State() alertClasses: string = 'alert alert-info';
@@ -14,6 +16,7 @@ export class LandingPage {
   @Prop() latestNews: Array<any>;
   @Prop() latestEditions: Array<any>;
   @Prop() latestPublications: Array<any>;
+  @Prop() addItem: Function;
 
   private newsImages: Array<any>;
   private editionsImages: Array<any>;
@@ -87,6 +90,13 @@ export class LandingPage {
           </stencil-route-link>
           <figcaption>{item?.name || item.title}</figcaption>
         </figure>
+        {item?.price ? (
+          <div class="add-to-cart text-center">
+            <button class="btn p-0" onClick={_ => this.addItem({ slug: item.slug, name: item.name || item.title, price: item.price, quantity: 1 })}>
+              Add to Cart - <span class="font-weight-bold">{item.price} €</span>
+            </button>
+          </div>
+        ) : null}
       </li>
     ));
   };
@@ -213,3 +223,5 @@ export class LandingPage {
     );
   }
 }
+
+Tunnel.injectProps(LandingPage, ['addItem']);

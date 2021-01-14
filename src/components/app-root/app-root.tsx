@@ -11,33 +11,47 @@ import publicationsArr from '../../data/publications.js';
   styleUrl: 'app-root.scss',
 })
 export class AppRoot {
-  @State() items: any;
+  @State() items: Array<object | null | any>;
   @State() showCart: boolean = false;
 
-  componentWillRender = () => {
+  componentWillLoad = () => {
     const localItems = localStorage.getItem('newtoni-items');
     if (localItems) {
       this.items = JSON.parse(localItems);
+    } else {
+      this.items = [];
     }
   };
 
   addItem = obj => {
-    this.items.push(obj);
-    localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+    let isAlreadyAdded = false;
+    if (this.items.length > 0) {
+      this.items.forEach(item => {
+        if (item.slug == obj.slug) {
+          isAlreadyAdded = true;
+        }
+      });
+    }
+    if (!isAlreadyAdded) {
+      this.items = [...this.items, obj];
+      localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+    }
   };
 
   removeItem = obj => {
-    this.items = this.items.reduce((acc, val, index) => {
-      if (obj.id === val.id) acc.push(val);
+    this.items = this.items.reduce((acc, item) => {
+      if (item.slug != obj.slug) acc.push(item);
       return acc;
     }, []);
     localStorage.setItem('newtoni-items', JSON.stringify(this.items));
   };
 
-  changeQuantity = (id, qty) => {
-    this.items = this.items.map(val => {
-      return val;
-    }, []);
+  changeQuantity = obj => {
+    this.items = this.items.map(item => {
+      if (item.slug == obj.slug) return obj;
+      return item;
+    });
+    localStorage.setItem('newtoni-items', JSON.stringify(this.items));
   };
 
   handleCartMenuClick = () => {
@@ -84,13 +98,13 @@ export class AppRoot {
               />
               <stencil-route url="/checkout" component="checkout-page" exact={true} />
               {newsArr.map(post => (
-                <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />
+                <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
               ))}
               {editionsArr.map(post => (
-                <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />
+                <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />
               ))}
               {publicationsArr.map(post => {
-                return <stencil-route url={post.slug} componentProps={{ post: post, addItem: () => this.addItem(post) }} component="posts-page" exact={true} />;
+                return <stencil-route url={post.slug} componentProps={{ post: post }} component="posts-page" exact={true} />;
               })}
             </stencil-route-switch>
           </stencil-router>

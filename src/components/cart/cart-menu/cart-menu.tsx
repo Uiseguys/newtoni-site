@@ -1,4 +1,4 @@
-import { Component, Prop, State, Watch, Element, h } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 import Tunnel from '../../cart/cart-data/active';
 
 @Component({
@@ -9,16 +9,17 @@ export class CartMenu {
   @Element() el: CartMenu;
   @Prop() showCart: boolean;
   @Prop() handleCartMenuClick: Function;
+  @Prop() items: Array<any>;
 
   render() {
     return (
       <div class="cart-menu container">
         <button class="btn cart-button p-0" onClick={_ => this.handleCartMenuClick()}>
-          Cart (0)
+          Cart ({this.items.length})
         </button>
       </div>
     );
   }
 }
 
-Tunnel.injectProps(CartMenu, ['showCart', 'handleCartMenuClick']);
+Tunnel.injectProps(CartMenu, ['showCart', 'handleCartMenuClick', 'items']);

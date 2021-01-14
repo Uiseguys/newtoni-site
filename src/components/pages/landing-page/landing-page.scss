@@ -137,7 +137,8 @@ main {
             animation-play-state: running;
           }
 
-          & figcaption {
+          & figcaption,
+          & .add-to-cart {
             opacity: 1;
             box-shadow: 0 0 0 5px rgba(#fff, 0.3) inset;
           }
@@ -179,7 +180,9 @@ main {
             }
           }
           figcaption {
-            margin-top: 42vh;
+            position: absolute;
+            width: 100%;
+            margin-top: 40vh;
             opacity: 0;
             z-index: 500;
             background: rgba(#fff, 0.3) inset;
@@ -192,6 +195,10 @@ main {
               margin-top: 10vh;
             }
           }
+        }
+        .add-to-cart {
+          opacity: 0;
+          margin-top: 43vh;
         }
       }
     }

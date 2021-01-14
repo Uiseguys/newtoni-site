@@ -41,15 +41,21 @@ export namespace Components {
     }
     interface CartMenu {
         "handleCartMenuClick": Function;
+        "items": Array<any>;
         "showCart": boolean;
     }
     interface CartSidebar {
+        "changeQuantity": Function;
         "handleCartMenuClick": Function;
+        "items": Array<any>;
+        "removeItem": Function;
         "showCart": boolean;
     }
     interface CheckoutPage {
+        "items": Array<any>;
     }
     interface LandingPage {
+        "addItem": Function;
         "latestEditions": Array<any>;
         "latestNews": Array<any>;
         "latestPublications": Array<any>;
@@ -63,12 +69,13 @@ export namespace Components {
         "pageTitle": string;
     }
     interface PostsLanding {
+        "addItem": Function;
         "heading": Array<any>;
         "posts": Array<any>;
         "type": string | undefined;
     }
     interface PostsPage {
-        "addItem": any;
+        "addItem": Function;
         "post": any;
     }
 }
@@ -196,15 +203,21 @@ declare namespace LocalJSX {
     }
     interface CartMenu {
         "handleCartMenuClick"?: Function;
+        "items"?: Array<any>;
         "showCart"?: boolean;
     }
     interface CartSidebar {
+        "changeQuantity"?: Function;
         "handleCartMenuClick"?: Function;
+        "items"?: Array<any>;
+        "removeItem"?: Function;
         "showCart"?: boolean;
     }
     interface CheckoutPage {
+        "items"?: Array<any>;
     }
     interface LandingPage {
+        "addItem"?: Function;
         "latestEditions"?: Array<any>;
         "latestNews"?: Array<any>;
         "latestPublications"?: Array<any>;
@@ -218,12 +231,13 @@ declare namespace LocalJSX {
         "pageTitle"?: string;
     }
     interface PostsLanding {
+        "addItem"?: Function;
         "heading"?: Array<any>;
         "posts"?: Array<any>;
         "type"?: string | undefined;
     }
     interface PostsPage {
-        "addItem"?: any;
+        "addItem"?: Function;
         "post"?: any;
     }
     interface IntrinsicElements {

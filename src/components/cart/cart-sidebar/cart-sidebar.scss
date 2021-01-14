@@ -15,18 +15,31 @@
     transition: transform 1s ease-in-out;
   }
 
+  .cart-checkout,
+  .cart-subtotal,
+  .cart-summary {
+    padding: 0 50px 50px 50px;
+  }
+
   .close-cart {
     padding: 40px 17px;
     text-align: right;
     font-weight: bold;
   }
 
-  .cart-summary {
-    padding: 0 50px 50px 50px;
-    .cart-item {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+  .cart-subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .cart-checkout {
+    a {
+      &:link {
+        color: #000;
+      }
+      &:visited {
+        color: #000;
+      }
     }
   }
 }

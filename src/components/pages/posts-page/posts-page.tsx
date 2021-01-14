@@ -1,15 +1,17 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
+import Tunnel from '../../cart/cart-data/active';
 
 @Component({
   tag: 'posts-page',
   styleUrl: 'posts-page.scss',
 })
 export class PostsPage {
-  @Prop() post;
-  @Prop() addItem;
+  @Element() el: PostsPage;
+  @Prop() post: any;
+  @Prop() addItem: Function;
 
   componentWillLoad = () => {
-    if (this.post.image) {
+    if (this.post?.image) {
       const width = Math.round(window.innerWidth);
       const height = Math.round(window.innerHeight);
       this.post.image = JSON.parse(this.post.image).reduce((acc, img) => {
@@ -29,7 +31,7 @@ export class PostsPage {
 
   render() {
     return (
-      <layout-index title={this.post?.name || this.post?.title}>
+      <layout-index page-title={this.post?.name || this.post?.title}>
         {this.post.image.length > 0 ? (
           <c-slider class="post-page-slider" touch-scrollable={true} slider-lang="en" path={this.post.slug} slides={this.post.image.length}>
             {this.post.image}
@@ -44,6 +46,11 @@ export class PostsPage {
           <div class="row">
             <section class="col-6">
               <div innerHTML={this.post?.post || this.post?.description}></div>
+              {this.post?.price ? (
+                <button class="btn p-0" onClick={_ => this.addItem({ slug: this.post.slug, name: this.post?.name || this.post?.title, price: this.post.price, quantity: 1 })}>
+                  Add to Cart - <span class="font-weight-bold">{this.post.price} €</span>
+                </button>
+              ) : null}
             </section>
             <section class="col-6"></section>
           </div>
@@ -52,3 +59,5 @@ export class PostsPage {
     );
   }
 }
+
+Tunnel.injectProps(PostsPage, ['addItem']);

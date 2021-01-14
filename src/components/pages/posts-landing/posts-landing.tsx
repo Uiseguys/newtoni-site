@@ -1,14 +1,17 @@
-import { Component, Prop, Listen, State, h } from '@stencil/core';
+import { Component, Prop, Listen, State, Element, h } from '@stencil/core';
 import Fragment from 'stencil-fragment';
+import Tunnel from '../../cart/cart-data/active';
 
 @Component({
   tag: 'posts-landing',
   styleUrl: 'posts-landing.scss',
 })
 export class PostsLanding {
+  @Element() el: PostsLanding;
   @Prop() heading: Array<any>;
   @Prop() posts: Array<any>;
   @Prop() type: string | undefined;
+  @Prop() addItem: Function;
 
   @State() renderedPosts: Array<any>;
 
@@ -46,14 +49,21 @@ export class PostsLanding {
         <li class="col-sm-12 col-md-6 col-lg-4">
           <figure>
             <stencil-route-link url={item.slug}>{this.renderedImages[index]}</stencil-route-link>
-            <figcaption>{item.title}</figcaption>
+            <figcaption>{item?.title || item?.name}</figcaption>
           </figure>
+          {item?.price ? (
+            <div class="add-to-cart text-center">
+              <button class="btn p-0" onClick={_ => this.addItem({ slug: item.slug, name: item.name || item.title, price: item.price, quantity: 1 })}>
+                Add to Cart - <span class="font-weight-bold">{item.price} €</span>
+              </button>
+            </div>
+          ) : null}
         </li>
       );
     });
   };
 
-  componentWillRender() {
+  componentWillLoad() {
     this.renderedImages = this.postImages();
     this.renderedPosts = this.allPosts();
   }
@@ -95,3 +105,5 @@ export class PostsLanding {
     );
   }
 }
+
+Tunnel.injectProps(PostsLanding, ['addItem']);
