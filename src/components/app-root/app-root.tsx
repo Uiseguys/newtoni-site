@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, State, h } from '@stencil/core';
 import Tunnel from '../cart/cart-data/active';
 
 // Page Data

@@ -25,9 +25,6 @@ export class CheckoutPage {
   @State() preload: boolean;
   @State() onMessage: MessageInterface;
 
-  private paypalButton;
-  private paypalClient;
-
   componentWillLoad = () => {
     if (!this.items.length) this.history.push('/');
     this.preload = false;
@@ -63,7 +60,8 @@ export class CheckoutPage {
     scriptjs('https://www.paypal.com/sdk/js?client-id=AQ9HyOwBkIgsK3FdrVvF_N4NIx34DSQg8bU2J7PH0Q1K7roRnFDtcdyrXB09qwAHmX_W-uLoPq9BHQBV&currency=EUR', function () {
       window['paypal']
         .Buttons({
-          createOrder: function (data, actions) {
+          createOrder: function (_, actions) {
+            if (actions) actions = null;
             const subtotal = calculateSubtotal();
             const total = subtotal + getShipping();
             return axios
@@ -74,12 +72,11 @@ export class CheckoutPage {
               })
               .then(res => res.data.id);
           },
-          onCancel: function (data) {},
           onShippingChange: function (data, actions) {
             if (data.shipping_address.country_code !== 'DE') return actions.reject();
             return actions.resolve();
           },
-          onApprove: function (data, actions) {
+          onApprove: function (data, _) {
             let getGeneratedRequestID = localStorage.getItem('newtoni-paypal-request-id');
             if (!getGeneratedRequestID) {
               getGeneratedRequestID = uuidv4();
@@ -93,7 +90,7 @@ export class CheckoutPage {
                 requestID: getGeneratedRequestID,
                 items: currentItems(),
               })
-              .then(res => {
+              .then(_ => {
                 changeTransactionState();
                 setPreload(false);
                 successMessage();
@@ -242,7 +239,7 @@ export class CheckoutPage {
                       <span>{this.renderSubtotal() + this.calculateShipping()} €</span>
                     </div>
                     <div class="col-12 pt-3">
-                      <div key={uuidv4()} id="paypal-button" ref={el => (this.paypalButton = el as HTMLDivElement)}></div>
+                      <div key={uuidv4()} id="paypal-button"></div>
                     </div>
                   </div>
                 </li>
