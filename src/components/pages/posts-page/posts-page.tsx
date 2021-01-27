@@ -47,7 +47,18 @@ export class PostsPage {
             <section class="col-6">
               <div innerHTML={this.post?.post || this.post?.description}></div>
               {this.post?.price ? (
-                <button class="btn p-0" onClick={_ => this.addItem({ slug: this.post.slug, name: this.post?.name || this.post?.title, price: this.post.price, quantity: 1 })}>
+                <button
+                  class="btn p-0"
+                  onClick={_ =>
+                    this.addItem({
+                      slug: this.post.slug,
+                      name: this.post?.name || this.post?.title,
+                      description: this.post?.description || this.post?.post,
+                      price: this.post.price,
+                      quantity: 1,
+                    })
+                  }
+                >
                   Add to Cart - <span class="font-weight-bold">{this.post.price} €</span>
                 </button>
               ) : null}

@@ -16,7 +16,8 @@
     "@stencil/router": "^1.0.1",
     "@stencil/sass": "^1.4.0",
     "@types/jest": "^26.0.15",
-    "axios": "^0.21.0",
+    "@types/uuid": "^8.3.0",
+    "axios": "^0.21.1",
     "puppeteer": "^5.4.1",
     "rimraf": "^3.0.2",
     "rollup-plugin-node-polyfills": "^0.2.1"
@@ -24,6 +25,8 @@
   "license": "MIT",
   "dependencies": {
     "@stencil/state-tunnel": "^1.0.1",
-    "stencil-fragment": "^1.0.1"
+    "scriptjs": "^2.5.9",
+    "stencil-fragment": "^1.0.1",
+    "uuid": "^8.3.2"
   }
 }

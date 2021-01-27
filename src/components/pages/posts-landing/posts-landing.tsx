@@ -53,7 +53,10 @@ export class PostsLanding {
           </figure>
           {item?.price ? (
             <div class="add-to-cart text-center">
-              <button class="btn p-0" onClick={_ => this.addItem({ slug: item.slug, name: item.name || item.title, price: item.price, quantity: 1 })}>
+              <button
+                class="btn p-0"
+                onClick={_ => this.addItem({ slug: item.slug, name: item?.name || item?.title, description: item?.description || item?.post, price: item.price, quantity: 1 })}
+              >
                 Add to Cart - <span class="font-weight-bold">{item.price} €</span>
               </button>
             </div>

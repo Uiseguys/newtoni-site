@@ -83,7 +83,7 @@ export class CartSidebar {
           <span class="col-2">{this.renderSubtotal()} €</span>
         </div>
         <div class="cart-checkout">
-          <stencil-route-link url="/checkout" class="btn p-0" exact={true}>
+          <stencil-route-link url="/checkout" class={`btn p-0${!this.items.length ? ' disabled remove-pointer-events' : ''}`} exact={true}>
             Checkout
           </stencil-route-link>
         </div>

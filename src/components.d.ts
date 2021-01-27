@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { RouterHistory } from "@stencil/router";
 export namespace Components {
     interface AppRoot {
     }
@@ -52,7 +53,10 @@ export namespace Components {
         "showCart": boolean;
     }
     interface CheckoutPage {
+        "changeTransaction": Function;
+        "history": RouterHistory;
         "items": Array<any>;
+        "removeAllItems": Function;
     }
     interface LandingPage {
         "addItem": Function;
@@ -214,7 +218,10 @@ declare namespace LocalJSX {
         "showCart"?: boolean;
     }
     interface CheckoutPage {
+        "changeTransaction"?: Function;
+        "history"?: RouterHistory;
         "items"?: Array<any>;
+        "removeAllItems"?: Function;
     }
     interface LandingPage {
         "addItem"?: Function;

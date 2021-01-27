@@ -33,33 +33,35 @@ export class LandingPage {
 
   @Listen('scroll', { target: 'window' })
   handleScroll() {
-    // News section
-    var news = this.newsSection.getBoundingClientRect().top;
-    // Editions section
-    var editions = this.editionsSection.getBoundingClientRect().top;
-    // Publications section
-    var publications = this.publicationsSection.getBoundingClientRect().top;
-    // Contact section
-    var contact = this.contactSection.getBoundingClientRect().top;
+    if (this.newsSection && this.editionsSection && this.publicationsSection && this.contactSection) {
+      // News section
+      var news = this.newsSection.getBoundingClientRect().top;
+      // Editions section
+      var editions = this.editionsSection.getBoundingClientRect().top;
+      // Publications section
+      var publications = this.publicationsSection.getBoundingClientRect().top;
+      // Contact section
+      var contact = this.contactSection.getBoundingClientRect().top;
 
-    if (news > 0) {
-      this.newsTitle.setAttribute('style', 'visibility: hidden');
-    }
-    if (news <= 0 && editions > 0) {
-      this.newsTitle.setAttribute('style', 'visibility: visible');
-      this.editionsTitle.setAttribute('style', 'visibility: hidden');
-    }
-    if (editions <= 0 && publications > 0) {
-      this.editionsTitle.setAttribute('style', 'visibility: visible');
-      this.newsTitle.setAttribute('style', 'visibility: hidden');
-      this.publicationsTitle.setAttribute('style', 'visibility: hidden');
-    }
-    if (publications <= 0 && contact > 0) {
-      this.publicationsTitle.setAttribute('style', 'visibility: visible');
-      this.editionsTitle.setAttribute('style', 'visibility: hidden');
-    }
-    if (contact <= 0) {
-      this.publicationsTitle.setAttribute('style', 'visibility: hidden');
+      if (news > 0) {
+        this.newsTitle.setAttribute('style', 'visibility: hidden');
+      }
+      if (news <= 0 && editions > 0) {
+        this.newsTitle.setAttribute('style', 'visibility: visible');
+        this.editionsTitle.setAttribute('style', 'visibility: hidden');
+      }
+      if (editions <= 0 && publications > 0) {
+        this.editionsTitle.setAttribute('style', 'visibility: visible');
+        this.newsTitle.setAttribute('style', 'visibility: hidden');
+        this.publicationsTitle.setAttribute('style', 'visibility: hidden');
+      }
+      if (publications <= 0 && contact > 0) {
+        this.publicationsTitle.setAttribute('style', 'visibility: visible');
+        this.editionsTitle.setAttribute('style', 'visibility: hidden');
+      }
+      if (contact <= 0) {
+        this.publicationsTitle.setAttribute('style', 'visibility: hidden');
+      }
     }
   }
 
@@ -92,7 +94,10 @@ export class LandingPage {
         </figure>
         {item?.price ? (
           <div class="add-to-cart text-center">
-            <button class="btn p-0" onClick={_ => this.addItem({ slug: item.slug, name: item.name || item.title, price: item.price, quantity: 1 })}>
+            <button
+              class="btn p-0"
+              onClick={_ => this.addItem({ type: item.type, name: item.name || item.title, description: item?.description || item?.post, price: item.price, quantity: 1 })}
+            >
               Add to Cart - <span class="font-weight-bold">{item.price} €</span>
             </button>
           </div>

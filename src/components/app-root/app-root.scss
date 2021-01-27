@@ -10,11 +10,14 @@
 @import '../scss/bootstrap/forms';
 @import '../scss/bootstrap/alert';
 @import '../scss/bootstrap/list-group';
+@import '../scss/bootstrap/spinners';
+@import '../scss/bootstrap/toasts';
 
 // Bootstrap Utilities for Grid
 @import '../scss/bootstrap/utilities/display';
 @import '../scss/bootstrap/utilities/flex';
 @import '../scss/bootstrap/utilities/spacing';
+@import '../scss/bootstrap/utilities/screenreaders';
 
 // Bootstrap Utilities for Text
 @import '../scss/bootstrap/utilities/text';

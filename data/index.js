@@ -14,6 +14,7 @@ const fetchNews = () => {
         item = {
           ...item,
           slug: `/news/${title}`,
+          type: 'news',
         };
         return item;
       });
@@ -48,6 +49,7 @@ const fetchEditions = () => {
         item = {
           ...item,
           slug: `/editions/${title}`,
+          type: 'editions',
         };
         return item;
       });
@@ -82,6 +84,7 @@ const fetchPublications = () => {
         item = {
           ...item,
           slug: `/publications/${title}`,
+          type: 'publications',
         };
         return item;
       });

@@ -1,4 +1,4 @@
-import { Component, State, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import Tunnel from '../cart/cart-data/active';
 
 // Page Data
@@ -12,7 +12,8 @@ import publicationsArr from '../../data/publications.js';
 })
 export class AppRoot {
   @State() items: Array<object | null | any>;
-  @State() showCart: boolean = false;
+  @State() transactionState: boolean;
+  @State() showCart: boolean;
 
   componentWillLoad = () => {
     const localItems = localStorage.getItem('newtoni-items');
@@ -21,13 +22,15 @@ export class AppRoot {
     } else {
       this.items = [];
     }
+    this.transactionState = false;
+    this.showCart = false;
   };
 
   addItem = obj => {
     let isAlreadyAdded = false;
     if (this.items.length > 0) {
       this.items.forEach(item => {
-        if (item.slug == obj.slug) {
+        if (item.type == obj.type && item.name == item.name) {
           isAlreadyAdded = true;
         }
       });
@@ -40,18 +43,31 @@ export class AppRoot {
 
   removeItem = obj => {
     this.items = this.items.reduce((acc, item) => {
-      if (item.slug != obj.slug) acc.push(item);
+      if (item.type != obj.type || item.name != item.name) acc.push(item);
       return acc;
     }, []);
     localStorage.setItem('newtoni-items', JSON.stringify(this.items));
   };
 
+  removeAllItems = () => {
+    this.items = [];
+    localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+  };
+
   changeQuantity = obj => {
     this.items = this.items.map(item => {
-      if (item.slug == obj.slug) return obj;
+      if (item.name == obj.name && item.type == obj.type) return obj;
       return item;
     });
     localStorage.setItem('newtoni-items', JSON.stringify(this.items));
+  };
+
+  changeTransaction = () => {
+    if (this.transactionState) {
+      this.transactionState = false;
+    } else {
+      this.transactionState = true;
+    }
   };
 
   handleCartMenuClick = () => {
@@ -66,10 +82,13 @@ export class AppRoot {
     const state = {
       items: this.items,
       removeItem: this.removeItem,
+      removeAllItems: this.removeAllItems,
       addItem: this.addItem,
       changeQuantity: this.changeQuantity,
       showCart: this.showCart,
       handleCartMenuClick: this.handleCartMenuClick,
+      transactionState: this.transactionState,
+      changeTransaction: this.changeTransaction,
     };
 
     return (

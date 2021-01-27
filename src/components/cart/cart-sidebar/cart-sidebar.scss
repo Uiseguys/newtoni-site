@@ -1,3 +1,7 @@
+.remove-pointer-events {
+  pointer-events: none;
+}
+
 .cart {
   position: fixed;
   z-index: 1000;
